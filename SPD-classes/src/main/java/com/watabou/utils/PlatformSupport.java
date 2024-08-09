@@ -1,9 +1,13 @@
 /*
+ *
  * Pixel Dungeon
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
  * Copyright (C) 2014-2024 Evan Debenham
+ *
+ * Souls Pixel Dungeon
+ * Copyright (C) 2024 Bartolomeo Cold
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -117,7 +121,7 @@ public abstract class PlatformSupport {
 		}
 	}
 
-	//flipped is needed because Shattered's graphics are y-down, while GDX graphics are y-up.
+	//flipped is needed because Souls's graphics are y-down, while GDX graphics are y-up.
 	//this is very confusing, I know.
 	public BitmapFont getFont(int size, String text, boolean flipped, boolean border) {
 		FreeTypeFontGenerator generator = getGeneratorForString(text);
