@@ -50,6 +50,7 @@ public class Bonfire extends NPC {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.NOT_A_MOB);
 		properties.add(Property.STATIC);
+		alignment = Alignment.ALLY;
 	}
 
 	private int depth = -1;

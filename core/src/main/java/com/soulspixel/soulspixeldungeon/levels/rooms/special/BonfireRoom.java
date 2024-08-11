@@ -35,23 +35,13 @@ import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
 public class BonfireRoom extends SpecialRoom {
 
 	@Override
-	public int minWidth() {
-		return 3;
-	}
-
-	@Override
-	public int minHeight() {
-		return 3;
-	}
-
-	@Override
 	public int maxHeight() {
-		return 3;
+		return 5;
 	}
 
 	@Override
 	public int maxWidth() {
-		return 3;
+		return 5;
 	}
 
 	public void paint(Level level ) {
@@ -62,18 +52,11 @@ public class BonfireRoom extends SpecialRoom {
 		for (Door door : connected.values()) {
 			door.set( Door.Type.EMPTY );
 		}
-		
+
 		BonfireLight light = (BonfireLight)level.blobs.get( BonfireLight.class );
 		if (light == null) {
 			light = new BonfireLight();
 		}
-		for (int i=top + 1; i < bottom; i++) {
-			for (int j=left + 1; j < right; j++) {
-				light.seed( level, j + level.width() * i, 1 );
-			}
-		}
-		level.blobs.put( BonfireLight.class, light );
-
 		Bonfire bonfire = new Bonfire();
 		bonfire.pos = level.pointToCell(center());
 		bonfire.spawn(Dungeon.depth);
@@ -83,5 +66,11 @@ public class BonfireRoom extends SpecialRoom {
 			} while (level.map[bonfire.pos] == Terrain.WATER || level.findMob( bonfire.pos ) != null);
 		}
 		level.mobs.add( bonfire );
+		for (int i=top + 1; i < bottom; i++) {
+			for (int j=left + 1; j < right; j++) {
+				light.seed( level, j + level.width() * i, 1 );
+			}
+		}
+		level.blobs.put( BonfireLight.class, light );
 	}
 }

@@ -219,6 +219,10 @@ public class ScrollOfTeleportation extends Scroll {
 			return teleportInNonRegularLevel( ch, true );
 		}
 
+		if (Char.hasProp(ch, Char.Property.IMMOVABLE) || Char.hasProp(ch, Char.Property.NOT_A_MOB)){
+			return false;
+		}
+
 		RegularLevel level = (RegularLevel) Dungeon.level;
 		ArrayList<Integer> candidates = new ArrayList<>();
 
