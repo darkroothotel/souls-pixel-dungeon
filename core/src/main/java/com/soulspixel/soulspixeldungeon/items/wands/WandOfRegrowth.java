@@ -30,7 +30,6 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.actors.buffs.AllyBuff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Doom;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Roots;

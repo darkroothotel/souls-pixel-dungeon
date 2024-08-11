@@ -23,37 +23,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.soulspixel.soulspixeldungeon.levels.traps;
+package com.soulspixel.soulspixeldungeon.actors.buffs;
 
-import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
-import com.soulspixel.soulspixeldungeon.actors.blobs.Electricity;
-import com.soulspixel.soulspixeldungeon.scenes.GameScene;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.BArray;
-import com.watabou.utils.PathFinder;
+import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
+import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.sprites.CharSprite;
+import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
+import com.soulspixel.soulspixeldungeon.utils.GLog;
 
-public class StormTrap extends Trap {
-	
-	{
-		color = YELLOW;
-		shape = STARS;
-	}
-	
+public class Undeath extends Buff implements Hero.Doom {
+
 	@Override
-	public void activate() {
-		
-		if (Dungeon.level.heroFOV[pos]){
-			Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-		}
-		
-		PathFinder.buildDistanceMap( pos, BArray.not( Dungeon.level.solid, null ), 2 );
-		for (int i = 0; i < PathFinder.distance.length; i++) {
-			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
-				GameScene.add(Blob.seed(i, 20, Electricity.class));
-			}
-		}
+	public boolean act() {
+		return super.act();
 	}
-	
+
+	@Override
+	public int icon() {
+		return BuffIndicator.UNDEATH;
+	}
+
+	@Override
+	public void fx(boolean on) {
+		if (on) target.sprite.add( CharSprite.State.UNDEATH );
+		else if (target.invisible == 0) target.sprite.remove( CharSprite.State.UNDEATH );
+	}
+
+	@Override
+	public void onDeath() {
+		Dungeon.fail( this );
+		GLog.n( Messages.get(this, "ondeath") );
+	}
 }

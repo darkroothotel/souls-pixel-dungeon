@@ -42,6 +42,7 @@ import com.soulspixel.soulspixeldungeon.actors.hero.abilities.huntress.SpiritHaw
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Blacksmith;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Ghost;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Imp;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Wandmaker;
@@ -297,6 +298,16 @@ public class Dungeon {
 
 	public static boolean levelHasBeenGenerated(int depth, int branch){
 		return generatedLevels.contains(depth + 1000*branch);
+	}
+
+	public static String getFloorName(){
+		if(branch == 0){
+			return Messages.get(Bonfire.class, "floor_"+depth+"_name");
+		} else if(branch == 1) {
+			return Messages.get(Bonfire.class, "floor_"+depth+"_branch_"+branch+"_branch_name");
+		} else {
+			return Messages.get(Bonfire.class, "floor_dead_end_name");
+		}
 	}
 	
 	public static Level newLevel() {

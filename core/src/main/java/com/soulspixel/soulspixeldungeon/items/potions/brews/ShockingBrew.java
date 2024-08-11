@@ -32,8 +32,8 @@ import com.soulspixel.soulspixeldungeon.actors.blobs.Electricity;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfParalyticGas;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class ShockingBrew extends Brew {

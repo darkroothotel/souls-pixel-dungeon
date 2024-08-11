@@ -26,48 +26,17 @@
 package com.soulspixel.soulspixeldungeon.actors.mobs.npcs;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.actors.buffs.AscensionChallenge;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
-import com.soulspixel.soulspixeldungeon.actors.mobs.Elemental;
-import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
-import com.soulspixel.soulspixeldungeon.actors.mobs.RotHeart;
-import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Heap;
-import com.soulspixel.soulspixeldungeon.items.Item;
-import com.soulspixel.soulspixeldungeon.items.quest.CeremonialCandle;
-import com.soulspixel.soulspixeldungeon.items.quest.CorpseDust;
-import com.soulspixel.soulspixeldungeon.items.quest.Embers;
-import com.soulspixel.soulspixeldungeon.items.wands.Wand;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
-import com.soulspixel.soulspixeldungeon.levels.Level;
-import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
-import com.soulspixel.soulspixeldungeon.levels.Terrain;
-import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
-import com.soulspixel.soulspixeldungeon.levels.rooms.quest.MassGraveRoom;
-import com.soulspixel.soulspixeldungeon.levels.rooms.quest.RitualSiteRoom;
-import com.soulspixel.soulspixeldungeon.levels.rooms.quest.RotGardenRoom;
-import com.soulspixel.soulspixeldungeon.levels.traps.Trap;
-import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.plants.Rotberry;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
-import com.soulspixel.soulspixeldungeon.sprites.WandmakerSprite;
-import com.soulspixel.soulspixeldungeon.windows.WndBlacksmith;
-import com.soulspixel.soulspixeldungeon.windows.WndInfoTrap;
-import com.soulspixel.soulspixeldungeon.windows.WndQuest;
 import com.soulspixel.soulspixeldungeon.windows.WndRest;
-import com.soulspixel.soulspixeldungeon.windows.WndWandmaker;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Point;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class Bonfire extends NPC {
 
@@ -79,10 +48,15 @@ public class Bonfire extends NPC {
 		properties.add(Property.STATIC);
 	}
 
-	private int depth = 1;
+	private int depth = -1;
+	private boolean discovered = false;
 
 	public int getDepth(){
 		return depth;
+	}
+
+	public boolean getIsDiscovered(){
+		return discovered;
 	}
 
 	public void spawn( int depth ) {
@@ -130,9 +104,29 @@ public class Bonfire extends NPC {
 				return true;
 			} else {
 				Game.switchScene(BonfireScene.class);
+				if(!discovered){
+					((Hero) c).undoUndead();
+				}
 			}
 			return true;
         }
         return true;
     }
+
+	private static final String DISCOVERED	= "discovered";
+	private static final String DEPTH		= "depth";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(DISCOVERED, discovered);
+		bundle.put(DEPTH, depth);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		discovered = bundle.getBoolean(DISCOVERED);
+		depth = bundle.getInt(DEPTH);
+	}
 }

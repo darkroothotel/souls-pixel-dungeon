@@ -113,7 +113,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			}
 			
-			spend( target.buff( Shadows.class ) == null ? STEP : STEP * 1.5f );
+			spend( (target.buff( Shadows.class ) == null || target.buff(LightShadows.class) == null) ? STEP : STEP * 1.5f );
 
 		} else {
 

@@ -242,6 +242,33 @@ public abstract class Mob extends Char {
 			bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
 
 			Sample.INSTANCE.play( Assets.Sounds.LULLABY );
+		} else {
+			newPos = Dungeon.hero.pos;
+			if (Actor.findChar( newPos ) != null) {
+				ArrayList<Integer> candidates = new ArrayList<>();
+
+				for (int n : PathFinder.NEIGHBOURS4) {
+					int c = newPos + n;
+					if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null) {
+						candidates.add( c );
+					}
+				}
+
+				newPos = candidates.size() > 0 ? Random.element( candidates ) : -1;
+			}
+			if (newPos != -1) {
+				Bonfire bonfire = new Bonfire();
+				bonfire.spawn( Dungeon.depth );
+				bonfire.pos = newPos;
+
+				GameScene.add( bonfire );
+				if (newPos != pos) Actor.add( new Pushing( bonfire, pos, newPos ) );
+
+				bonfire.sprite.alpha( 0 );
+				bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
+
+				Sample.INSTANCE.play( Assets.Sounds.LULLABY );
+			}
 		}
 	}
 	

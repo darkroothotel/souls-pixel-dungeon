@@ -33,8 +33,8 @@ import com.soulspixel.soulspixeldungeon.effects.Lightning;
 import com.soulspixel.soulspixeldungeon.effects.particles.SparkParticle;
 import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 

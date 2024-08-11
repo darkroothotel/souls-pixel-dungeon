@@ -40,6 +40,7 @@ import com.soulspixel.soulspixeldungeon.effects.TorchHalo;
 import com.soulspixel.soulspixeldungeon.effects.particles.FlameParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.ShadowParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.SnowParticle;
+import com.soulspixel.soulspixeldungeon.effects.particles.UndeathParticle;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
@@ -86,7 +87,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, UNDEATH
 	}
 	private int stunStates = 0;
 	
@@ -107,6 +108,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter levitation;
 	protected Emitter healing;
 	protected Emitter hearts;
+	protected Emitter undead;
 	
 	protected IceBlock iceBlock;
 	protected DarkBlock darkBlock;
@@ -417,6 +419,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				hearts = emitter();
 				hearts.pour(Speck.factory(Speck.HEART), 0.5f);
 				break;
+			case UNDEATH:
+				undead = emitter();
+				undead.pour(UndeathParticle.FACTORY, 0.5f);
+				break;
 		}
 	}
 	
@@ -488,6 +494,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (hearts != null){
 					hearts.on = false;
 					hearts = null;
+				}
+				break;
+			case UNDEATH:
+				if (undead != null){
+					undead.on = false;
+					undead = null;
 				}
 				break;
 		}

@@ -40,6 +40,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Awareness;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Blindness;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ChampionEnemy;
+import com.soulspixel.soulspixeldungeon.actors.buffs.LightShadows;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LockedFloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicalSight;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MindVision;
@@ -72,10 +73,10 @@ import com.soulspixel.soulspixeldungeon.items.potions.PotionOfStrength;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.soulspixel.soulspixeldungeon.items.stones.StoneOfEnchantment;
 import com.soulspixel.soulspixeldungeon.items.stones.StoneOfIntuition;
+import com.soulspixel.soulspixeldungeon.items.trinkets.DimensionalSundial;
 import com.soulspixel.soulspixeldungeon.items.trinkets.EyeOfNewt;
 import com.soulspixel.soulspixeldungeon.items.trinkets.MimicTooth;
 import com.soulspixel.soulspixeldungeon.items.trinkets.MossyClump;
-import com.soulspixel.soulspixeldungeon.items.trinkets.DimensionalSundial;
 import com.soulspixel.soulspixeldungeon.items.trinkets.TrapMechanism;
 import com.soulspixel.soulspixeldungeon.items.trinkets.TrinketCatalyst;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfRegrowth;
@@ -1247,7 +1248,7 @@ public abstract class Level implements Bundlable {
 		int cx = c.pos % width();
 		int cy = c.pos / width();
 		
-		boolean sighted = c.buff( Blindness.class ) == null && c.buff( Shadows.class ) == null
+		boolean sighted = c.buff( Blindness.class ) == null && c.buff( Shadows.class ) == null && c.buff(LightShadows.class) == null
 						&& c.buff( TimekeepersHourglass.timeStasis.class ) == null && c.isAlive();
 		if (sighted) {
 			boolean[] blocking = null;

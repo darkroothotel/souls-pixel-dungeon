@@ -35,8 +35,8 @@ import com.soulspixel.soulspixeldungeon.effects.Splash;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfToxicGas;
 import com.soulspixel.soulspixeldungeon.items.quest.GooBlob;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class CausticBrew extends Brew {

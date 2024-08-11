@@ -25,7 +25,6 @@
 
 package com.soulspixel.soulspixeldungeon.actors.mobs;
 
-import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Challenges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
@@ -36,12 +35,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LockedFloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Ooze;
-import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
-import com.soulspixel.soulspixeldungeon.effects.Pushing;
-import com.soulspixel.soulspixeldungeon.effects.Splash;
-import com.soulspixel.soulspixeldungeon.items.Honeypot;
-import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.artifacts.DriedRose;
 import com.soulspixel.soulspixeldungeon.items.keys.SkeletonKey;
 import com.soulspixel.soulspixeldungeon.items.quest.GooBlob;
@@ -53,14 +47,10 @@ import com.soulspixel.soulspixeldungeon.sprites.CharSprite;
 import com.soulspixel.soulspixeldungeon.sprites.GooSprite;
 import com.soulspixel.soulspixeldungeon.ui.BossHealthBar;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class Goo extends Mob {
 

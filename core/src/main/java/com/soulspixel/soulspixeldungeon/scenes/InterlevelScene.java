@@ -43,7 +43,6 @@ import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.ui.GameLog;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
-import com.watabou.utils.BArray;
 import com.soulspixel.soulspixeldungeon.windows.WndError;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
@@ -53,6 +52,7 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
+import com.watabou.utils.BArray;
 import com.watabou.utils.DeviceCompat;
 
 import java.io.FileNotFoundException;

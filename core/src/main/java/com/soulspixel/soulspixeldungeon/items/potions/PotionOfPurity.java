@@ -36,9 +36,9 @@ import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.BArray;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;

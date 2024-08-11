@@ -42,12 +42,12 @@ import com.soulspixel.soulspixeldungeon.sprites.CharSprite;
 import com.soulspixel.soulspixeldungeon.ui.ActionIndicator;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 import com.soulspixel.soulspixeldungeon.ui.HeroIcon;
-import com.watabou.utils.BArray;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 

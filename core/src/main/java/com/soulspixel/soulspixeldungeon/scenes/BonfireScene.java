@@ -27,60 +27,35 @@ package com.soulspixel.soulspixeldungeon.scenes;
 
 import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Badges;
-import com.soulspixel.soulspixeldungeon.Chrome;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.SPDAction;
 import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
-import com.soulspixel.soulspixeldungeon.Statistics;
-import com.soulspixel.soulspixeldungeon.actors.hero.Belongings;
-import com.soulspixel.soulspixeldungeon.effects.Speck;
-import com.soulspixel.soulspixeldungeon.effects.particles.SparkParticle;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.items.Item;
-import com.soulspixel.soulspixeldungeon.items.LiquidMetal;
-import com.soulspixel.soulspixeldungeon.items.Recipe;
-import com.soulspixel.soulspixeldungeon.items.artifacts.AlchemistsToolkit;
-import com.soulspixel.soulspixeldungeon.items.bags.Bag;
-import com.soulspixel.soulspixeldungeon.items.trinkets.TrinketCatalyst;
-import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.journal.Journal;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.soulspixel.soulspixeldungeon.ui.Button;
 import com.soulspixel.soulspixeldungeon.ui.ExitButton;
 import com.soulspixel.soulspixeldungeon.ui.IconButton;
-import com.soulspixel.soulspixeldungeon.ui.Icons;
-import com.soulspixel.soulspixeldungeon.ui.ItemSlot;
-import com.soulspixel.soulspixeldungeon.ui.RadialMenu;
-import com.soulspixel.soulspixeldungeon.ui.RedButton;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
-import com.soulspixel.soulspixeldungeon.ui.StatusPane;
-import com.soulspixel.soulspixeldungeon.ui.Toolbar;
 import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.soulspixel.soulspixeldungeon.windows.WndBag;
-import com.soulspixel.soulspixeldungeon.windows.WndEnergizeItem;
 import com.soulspixel.soulspixeldungeon.windows.WndInfoItem;
 import com.soulspixel.soulspixeldungeon.windows.WndJournal;
-import com.soulspixel.soulspixeldungeon.windows.WndKeyBindings;
-import com.soulspixel.soulspixeldungeon.windows.WndMessage;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
-import com.watabou.input.ControllerHandler;
 import com.watabou.input.GameAction;
-import com.watabou.input.KeyBindings;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.particles.Emitter;
-import com.watabou.noosa.ui.Component;
+import com.watabou.utils.PointF;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class BonfireScene extends PixelScene {
 
@@ -129,16 +104,30 @@ public class BonfireScene extends PixelScene {
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
 		add( btnExit );
 		
-		RenderedTextBlock title = PixelScene.renderTextBlock( Messages.get(this, "title"), 9 );
+		RenderedTextBlock title = PixelScene.renderTextBlock( Messages.get(this, "title", Dungeon.getFloorName()), 9 );
 		title.hardlight(Window.TITLE_COLOR);
 		title.setPos((Camera.main.width - title.width()) / 2f, (20 - title.height()) / 2f);
 		align(title);
 		add(title);
+
+		RenderedTextBlock subtitle = PixelScene.renderTextBlock( Messages.get(Bonfire.class, "depth", Dungeon.depth), 9 );
+		subtitle.hardlight(Window.WHITE);
+		subtitle.setPos(title.centerX()-(subtitle.width()/2f), title.bottom()+5);
+		align(subtitle);
+		add(subtitle);
 		
 		int w = 50 + Camera.main.width/2;
 		int left = (Camera.main.width - w)/2;
 		
 		int pos = (Camera.main.height - 100)/2;
+
+		BonfireSprite bonfireSprite = new BonfireSprite();
+		bonfireSprite.scale = new PointF(2, 2);
+		bonfireSprite.x = left + (w - bonfireSprite.width)/2;
+		bonfireSprite.y = pos;
+		add(bonfireSprite);
+
+		pos += (int) (bonfireSprite.height+BTN_SIZE);
 		
 		RenderedTextBlock desc = PixelScene.renderTextBlock(6);
 		desc.maxWidth(w);
@@ -157,14 +146,39 @@ public class BonfireScene extends PixelScene {
 			public GameAction keyAction() {
 				return SPDAction.JOURNAL;
 			}
-
-			@Override
-			protected String hoverText() {
-				return Messages.titleCase(Document.GUIDE_INTRO);
-			}
 		};
 		btnGuide.setRect(0, 0, 20, 20);
 		add(btnGuide);
+		IconButton btnInventory = new IconButton( new ItemSprite(ItemSpriteSheet.BACKPACK, null)){
+			@Override
+			protected void onClick() {
+				super.onClick();
+				WndBag.ItemSelector i = new WndBag.ItemSelector() {
+					@Override
+					public String textPrompt() {
+						return Messages.get(BonfireScene.class, "inventory_browse");
+					}
+
+					@Override
+					public boolean itemSelectable(Item item) {
+						return true;
+					}
+
+					@Override
+					public void onSelect(Item item) {
+						if(item != null) BonfireScene.this.addToFront(new WndInfoItem(item));
+					}
+				};
+
+				BonfireScene.this.addToFront(new WndBag(Dungeon.hero.belongings.backpack, i));
+			}
+
+			public GameAction keyAction() {
+				return SPDAction.INVENTORY_SELECTOR;
+			}
+		};
+		btnInventory.setRect(0, btnGuide.bottom()+5, 20, 20);
+		add(btnInventory);
 		
 		fadeIn();
 		
@@ -180,7 +194,7 @@ public class BonfireScene extends PixelScene {
 	@Override
 	public void update() {
 		super.update();
-		bg.offset( 0, -5 * Game.elapsed );
+		bg.offset( 0, 5 * Game.elapsed );
 	}
 	
 	@Override

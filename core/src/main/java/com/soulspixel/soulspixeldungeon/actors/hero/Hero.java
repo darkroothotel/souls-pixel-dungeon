@@ -64,6 +64,8 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.PhysicalEmpower;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Recharging;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Undeath;
+import com.soulspixel.soulspixeldungeon.actors.buffs.UndeathInvulnerability;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -124,7 +126,6 @@ import com.soulspixel.soulspixeldungeon.items.rings.RingOfMight;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfTenacity;
 import com.soulspixel.soulspixeldungeon.items.scrolls.Scroll;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMagicMapping;
-import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.soulspixel.soulspixeldungeon.items.wands.Wand;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfLivingEarth;
@@ -223,7 +224,7 @@ public class Hero extends Char {
 
 	private boolean undead;
 
-	private int lastbonfiredepth = 0;
+	private int lastbonfiredepth = -1;
 	private int lastbonfirepos = -1;
 	
 	private ArrayList<Mob> visibleEnemies;
@@ -262,10 +263,12 @@ public class Hero extends Char {
 	}
 
 	public void makeUndead(){
+		Buff.affect( this, Undeath.class );
 		undead = true;
 	}
 
 	public void undoUndead(){
+		Buff.detach(this, Undeath.class);
 		undead = false;
 	}
 
@@ -796,6 +799,13 @@ public class Hero extends Char {
 		
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
+
+		if(buff(Undeath.class) == null && isUndead()){
+			Buff.affect(this, Undeath.class);
+		}
+		if(buff(Undeath.class) != null && !isUndead()){
+			Buff.detach(this, Undeath.class);
+		}
 
 		if (buff(Endure.EndureTracker.class) != null){
 			buff(Endure.EndureTracker.class).endEnduring();
@@ -1973,11 +1983,11 @@ public class Hero extends Char {
 		
 		curAction = null;
 
-		if (!isUndead()) {
+		if (!isUndead() && lastbonfiredepth != -1 && lastbonfirepos != -1) {
 			this.HP = HT / 4;
 
 			PotionOfHealing.cure(this);
-			Buff.prolong(this, AnkhInvulnerability.class, AnkhInvulnerability.DURATION);
+			Buff.prolong(this, UndeathInvulnerability.class, UndeathInvulnerability.DURATION);
 
 			SpellSprite.show(this, SpellSprite.UNDEAD);
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
@@ -1985,16 +1995,12 @@ public class Hero extends Char {
 			Statistics.undead++;
 			makeUndead();
 
-			if(Dungeon.depth != lastbonfiredepth){
-				Level.beforeTransition();
-				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-				InterlevelScene.returnDepth = lastbonfiredepth;
-				InterlevelScene.returnBranch = 0;
-				InterlevelScene.returnPos = lastbonfirepos;
-				Game.switchScene( InterlevelScene.class );
-			} else {
-				ScrollOfTeleportation.teleportToLocation(this, lastbonfirepos);
-			}
+			Level.beforeTransition();
+			InterlevelScene.mode = InterlevelScene.Mode.RETURN;
+			InterlevelScene.returnDepth = lastbonfiredepth;
+			InterlevelScene.returnBranch = 0;
+			InterlevelScene.returnPos = lastbonfirepos;
+			Game.switchScene( InterlevelScene.class );
 
 
 			for (Char ch : Actor.chars()) {
@@ -2067,8 +2073,13 @@ public class Hero extends Char {
 		}
 		
 		Actor.fixTime();
-		super.die( cause );
-		reallyDie( cause );
+		if(this.isUndead()){
+			super.die( Undeath.class );
+			reallyDie( Undeath.class );
+		} else {
+			super.die( cause );
+			reallyDie( cause );
+		}
 	}
 	
 	public static void reallyDie( Object cause ) {

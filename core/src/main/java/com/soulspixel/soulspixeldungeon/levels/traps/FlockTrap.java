@@ -32,8 +32,8 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Sheep;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;

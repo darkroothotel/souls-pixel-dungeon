@@ -36,8 +36,8 @@ import com.soulspixel.soulspixeldungeon.effects.Lightning;
 import com.soulspixel.soulspixeldungeon.effects.particles.EnergyParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.SparkParticle;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;

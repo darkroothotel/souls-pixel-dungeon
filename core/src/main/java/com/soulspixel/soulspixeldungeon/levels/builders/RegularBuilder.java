@@ -25,7 +25,6 @@
 
 package com.soulspixel.soulspixeldungeon.levels.builders;
 
-import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.levels.rooms.connection.ConnectionRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.connection.MazeConnectionRoom;

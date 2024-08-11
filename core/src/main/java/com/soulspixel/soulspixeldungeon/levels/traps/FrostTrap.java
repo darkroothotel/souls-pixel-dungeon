@@ -31,8 +31,8 @@ import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Freezing;
 import com.soulspixel.soulspixeldungeon.effects.Splash;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class FrostTrap extends Trap {

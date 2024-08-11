@@ -26,10 +26,8 @@
 package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.scenes.AlchemyScene;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
@@ -39,7 +37,7 @@ import com.watabou.noosa.Game;
 
 public class WndRest extends Window {
 
-	private static final int WIDTH		= 120;
+	private static final int WIDTH		= 160;
 	private static final int BTN_HEIGHT	= 20;
 	private static final float GAP		= 2;
 	private static final float BTN_GAP  = 10;
@@ -53,7 +51,7 @@ public class WndRest extends Window {
 		
 		IconTitle titlebar = new IconTitle();
 		titlebar.icon( bonfire.sprite() );
-		titlebar.label( Messages.titleCase(Messages.get(this, "title")) );
+		titlebar.label( Messages.titleCase(Messages.get(BonfireScene.class, "title", Dungeon.getFloorName())));
 		titlebar.setRect( 0, 0, WIDTH, 0 );
 		add( titlebar );
 		
@@ -65,11 +63,13 @@ public class WndRest extends Window {
 		btnRest = new RedButton( Messages.get(this, "rest") ) {
 			@Override
 			protected void onClick() {
-				Dungeon.hero.undoUndead();
 				Dungeon.hero.setBonfireDepth(bonfire.getDepth());
 				Dungeon.hero.setBonfirePos(bonfire.pos);
 				Game.switchScene(BonfireScene.class);
-				destroy();
+				if(!bonfire.getIsDiscovered()){
+					Dungeon.hero.undoUndead();
+				}
+				hide();
 			}
 		};
 		btnRest.setRect( 0, message.bottom() + BTN_GAP, WIDTH, BTN_HEIGHT );
@@ -78,7 +78,7 @@ public class WndRest extends Window {
 		btnDontRest = new RedButton( Messages.get(this, "dont_rest") ) {
 			@Override
 			protected void onClick() {
-				destroy();
+				hide();
             }
 		};
 		btnDontRest.setRect( 0, btnRest.bottom(), WIDTH, BTN_HEIGHT );

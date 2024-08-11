@@ -26,15 +26,11 @@
 package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.blobs.Foliage;
-import com.soulspixel.soulspixeldungeon.actors.mobs.Piranha;
+import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
-import com.soulspixel.soulspixeldungeon.plants.BlandfruitBush;
-import com.soulspixel.soulspixeldungeon.plants.Sungrass;
-import com.watabou.utils.Random;
 
 public class BonfireRoom extends SpecialRoom {
 
@@ -48,26 +44,35 @@ public class BonfireRoom extends SpecialRoom {
 		return 3;
 	}
 
-	public void paint( Level level ) {
+	@Override
+	public int maxHeight() {
+		return 3;
+	}
+
+	@Override
+	public int maxWidth() {
+		return 3;
+	}
+
+	public void paint(Level level ) {
 
 		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.EMPTY );
-		Painter.fill( level, this, 2, Terrain.GRASS );
+		Painter.fill( level, this, 1, Terrain.EMBERS );
 
 		for (Door door : connected.values()) {
 			door.set( Door.Type.EMPTY );
 		}
 		
-		Foliage light = (Foliage)level.blobs.get( Foliage.class );
+		BonfireLight light = (BonfireLight)level.blobs.get( BonfireLight.class );
 		if (light == null) {
-			light = new Foliage();
+			light = new BonfireLight();
 		}
 		for (int i=top + 1; i < bottom; i++) {
 			for (int j=left + 1; j < right; j++) {
 				light.seed( level, j + level.width() * i, 1 );
 			}
 		}
-		level.blobs.put( Foliage.class, light );
+		level.blobs.put( BonfireLight.class, light );
 
 		Bonfire bonfire = new Bonfire();
 		bonfire.pos = level.pointToCell(center());

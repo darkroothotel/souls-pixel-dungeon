@@ -33,8 +33,8 @@ import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.particles.FlameParticle;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class Firebomb extends Bomb {
