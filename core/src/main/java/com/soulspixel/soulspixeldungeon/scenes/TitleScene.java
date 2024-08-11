@@ -38,6 +38,7 @@ import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.services.news.News;
 import com.soulspixel.soulspixeldungeon.services.updates.AvailableUpdateData;
 import com.soulspixel.soulspixeldungeon.services.updates.Updates;
+import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.CharSprite;
 import com.soulspixel.soulspixeldungeon.ui.Archs;
 import com.soulspixel.soulspixeldungeon.ui.ExitButton;
@@ -178,7 +179,7 @@ public class TitleScene extends PixelScene {
 				SoulsPixelDungeon.switchScene( AboutScene.class );
 			}
 		};
-		btnAbout.icon(Icons.get(Icons.DARKROOT));
+		btnAbout.icon(new BonfireSprite());
 		add(btnAbout);
 		
 		final int BTN_HEIGHT = 20;

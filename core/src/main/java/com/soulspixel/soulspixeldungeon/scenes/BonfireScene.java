@@ -146,6 +146,11 @@ public class BonfireScene extends PixelScene {
 			public GameAction keyAction() {
 				return SPDAction.JOURNAL;
 			}
+
+			@Override
+			protected String hoverText() {
+				return Messages.get(BonfireScene.class, "jou_hover");
+			}
 		};
 		btnGuide.setRect(0, 0, 20, 20);
 		add(btnGuide);
@@ -166,7 +171,13 @@ public class BonfireScene extends PixelScene {
 
 					@Override
 					public void onSelect(Item item) {
-						if(item != null) BonfireScene.this.addToFront(new WndInfoItem(item));
+						if(item != null) BonfireScene.this.addToFront(new WndInfoItem(item){
+							@Override
+							public void onBackPressed() {
+								onClick();
+								super.onBackPressed();
+							}
+						});
 					}
 				};
 
@@ -175,6 +186,11 @@ public class BonfireScene extends PixelScene {
 
 			public GameAction keyAction() {
 				return SPDAction.INVENTORY_SELECTOR;
+			}
+
+			@Override
+			protected String hoverText() {
+				return Messages.get(BonfireScene.class, "inv_hover");
 			}
 		};
 		btnInventory.setRect(0, btnGuide.bottom()+5, 20, 20);

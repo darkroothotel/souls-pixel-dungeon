@@ -51,16 +51,6 @@ public enum Icons {
 	ROGUE,
 	HUNTRESS,
 	DUELIST,
-	BONFIRE,
-	WELL_BEING,
-	WELL_AWARE,
-	GARDEN,
-	STATUE,
-	ALTAR,
-	ROSE,
-	WAND,
-	IMP,
-	IMPS,
 
 	//grey icons, mainly used for buttons, spacing for 16x16
 	EXIT,
@@ -186,36 +176,6 @@ public enum Icons {
 				break;
 			case DUELIST:
 				icon.frame( icon.texture.uvRectBySize( 80, 16, 13, 14 ) );
-				break;
-			case BONFIRE:
-				icon.frame( icon.texture.uvRectBySize( 93, 16, 16, 16 ) );
-				break;
-			case WELL_BEING:
-				icon.frame( icon.texture.uvRectBySize( 109, 16, 14, 16 ) );
-				break;
-			case WELL_AWARE:
-				icon.frame( icon.texture.uvRectBySize( 123, 16, 14, 16 ) );
-				break;
-			case GARDEN:
-				icon.frame( icon.texture.uvRectBySize( 137, 16, 16, 16 ) );
-				break;
-			case STATUE:
-				icon.frame( icon.texture.uvRectBySize( 153, 15, 12, 17 ) );
-				break;
-			case ALTAR:
-				icon.frame( icon.texture.uvRectBySize( 165, 16, 16, 16 ) );
-				break;
-			case ROSE:
-				icon.frame( icon.texture.uvRectBySize( 181, 18, 14, 14 ) );
-				break;
-			case WAND:
-				icon.frame( icon.texture.uvRectBySize( 195, 18, 14, 14 ) );
-				break;
-			case IMP:
-				icon.frame( icon.texture.uvRectBySize( 209, 16, 12, 16 ) );
-				break;
-			case IMPS:
-				icon.frame( icon.texture.uvRectBySize( 221, 16, 17, 16 ) );
 				break;
 
 			case EXIT:

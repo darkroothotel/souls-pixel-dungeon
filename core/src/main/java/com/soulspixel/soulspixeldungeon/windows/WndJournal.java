@@ -27,6 +27,7 @@ package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
+import com.soulspixel.soulspixeldungeon.actors.mobs.DemonSpawner;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.armor.ClassArmor;
 import com.soulspixel.soulspixeldungeon.items.potions.Potion;
@@ -35,11 +36,21 @@ import com.soulspixel.soulspixeldungeon.items.scrolls.Scroll;
 import com.soulspixel.soulspixeldungeon.journal.Catalog;
 import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.DemonSpawnerRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
+import com.soulspixel.soulspixeldungeon.sprites.BlacksmithSprite;
+import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
+import com.soulspixel.soulspixeldungeon.sprites.GhostSprite;
+import com.soulspixel.soulspixeldungeon.sprites.ImpSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+import com.soulspixel.soulspixeldungeon.sprites.RatSprite;
+import com.soulspixel.soulspixeldungeon.sprites.ShopkeeperSprite;
+import com.soulspixel.soulspixeldungeon.sprites.SpawnerSprite;
+import com.soulspixel.soulspixeldungeon.sprites.StatueSprite;
+import com.soulspixel.soulspixeldungeon.sprites.WandmakerSprite;
 import com.soulspixel.soulspixeldungeon.ui.Icons;
 import com.soulspixel.soulspixeldungeon.ui.QuickRecipe;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
@@ -442,43 +453,43 @@ public class WndJournal extends WndTabbed {
 						Notes.Landmark l = ((Notes.LandmarkRecord) rec).getLandmark();
 						switch (l.getLandmarkType()){
 							case BONFIRE:
-								icon = Icons.get(Icons.BONFIRE);
+								icon = new BonfireSprite();
 								break;
 							case WELL_OF_HEALTH:
-								icon = Icons.get(Icons.WELL_BEING);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_HORN4);
 								break;
 							case WELL_OF_AWARENESS:
-								icon = Icons.get(Icons.WELL_AWARE);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_TALISMAN);
 								break;
 							case ALCHEMY:
-								icon = Icons.get(Icons.ENERGY_SML);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_TOOLKIT);
 								break;
 							case GARDEN:
-								icon = Icons.get(Icons.GARDEN);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_SHOES);
 								break;
 							case STATUE:
-								icon = Icons.get(Icons.STATUE);
+								icon = new StatueSprite();
 								break;
 							case SACRIFICIAL_FIRE:
-								icon = Icons.get(Icons.ALTAR);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_CHALICE3);
 								break;
 							case SHOP:
-								icon = Icons.get(Icons.GOLD);
+								icon = new ShopkeeperSprite();
 								break;
 							case GHOST:
-								icon = Icons.get(Icons.ROSE);
+								icon = new ItemSprite(ItemSpriteSheet.ARTIFACT_ROSE3);
 								break;
 							case WANDMAKER:
-								icon = Icons.get(Icons.WAND);
+								icon = new WandmakerSprite();
 								break;
 							case TROLL:
-								icon = Icons.get(Icons.BADGES);
+								icon = new BlacksmithSprite();
 								break;
 							case IMP:
-								icon = Icons.get(Icons.IMP);
+								icon = new ImpSprite();
 								break;
 							case DEMON_SPAWNER:
-								icon = Icons.get(Icons.IMPS);
+								icon = new SpawnerSprite();
 								break;
 						}
 					}

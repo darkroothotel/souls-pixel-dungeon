@@ -29,6 +29,8 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
+import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
@@ -37,6 +39,8 @@ import com.soulspixel.soulspixeldungeon.windows.WndRest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+
+import java.util.ArrayList;
 
 public class Bonfire extends NPC {
 
@@ -104,6 +108,18 @@ public class Bonfire extends NPC {
 				return true;
 			} else {
 				Game.switchScene(BonfireScene.class);
+				ArrayList<Mob> targets = new ArrayList<>();
+				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+					if (Dungeon.level.heroFOV[mob.pos]) {
+						targets.add(mob);
+					}
+				}
+
+				for (Mob mob : targets){
+					mob.clearEnemy();
+					ScrollOfTeleportation.teleportCharPreferringUnseen(mob);
+				}
+
 				if(!discovered){
 					((Hero) c).undoUndead();
 				}

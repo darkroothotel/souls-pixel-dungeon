@@ -74,7 +74,7 @@ public class AboutScene extends PixelScene {
 		shpxLink += "&utm_medium=about_page";
 		shpxLink += "&utm_campaign=ingame_link";
 
-		CreditsBlock shpx = new CreditsBlock(true, Window.SPX_COLOR,
+		CreditsBlock shpx = new CreditsBlock(true, Window.SHPX_COLOR,
 				"Shattered Pixel Dungeon",
 				Icons.SHPX.get(),
 				"Developed by: _Evan Debenham_\nBased on Pixel Dungeon's open source",
@@ -87,7 +87,7 @@ public class AboutScene extends PixelScene {
 		}
 		content.add(shpx);
 
-		CreditsBlock alex = new CreditsBlock(false, Window.SPX_COLOR,
+		CreditsBlock alex = new CreditsBlock(false, Window.SHPX_COLOR,
 				"Hero Art & Design:",
 				Icons.ALEKS.get(),
 				"Aleksandar Komitov",
@@ -101,7 +101,7 @@ public class AboutScene extends PixelScene {
 		}
 		content.add(alex);
 
-		CreditsBlock charlie = new CreditsBlock(false, Window.SPX_COLOR,
+		CreditsBlock charlie = new CreditsBlock(false, Window.SHPX_COLOR,
 				"Sound Effects:",
 				Icons.CELESTI.get(),
 				"Celesti",
@@ -110,7 +110,7 @@ public class AboutScene extends PixelScene {
 		charlie.setRect(alex.right(), alex.top(), colWidth/2f, 0);
 		content.add(charlie);
 
-		CreditsBlock kristjan = new CreditsBlock(false, Window.SPX_COLOR,
+		CreditsBlock kristjan = new CreditsBlock(false, Window.SHPX_COLOR,
 				"Music:",
 				Icons.KRISTJAN.get(),
 				"Kristjan Haaristo",

@@ -32,6 +32,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
+import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Adrenaline;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AllyBuff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Amok;
@@ -231,17 +232,7 @@ public abstract class Mob extends Char {
 		}
 
 		if (newPos != -1) {
-			Bonfire bonfire = new Bonfire();
-			bonfire.spawn( Dungeon.depth );
-			bonfire.pos = newPos;
-
-			GameScene.add( bonfire );
-			if (newPos != pos) Actor.add( new Pushing( bonfire, pos, newPos ) );
-
-			bonfire.sprite.alpha( 0 );
-			bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
-
-			Sample.INSTANCE.play( Assets.Sounds.LULLABY );
+			spawnBonfire(newPos);
 		} else {
 			newPos = Dungeon.hero.pos;
 			if (Actor.findChar( newPos ) != null) {
@@ -257,17 +248,33 @@ public abstract class Mob extends Char {
 				newPos = candidates.size() > 0 ? Random.element( candidates ) : -1;
 			}
 			if (newPos != -1) {
-				Bonfire bonfire = new Bonfire();
-				bonfire.spawn( Dungeon.depth );
-				bonfire.pos = newPos;
+				spawnBonfire(newPos);
+			}
+		}
+	}
 
-				GameScene.add( bonfire );
-				if (newPos != pos) Actor.add( new Pushing( bonfire, pos, newPos ) );
+	private void spawnBonfire(int newPos){
+		Bonfire bonfire = new Bonfire();
+		bonfire.spawn( Dungeon.depth );
+		bonfire.pos = newPos;
 
-				bonfire.sprite.alpha( 0 );
-				bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
+		GameScene.add( bonfire );
+		if (newPos != pos) Actor.add( new Pushing( bonfire, pos, newPos ) );
 
-				Sample.INSTANCE.play( Assets.Sounds.LULLABY );
+		bonfire.sprite.alpha( 0 );
+		bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
+
+		Sample.INSTANCE.play( Assets.Sounds.LULLABY );
+
+		for (int n : PathFinder.NEIGHBOURS8) {
+			int c = bonfire.pos + n;
+			if (!Dungeon.level.solid[c]) {
+				BonfireLight light = (BonfireLight)Dungeon.level.blobs.get( BonfireLight.class );
+				if (light == null) {
+					light = new BonfireLight();
+				}
+				light.seed( Dungeon.level, c, 1 );
+				Dungeon.level.blobs.put( BonfireLight.class, light );
 			}
 		}
 	}

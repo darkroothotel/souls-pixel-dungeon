@@ -213,6 +213,69 @@ public class ScrollOfTeleportation extends Scroll {
 		
 	}
 
+	public static boolean teleportCharPreferringUnseen( Char ch ){
+
+		if (!(Dungeon.level instanceof RegularLevel)){
+			return teleportInNonRegularLevel( ch, true );
+		}
+
+		RegularLevel level = (RegularLevel) Dungeon.level;
+		ArrayList<Integer> candidates = new ArrayList<>();
+
+		for (Room r : level.rooms()){
+			if (r instanceof SpecialRoom){
+				int terr;
+				boolean locked = false;
+				for (Point p : r.getPoints()){
+					terr = level.map[level.pointToCell(p)];
+					if (terr == Terrain.LOCKED_DOOR || terr == Terrain.CRYSTAL_DOOR || terr == Terrain.BARRICADE){
+						locked = true;
+						break;
+					}
+				}
+				if (locked){
+					continue;
+				}
+			}
+
+			int cell;
+			for (Point p : r.charPlaceablePoints(level)){
+				cell = level.pointToCell(p);
+				if (level.passable[cell] && !level.visited[cell] && !level.secret[cell] && Actor.findChar(cell) == null){
+					candidates.add(cell);
+				}
+			}
+		}
+
+		if (candidates.isEmpty()){
+			return teleportChar( ch );
+		} else {
+			int pos = Random.element(candidates);
+			int doorPos = -1;
+			if (level.room(pos) instanceof SpecialRoom){
+				SpecialRoom room = (SpecialRoom) level.room(pos);
+				if (room.entrance() != null){
+					doorPos = level.pointToCell(room.entrance());
+					for (int i : PathFinder.NEIGHBOURS8){
+						if (!room.inside(level.cellToPoint(doorPos + i))
+								&& level.passable[doorPos + i]
+								&& Actor.findChar(doorPos + i) == null){
+							pos = doorPos + i;
+							break;
+						}
+					}
+				}
+			}
+			appear( ch, pos );
+			Dungeon.level.occupyCell( ch );
+			Dungeon.observe();
+			GameScene.updateFog();
+			return true;
+		}
+
+	}
+
+
 	//teleports to a random pathable location on the floor
 	//prefers not seen(optional) > not visible > visible
 	private static boolean teleportInNonRegularLevel(Char ch, boolean preferNotSeen ){

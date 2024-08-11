@@ -39,7 +39,7 @@ public class BonfireSprite extends MobSprite {
 		
 		texture( Assets.Sprites.BONFIRE );
 		
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture, 18, 18 );
 		
 		idle = new Animation( 5, true );
 		idle.frames( frames, 0, 1, 2, 3, 4, 5 );
