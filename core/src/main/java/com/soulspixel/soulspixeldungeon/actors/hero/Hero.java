@@ -270,6 +270,8 @@ public class Hero extends Char {
 	public void undoUndead(){
 		Buff.detach(this, Undeath.class);
 		undead = false;
+		Game.switchScene(GameScene.class);
+		GLog.p(Messages.get(this, "no_longer_undead"));
 	}
 
 	public boolean isUndead(){

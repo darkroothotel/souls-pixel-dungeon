@@ -43,6 +43,7 @@ import com.soulspixel.soulspixeldungeon.effects.particles.FlameParticle;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.food.Food;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
+import com.soulspixel.soulspixeldungeon.items.spells.PotionOfEmber;
 import com.soulspixel.soulspixeldungeon.journal.Journal;
 import com.soulspixel.soulspixeldungeon.levels.HallsLevel;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -283,12 +284,12 @@ public class BonfireScene extends PixelScene {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item instanceof Item;
+			return item instanceof PotionOfEmber;
 		}
 
 		@Override
 		public void onSelect( Item item ) {
-			if(item instanceof Item){
+			if(item instanceof PotionOfEmber){
 				upgradeBtn.item(item.detach(Dungeon.hero.belongings.backpack));
 			}
 		}

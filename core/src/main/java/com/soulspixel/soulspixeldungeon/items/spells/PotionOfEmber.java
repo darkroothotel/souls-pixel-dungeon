@@ -62,7 +62,8 @@ public class PotionOfEmber extends Spell {
 
 	@Override
 	protected void onCast(Hero hero) {
-
+		hero.undoUndead();
+		PotionOfHealing.heal(hero);
 	}
 
 	public static class Recipe extends com.soulspixel.soulspixeldungeon.items.Recipe.SimpleRecipe {
