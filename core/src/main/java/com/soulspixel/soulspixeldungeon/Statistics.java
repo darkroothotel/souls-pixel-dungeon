@@ -36,6 +36,7 @@ public class Statistics {
 	public static int enemiesSlain;
 	public static int foodEaten;
 	public static int itemsCrafted;
+	public static int bonfiresLit;
 	public static int piranhasKilled;
 	public static int ankhsUsed;
 	public static int undead;
@@ -125,6 +126,7 @@ public class Statistics {
 	private static final String PIRANHAS	= "priranhas";
 	private static final String ANKHS		= "ankhsUsed";
 	private static final String UNDEAD		= "undead";
+	private static final String BONFIRES_LIT= "bonfires_lit";
 
 	private static final String PROG_SCORE	    = "prog_score";
 	private static final String ITEM_VAL	    = "item_val";
@@ -165,6 +167,7 @@ public class Statistics {
 		bundle.put( PIRANHAS,	piranhasKilled );
 		bundle.put( ANKHS,		ankhsUsed );
 		bundle.put( UNDEAD,		undead );
+		bundle.put( BONFIRES_LIT,bonfiresLit );
 
 		bundle.put( PROG_SCORE,  progressScore );
 		bundle.put( ITEM_VAL,    heldItemValue );
@@ -209,7 +212,8 @@ public class Statistics {
 		itemsCrafted    = bundle.getInt( ALCHEMY );
 		piranhasKilled	= bundle.getInt( PIRANHAS );
 		ankhsUsed		= bundle.getInt( ANKHS );
-		undead			= bundle.getInt( ANKHS );
+		undead			= bundle.getInt( UNDEAD );
+		bonfiresLit 	= bundle.getInt( BONFIRES_LIT );
 
 		progressScore   = bundle.getInt( PROG_SCORE );
 		heldItemValue   = bundle.getInt( ITEM_VAL );

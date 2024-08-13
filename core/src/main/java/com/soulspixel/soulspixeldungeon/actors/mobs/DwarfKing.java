@@ -122,8 +122,8 @@ public class DwarfKing extends Mob {
 	private static final String PHASE = "phase";
 	private static final String SUMMONS_MADE = "summons_made";
 
-	private static final String SUMMON_CD = "summon_cd";
-	private static final String ABILITY_CD = "ability_cd";
+	private static final String SUMMON_CD    = "summon_cd";
+	private static final String ABILITY_CD   = "ability_cd";
 	private static final String LAST_ABILITY = "last_ability";
 
 	@Override
@@ -580,8 +580,6 @@ public class DwarfKing extends Mob {
 		if (beacon != null) {
 			beacon.upgrade();
 		}
-
-		setBonfire(pos);
 
 		yell( Messages.get(this, "defeated") );
 	}

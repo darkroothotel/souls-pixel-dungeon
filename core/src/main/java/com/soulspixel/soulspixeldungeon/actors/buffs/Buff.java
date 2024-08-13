@@ -28,6 +28,7 @@ package com.soulspixel.soulspixeldungeon.actors.buffs;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.ui.BuffIcon;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Reflection;
@@ -89,6 +90,10 @@ public class Buff extends Actor {
 	public boolean act() {
 		diactivate();
 		return true;
+	}
+
+	public BuffIcon getIcon(boolean large){
+		return new BuffIcon(icon(), large);
 	}
 	
 	public int icon() {

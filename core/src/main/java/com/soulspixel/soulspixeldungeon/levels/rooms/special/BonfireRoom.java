@@ -25,12 +25,18 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
+import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
+import com.soulspixel.soulspixeldungeon.levels.rooms.quest.RitualSiteRoom;
+import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.tiles.CustomTilemap;
+import com.watabou.noosa.Tilemap;
+import com.watabou.utils.Point;
 
 public class BonfireRoom extends SpecialRoom {
 
@@ -47,7 +53,7 @@ public class BonfireRoom extends SpecialRoom {
 	public void paint(Level level ) {
 
 		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.EMBERS );
+		Painter.fill( level, this, 1, Terrain.EMPTY );
 
 		for (Door door : connected.values()) {
 			door.set( Door.Type.EMPTY );
@@ -72,5 +78,43 @@ public class BonfireRoom extends SpecialRoom {
 			}
 		}
 		level.blobs.put( BonfireLight.class, light );
+
+		BonfireTiles bv = new BonfireTiles();
+		bv.pos(left+1, top);
+
+		level.customTiles.add(bv);
+	}
+
+	public static class BonfireTiles extends CustomTilemap {
+
+		{
+			switch (Dungeon.depth){
+				default:
+				case 1:
+					texture = Assets.Environment.BONFIRE_FLOOR_1;
+					break;
+			}
+			tileW = 3;
+			tileH = 4;
+		}
+
+		final int TEX_WIDTH = 48;
+
+		@Override
+		public Tilemap create() {
+			Tilemap v = super.create();
+			v.map(mapSimpleImage(0, 0, TEX_WIDTH), 3);
+			return v;
+		}
+
+		@Override
+		public String name(int tileX, int tileY) {
+			return Messages.get(this, "name");
+		}
+
+		@Override
+		public String desc(int tileX, int tileY) {
+			return Messages.get(this, "desc");
+		}
 	}
 }

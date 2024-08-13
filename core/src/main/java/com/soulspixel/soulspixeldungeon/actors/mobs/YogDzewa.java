@@ -532,7 +532,6 @@ public class YogDzewa extends Mob {
 		Statistics.bossScores[4] += 5000 + 1250*Statistics.spawnersAlive;
 
 		Dungeon.level.unseal();
-		setBonfire(pos);
 		super.die( cause );
 
 		yell( Messages.get(this, "defeated") );

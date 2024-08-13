@@ -69,21 +69,7 @@ public class WndRest extends Window {
 			protected void onClick() {
 				Dungeon.hero.setBonfireDepth(bonfire.getDepth());
 				Dungeon.hero.setBonfirePos(bonfire.pos);
-				Game.switchScene(BonfireScene.class);
-				if(!bonfire.getIsDiscovered()){
-					Dungeon.hero.undoUndead();
-				}
-				ArrayList<Mob> targets = new ArrayList<>();
-				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-					if (Dungeon.level.heroFOV[mob.pos]) {
-						targets.add(mob);
-					}
-				}
-
-				for (Mob mob : targets){
-					mob.clearEnemy();
-					ScrollOfTeleportation.teleportCharPreferringUnseen(mob);
-				}
+				bonfire.sitDown(Dungeon.hero);
 				hide();
 			}
 		};

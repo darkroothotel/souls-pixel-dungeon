@@ -53,6 +53,7 @@ import com.soulspixel.soulspixeldungeon.items.spells.BeaconOfReturning;
 import com.soulspixel.soulspixeldungeon.items.spells.CurseInfusion;
 import com.soulspixel.soulspixeldungeon.items.spells.MagicalInfusion;
 import com.soulspixel.soulspixeldungeon.items.spells.PhaseShift;
+import com.soulspixel.soulspixeldungeon.items.spells.PotionOfEmber;
 import com.soulspixel.soulspixeldungeon.items.spells.ReclaimTrap;
 import com.soulspixel.soulspixeldungeon.items.spells.Recycle;
 import com.soulspixel.soulspixeldungeon.items.spells.SummonElemental;
@@ -213,6 +214,7 @@ public abstract class Recipe {
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
+		new PotionOfEmber.Recipe(),
 		new StewedMeat.twoMeat()
 	};
 	

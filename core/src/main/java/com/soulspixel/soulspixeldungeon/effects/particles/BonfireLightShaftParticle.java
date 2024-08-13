@@ -43,6 +43,18 @@ public class BonfireLightShaftParticle extends PixelParticle {
 		}
 	};
 
+	public static final Factory FACTORY_SCENE = new Factory() {
+		@Override
+		public void emit( Emitter emitter, int index, float x, float y ) {
+			((BonfireLightShaftParticle)emitter.recycle( BonfireLightShaftParticle.class )).reset( x, y, true );
+		}
+		@Override
+		public boolean lightMode() {
+			return true;
+		}
+	};
+
+
 	public BonfireLightShaftParticle() {
 		super();
 		
@@ -63,6 +75,20 @@ public class BonfireLightShaftParticle extends PixelParticle {
 		offs = -Random.Float( lifespan );
 		left = lifespan - offs;
 	}
+
+    public void reset( float x, float y, boolean offsetX ) {
+		revive();
+
+		offs = -Random.Float( lifespan );
+		left = lifespan - offs;
+
+		if(offsetX){
+            this.x = x+Random.Float(-10f, 10f);
+        } else {
+			this.x = x;
+        }
+        this.y = y;
+    }
 	
 	@Override
 	public void update() {

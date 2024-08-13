@@ -32,6 +32,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
+import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
 import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Adrenaline;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AllyBuff;
@@ -72,6 +73,7 @@ import com.soulspixel.soulspixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.soulspixel.soulspixeldungeon.items.potions.exotic.ExoticPotion;
 import com.soulspixel.soulspixeldungeon.items.rings.Ring;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfWealth;
+import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.soulspixel.soulspixeldungeon.items.stones.StoneOfAggression;
 import com.soulspixel.soulspixeldungeon.items.trinkets.ExoticCrystals;
@@ -81,6 +83,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Lucky;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.darts.Dart;
 import com.soulspixel.soulspixeldungeon.levels.Level;
+import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.plants.Swiftthistle;
@@ -141,12 +144,18 @@ public abstract class Mob extends Char {
 		}
 	}
 
+	private int orginalPosition = -1;
+	private boolean orginalPositionWasSet = false;
+
 	private static final String STATE	= "state";
 	private static final String SEEN	= "seen";
 	private static final String TARGET	= "target";
 	private static final String MAX_LVL	= "max_lvl";
 
 	private static final String ENEMY_ID	= "enemy_id";
+
+	private static final String OG_POS		= "og_pos";
+	private static final String OG_WAS_SET	= "og_pos_set";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -171,6 +180,9 @@ public abstract class Mob extends Char {
 		if (enemy != null) {
 			bundle.put(ENEMY_ID, enemy.id() );
 		}
+
+		bundle.put( OG_POS, orginalPosition );
+		bundle.put(OG_WAS_SET, orginalPositionWasSet);
 	}
 	
 	@Override
@@ -201,6 +213,9 @@ public abstract class Mob extends Char {
 			enemyID = bundle.getInt(ENEMY_ID);
 		}
 
+		orginalPosition = bundle.getInt( OG_POS );
+		orginalPositionWasSet = bundle.getBoolean( OG_WAS_SET );
+
 		//no need to actually save this, must be false
 		firstAdded = false;
 	}
@@ -208,6 +223,10 @@ public abstract class Mob extends Char {
 	//mobs need to remember their targets after every actor is added
 	public void restoreEnemy(){
 		if (enemyID != -1 && enemy == null) enemy = (Char)Actor.findById(enemyID);
+	}
+
+	public void bonfireReset(){
+		ScrollOfTeleportation.appear(this, orginalPosition);
 	}
 
 	public void setBonfire(int pos) {
@@ -223,7 +242,7 @@ public abstract class Mob extends Char {
 
 			for (int n : PathFinder.NEIGHBOURS4) {
 				int c = pos + n;
-				if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null) {
+				if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null && Dungeon.level.map[c] == Terrain.PASSABLE) {
 					candidates.add( c );
 				}
 			}
@@ -240,7 +259,7 @@ public abstract class Mob extends Char {
 
 				for (int n : PathFinder.NEIGHBOURS4) {
 					int c = newPos + n;
-					if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null) {
+					if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null && Dungeon.level.map[c] == Terrain.PASSABLE) {
 						candidates.add( c );
 					}
 				}
@@ -264,17 +283,10 @@ public abstract class Mob extends Char {
 		bonfire.sprite.alpha( 0 );
 		bonfire.sprite.parent.add( new AlphaTweener( bonfire.sprite, 1, 0.15f ) );
 
-		Sample.INSTANCE.play( Assets.Sounds.LULLABY );
-
 		for (int n : PathFinder.NEIGHBOURS8) {
 			int c = bonfire.pos + n;
-			if (!Dungeon.level.solid[c]) {
-				BonfireLight light = (BonfireLight)Dungeon.level.blobs.get( BonfireLight.class );
-				if (light == null) {
-					light = new BonfireLight();
-				}
-				light.seed( Dungeon.level, c, 1 );
-				Dungeon.level.blobs.put( BonfireLight.class, light );
+			if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null && Dungeon.level.map[c] == Terrain.PASSABLE) {
+				GameScene.add(Blob.seed( c, 1000, BonfireLight.class ));
 			}
 		}
 	}
@@ -287,6 +299,11 @@ public abstract class Mob extends Char {
 	protected boolean act() {
 		
 		super.act();
+
+		if(!orginalPositionWasSet){
+			orginalPosition = pos;
+			orginalPositionWasSet = true;
+		}
 		
 		boolean justAlerted = alerted;
 		alerted = false;
@@ -909,6 +926,10 @@ public abstract class Mob extends Char {
 				}
 			}
 
+		}
+
+		if(properties.contains(Property.BOSS)){
+			setBonfire(orginalPosition);
 		}
 
 		if (Dungeon.hero.isAlive() && !Dungeon.level.heroFOV[pos]) {

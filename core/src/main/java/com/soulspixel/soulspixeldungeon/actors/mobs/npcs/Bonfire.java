@@ -28,8 +28,10 @@ package com.soulspixel.soulspixeldungeon.actors.mobs.npcs;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
@@ -55,6 +57,7 @@ public class Bonfire extends NPC {
 
 	private int depth = -1;
 	private boolean discovered = false;
+	private int level = 0;
 
 	public int getDepth(){
 		return depth;
@@ -67,11 +70,24 @@ public class Bonfire extends NPC {
 	public void spawn( int depth ) {
 		this.depth = depth;
 	}
+
+	public int getLevel(){
+		return level;
+	}
+
+	public void setLevel(int level){
+		this.level = level;
+	}
 	
 	@Override
 	protected boolean act() {
 		if (Dungeon.level.visited[pos]){
 			Notes.add( Notes.Landmark.BONFIRE );
+		}
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Dungeon.level.adjacent(pos, mob.pos)) {
+				Buff.affect( mob, Terror.class, Terror.DURATION ).object = this.id();
+			}
 		}
 		return super.act();
 	}
@@ -95,6 +111,27 @@ public class Bonfire extends NPC {
 	public boolean reset() {
 		return true;
 	}
+
+	public void sitDown(Hero c){
+		Game.switchScene(BonfireScene.class);
+		ArrayList<Mob> targets = new ArrayList<>();
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Dungeon.level.heroFOV[mob.pos]) {
+				targets.add(mob);
+			}
+		}
+
+		for (Mob mob : targets){
+			mob.bonfireReset();
+			mob.clearEnemy();
+		}
+
+		if(!discovered){
+			c.undoUndead();
+			PotionOfHealing.heal(c);
+			discovered = true;
+		}
+	}
 	
 	@Override
 	public boolean interact(Char c) {
@@ -108,22 +145,7 @@ public class Bonfire extends NPC {
 				});
 				return true;
 			} else {
-				Game.switchScene(BonfireScene.class);
-				ArrayList<Mob> targets = new ArrayList<>();
-				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-					if (Dungeon.level.heroFOV[mob.pos]) {
-						targets.add(mob);
-					}
-				}
-
-				for (Mob mob : targets){
-					mob.clearEnemy();
-					ScrollOfTeleportation.teleportCharPreferringUnseen(mob);
-				}
-
-				if(!discovered){
-					((Hero) c).undoUndead();
-				}
+				sitDown((Hero) c);
 			}
 			return true;
         }
@@ -132,12 +154,14 @@ public class Bonfire extends NPC {
 
 	private static final String DISCOVERED	= "discovered";
 	private static final String DEPTH		= "depth";
+	private static final String LEVEL		= "level";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(DISCOVERED, discovered);
 		bundle.put(DEPTH, depth);
+		bundle.put(LEVEL, level);
 	}
 
 	@Override
@@ -145,5 +169,6 @@ public class Bonfire extends NPC {
 		super.restoreFromBundle(bundle);
 		discovered = bundle.getBoolean(DISCOVERED);
 		depth = bundle.getInt(DEPTH);
+		level = bundle.getInt(LEVEL);
 	}
 }
