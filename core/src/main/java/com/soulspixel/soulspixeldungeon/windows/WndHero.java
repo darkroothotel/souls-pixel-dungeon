@@ -45,6 +45,7 @@ import com.soulspixel.soulspixeldungeon.ui.TalentButton;
 import com.soulspixel.soulspixeldungeon.ui.TalentsPane;
 import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.soulspixel.soulspixeldungeon.utils.DungeonSeed;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
@@ -64,18 +65,23 @@ public class WndHero extends WndTabbed {
 
 	public static int lastIdx = 0;
 
-	public WndHero() {
+	private final boolean bonfireUsed;
+
+	public WndHero(boolean bonfU) {
 		
 		super();
-		
+		bonfireUsed = bonfU;
+
 		resize( WIDTH, HEIGHT );
 		
 		stats = new StatsTab();
 		add( stats );
 
-		talents = new TalentsTab();
-		add(talents);
-		talents.setRect(0, 0, WIDTH, HEIGHT);
+		if(this.bonfireUsed){
+			talents = new TalentsTab();
+			add(talents);
+			talents.setRect(0, 0, WIDTH, HEIGHT);
+		}
 
 		buffs = new BuffsTab();
 		add( buffs );
@@ -94,14 +100,28 @@ public class WndHero extends WndTabbed {
 				stats.visible = stats.active = selected;
 			}
 		} );
-		add( new IconTab( Icons.get(Icons.TALENT) ) {
-			protected void select( boolean value ) {
-				super.select( value );
-				if (selected) lastIdx = 1;
-				if (selected) StatusPane.talentBlink = 0;
-				talents.visible = talents.active = selected;
-			}
-		} );
+		if(this.bonfireUsed){
+			add( new IconTab( Icons.get(Icons.TALENT) ) {
+				protected void select( boolean value ) {
+					super.select( value );
+					if (selected) lastIdx = 1;
+					if (selected) StatusPane.talentBlink = 0;
+					if(WndHero.this.bonfireUsed){
+						talents.visible = talents.active = selected;
+					}
+				}
+
+				@Override
+				public void update() {
+					super.update();
+					if(Dungeon.hero.talentPointsAvailable() > 0){
+						icon.tint(0xFFFFFF, (Game.elapsed*100f)-1f);
+					} else {
+						icon.resetColor();
+					}
+				}
+			} );
+		}
 		add( new IconTab( Icons.get(Icons.BUFFS) ) {
 			protected void select( boolean value ) {
 				super.select( value );
@@ -111,10 +131,11 @@ public class WndHero extends WndTabbed {
 		} );
 
 		layoutTabs();
-
-		talents.setRect(0, 0, WIDTH, HEIGHT);
-		talents.pane.scrollTo(0, talents.pane.content().height() - talents.pane.height());
-		talents.layout();
+		if(this.bonfireUsed){
+			talents.setRect(0, 0, WIDTH, HEIGHT);
+			talents.pane.scrollTo(0, talents.pane.content().height() - talents.pane.height());
+			talents.layout();
+		}
 
 		select( lastIdx );
 	}
@@ -122,7 +143,9 @@ public class WndHero extends WndTabbed {
 	@Override
 	public void offset(int xOffset, int yOffset) {
 		super.offset(xOffset, yOffset);
-		talents.layout();
+		if(bonfireUsed){
+			talents.layout();
+		}
 		buffs.layout();
 	}
 

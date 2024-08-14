@@ -33,32 +33,26 @@ import com.soulspixel.soulspixeldungeon.SPDAction;
 import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
-import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LightShadows;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.Fireball;
-import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.particles.BonfireLightShaftParticle;
-import com.soulspixel.soulspixeldungeon.effects.particles.FlameParticle;
 import com.soulspixel.soulspixeldungeon.items.Item;
-import com.soulspixel.soulspixeldungeon.items.food.Food;
-import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
-import com.soulspixel.soulspixeldungeon.items.spells.PotionOfEmber;
+import com.soulspixel.soulspixeldungeon.items.spells.SpellOfEmber;
 import com.soulspixel.soulspixeldungeon.journal.Journal;
-import com.soulspixel.soulspixeldungeon.levels.HallsLevel;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.soulspixel.soulspixeldungeon.ui.BuffIcon;
+import com.soulspixel.soulspixeldungeon.ui.BonfireHeroButton;
 import com.soulspixel.soulspixeldungeon.ui.ExitButton;
 import com.soulspixel.soulspixeldungeon.ui.IconButton;
-import com.soulspixel.soulspixeldungeon.ui.Icons;
 import com.soulspixel.soulspixeldungeon.ui.ItemSlot;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
 import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.soulspixel.soulspixeldungeon.windows.WndBag;
+import com.soulspixel.soulspixeldungeon.windows.WndHero;
 import com.soulspixel.soulspixeldungeon.windows.WndInfoItem;
 import com.soulspixel.soulspixeldungeon.windows.WndJournal;
 import com.watabou.gltextures.TextureCache;
@@ -90,6 +84,7 @@ public class BonfireScene extends PixelScene {
 
 	private InputButton upgradeBtn = new InputButton();
 	private UpgradeBtn upgradeConfirm = new UpgradeBtn();
+	private InputButton heroBtn = new InputButton();
 
 	private static final int BTN_SIZE	= 28;
 
@@ -203,6 +198,25 @@ public class BonfireScene extends PixelScene {
 		lightEmitter.autoKill = false;
 		add(lightEmitter);
 
+
+		BonfireHeroButton btnHero = new BonfireHeroButton(){
+			@Override
+			protected void onClick() {
+				add(new WndHero(true));
+			}
+			@Override
+			public void update() {
+				super.update();
+				if(Dungeon.hero.talentPointsAvailable() > 0){
+					icon.tint(0xFFFFFF, (Game.elapsed*100f)-1f);
+				} else {
+					icon.resetColor();
+				}
+			}
+		};
+		btnHero.setPos( desc.right()-btnHero.width(), pos );
+		add( btnHero );
+
 		IconButton btnGuide = new IconButton( new ItemSprite(ItemSpriteSheet.GUIDE_PAGE, null)){
 			@Override
 			protected void onClick() {
@@ -284,12 +298,12 @@ public class BonfireScene extends PixelScene {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item instanceof PotionOfEmber;
+			return item instanceof SpellOfEmber;
 		}
 
 		@Override
 		public void onSelect( Item item ) {
-			if(item instanceof PotionOfEmber){
+			if(item instanceof SpellOfEmber){
 				upgradeBtn.item(item.detach(Dungeon.hero.belongings.backpack));
 			}
 		}
@@ -447,19 +461,19 @@ public class BonfireScene extends PixelScene {
 						create();
 						switch (bonfire.getLevel()){
 							case 1:
-								bonfireSprite.tint(0x550000, 0.5f);
+								bonfireSprite.tint(0x550000, 0.4f);
 								break;
 							case 2:
 								bonfireSprite.tint(0x660000, 0.5f);
 								break;
 							case 3:
-								bonfireSprite.tint(0x770000, 0.5f);
+								bonfireSprite.tint(0x770000, 0.6f);
 								break;
 							case 4:
-								bonfireSprite.tint(0x880000, 0.5f);
+								bonfireSprite.tint(0x880000, 0.7f);
 								break;
 							case 5:
-								bonfireSprite.tint(0x990000, 0.5f);
+								bonfireSprite.tint(0x990000, 0.8f);
 								break;
 						}
 					} else {

@@ -27,6 +27,7 @@ package com.soulspixel.soulspixeldungeon.journal;
 
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.soulspixel.soulspixeldungeon.ui.Icons;
@@ -176,6 +177,8 @@ public enum Document {
 					return Icons.get(Icons.MAGNIFY);
 				case "Surprise_Attacks":
 					return Icons.get(Icons.SNAKE);
+				case "Bonfire":
+					return new BonfireSprite();
 				case "Identifying":
 					return new ItemSprite( new ScrollOfIdentify() );
 				case "Food":
@@ -234,6 +237,7 @@ public enum Document {
 	public static final String GUIDE_FOOD           = "Food";
 	public static final String GUIDE_ALCHEMY        = "Alchemy";
 	public static final String GUIDE_DIEING         = "Dieing";
+	public static final String GUIDE_BONFIRE        = "Bonfire";
 
 	public static final String GUIDE_SEARCHING      = "Searching";
 
@@ -248,6 +252,7 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_FOOD,           debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_ALCHEMY,        debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DIEING,         debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_BONFIRE,        debug ? READ : NOT_FOUND);
 		//given in sewers
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SEARCHING,      debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put("Strength",           debug ? READ : NOT_FOUND);

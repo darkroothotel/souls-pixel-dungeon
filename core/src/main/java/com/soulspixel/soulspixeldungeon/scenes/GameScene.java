@@ -48,6 +48,7 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.Ghoul;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Snake;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.BannerSprites;
 import com.soulspixel.soulspixeldungeon.effects.BlobEmitter;
 import com.soulspixel.soulspixeldungeon.effects.EmoIcon;
@@ -1539,12 +1540,16 @@ public class GameScene extends PixelScene {
 
 	public static void examineObject(Object o){
 		if (o == Dungeon.hero){
-			GameScene.show( new WndHero() );
+			GameScene.show( new WndHero(false) );
 		} else if ( o instanceof Mob && ((Mob) o).isActive() ){
 			GameScene.show(new WndInfoMob((Mob) o));
 			if (o instanceof Snake && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SURPRISE_ATKS)){
 				GLog.p(Messages.get(Guidebook.class, "hint"));
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_SURPRISE_ATKS);
+			}
+			if (o instanceof Bonfire && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_BONFIRE)){
+				GLog.p(Messages.get(Guidebook.class, "hint"));
+				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_BONFIRE);
 			}
 		} else if ( o instanceof Heap && !((Heap) o).isEmpty() ){
 			GameScene.show(new WndInfoItem((Heap)o));

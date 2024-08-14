@@ -25,25 +25,15 @@
 
 package com.soulspixel.soulspixeldungeon.items.spells;
 
-import com.soulspixel.soulspixeldungeon.Badges;
-import com.soulspixel.soulspixeldungeon.Statistics;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Degrade;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
-import com.soulspixel.soulspixeldungeon.items.Item;
-import com.soulspixel.soulspixeldungeon.items.armor.Armor;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.soulspixel.soulspixeldungeon.items.wands.Wand;
-import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
-import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.soulspixel.soulspixeldungeon.utils.GLog;
 
-public class PotionOfEmber extends Spell {
+public class SpellOfEmber extends Spell {
 	
 	{
-		image = ItemSpriteSheet.POTION_OF_EMBER;
+		image = ItemSpriteSheet.SPELL_OF_EMBER;
 
 		unique = true;
 
@@ -74,7 +64,7 @@ public class PotionOfEmber extends Spell {
 			
 			cost = 12;
 			
-			output = PotionOfEmber.class;
+			output = SpellOfEmber.class;
 			outQuantity = 1;
 		}
 		

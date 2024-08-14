@@ -62,7 +62,7 @@ import com.soulspixel.soulspixeldungeon.items.spells.BeaconOfReturning;
 import com.soulspixel.soulspixeldungeon.items.spells.CurseInfusion;
 import com.soulspixel.soulspixeldungeon.items.spells.MagicalInfusion;
 import com.soulspixel.soulspixeldungeon.items.spells.PhaseShift;
-import com.soulspixel.soulspixeldungeon.items.spells.PotionOfEmber;
+import com.soulspixel.soulspixeldungeon.items.spells.SpellOfEmber;
 import com.soulspixel.soulspixeldungeon.items.spells.ReclaimTrap;
 import com.soulspixel.soulspixeldungeon.items.spells.Recycle;
 import com.soulspixel.soulspixeldungeon.items.spells.SummonElemental;
@@ -386,7 +386,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
-				result.add(new QuickRecipe(new PotionOfEmber.Recipe()));
+				result.add(new QuickRecipe(new SpellOfEmber.Recipe()));
 				if (!PixelScene.landscape()) result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));

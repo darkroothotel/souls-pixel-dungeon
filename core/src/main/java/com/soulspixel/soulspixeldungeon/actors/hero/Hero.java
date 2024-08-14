@@ -437,6 +437,21 @@ public class Hero extends Char {
 		}
 	}
 
+	public int talentPointsAvailable(){
+		for (int t = 1; t < 6; t++) {
+			if (lvl < (Talent.tierLevelThresholds[t] - 1)
+					|| (t == 3 && subClass == HeroSubClass.NONE)
+					|| (t == 4 && armorAbility == null)) {
+				return 0;
+			} else if (lvl >= Talent.tierLevelThresholds[t+1]){
+				return Talent.tierLevelThresholds[t+1] - Talent.tierLevelThresholds[t] - talentPointsSpent(t) + bonusTalentPoints(t);
+			} else {
+				return 1 + lvl - Talent.tierLevelThresholds[t] - talentPointsSpent(t) + bonusTalentPoints(t);
+			}
+		}
+		return 0;
+	}
+
 	public int bonusTalentPoints(int tier){
 		if (lvl < (Talent.tierLevelThresholds[tier]-1)
 				|| (tier == 3 && subClass == HeroSubClass.NONE)

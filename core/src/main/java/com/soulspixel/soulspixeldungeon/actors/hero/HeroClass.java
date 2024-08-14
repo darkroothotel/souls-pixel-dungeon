@@ -65,7 +65,7 @@ import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfRage;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.soulspixel.soulspixeldungeon.items.spells.PotionOfEmber;
+import com.soulspixel.soulspixeldungeon.items.spells.SpellOfEmber;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfMagicMissile;
 import com.soulspixel.soulspixeldungeon.items.weapon.SpiritBow;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Dagger;
@@ -111,8 +111,6 @@ public enum HeroClass {
 		waterskin.collect();
 
 		new ScrollOfIdentify().identify();
-
-		new PotionOfEmber().collect();
 
 		switch (this) {
 			case WARRIOR:
@@ -181,7 +179,6 @@ public enum HeroClass {
 		MagesStaff staff;
 
 		staff = new MagesStaff(new WandOfMagicMissile());
-		staff.upgrade(100);
 
 		(hero.belongings.weapon = staff).identify();
 		hero.belongings.weapon.activate(hero);
