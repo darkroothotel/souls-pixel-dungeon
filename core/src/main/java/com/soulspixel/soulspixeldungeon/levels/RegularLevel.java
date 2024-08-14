@@ -67,6 +67,8 @@ import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.BonfireRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.PitRoom;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.SecretEntranceRoom;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.SecretExitRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.ShopRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.standard.StandardRoom;
@@ -103,7 +105,7 @@ public abstract class RegularLevel extends Level {
 	
 	protected Room roomEntrance;
 	protected Room roomExit;
-	
+
 	@Override
 	protected boolean build() {
 		
@@ -148,6 +150,12 @@ public abstract class RegularLevel extends Level {
 
 		if (Dungeon.bonfireOnLevel())
 			initRooms.add(new BonfireRoom());
+
+		if (Dungeon.secretEntranceOnLevel())
+			initRooms.add(new SecretEntranceRoom());
+
+		if (Dungeon.secretExitOnLevel())
+			initRooms.add(new SecretExitRoom());
 
 		//force max special rooms and add one more for large levels
 		int specials = specialRooms(feeling == Feeling.LARGE);

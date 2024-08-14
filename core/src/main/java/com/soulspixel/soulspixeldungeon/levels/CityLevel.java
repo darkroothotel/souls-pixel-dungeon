@@ -132,7 +132,7 @@ public class CityLevel extends RegularLevel {
 		
 		super.createMobs();
 	}
-	
+
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {

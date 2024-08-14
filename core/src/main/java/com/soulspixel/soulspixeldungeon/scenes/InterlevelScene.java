@@ -71,7 +71,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, SECRET_EXIT, SECRET_ENTRANCE
 	}
 	public static Mode mode;
 
@@ -166,6 +166,10 @@ public class InterlevelScene extends PixelScene {
 		if (DeviceCompat.isDebug()){
 			fadeTime = 0f;
 		}
+
+		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT){
+			loadingAsset = Assets.Interfaces.SHADOW;
+		}
 		
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
 			@Override
@@ -248,6 +252,12 @@ public class InterlevelScene extends PixelScene {
 								break;
 							case RESET:
 								reset();
+								break;
+							case SECRET_ENTRANCE:
+								secretEntrance();
+								break;
+							case SECRET_EXIT:
+								secretExit();
 								break;
 						}
 						
@@ -390,11 +400,56 @@ public class InterlevelScene extends PixelScene {
 
 	}
 
+	public void secretExit() throws IOException {
+		switch (Dungeon.depth){
+			case 1:
+				exitSwitchTo(3);
+				break;
+		}
+	}
+	public void secretEntrance() throws IOException {
+		switch (Dungeon.depth){
+			case 3:
+				entranceSwitchTo(1);
+				break;
+		}
+	}
+
+	private void exitSwitchTo(int depth) throws IOException {
+		Mob.holdAllies( Dungeon.level );
+
+		Dungeon.saveAll();
+
+		Level level;
+		Dungeon.depth = depth;
+		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		} else {
+			level = Dungeon.newLevel();
+		}
+		Dungeon.switchLevel( level, level.secretEntrance());
+	}
+
+	private void entranceSwitchTo(int depth) throws IOException {
+		Mob.holdAllies( Dungeon.level );
+
+		Dungeon.saveAll();
+
+		Level level;
+		Dungeon.depth = depth;
+		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		} else {
+			level = Dungeon.newLevel();
+		}
+		Dungeon.switchLevel( level, level.secretExit());
+	}
+
 	//TODO atm falling always just increments depth by 1, do we eventually want to roll it into the transition system?
 	private void fall() throws IOException {
-		
+
 		Mob.holdAllies( Dungeon.level );
-		
+
 		Buff.affect( Dungeon.hero, Chasm.Falling.class );
 		Dungeon.saveAll();
 

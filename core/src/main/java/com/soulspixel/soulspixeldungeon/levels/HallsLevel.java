@@ -135,7 +135,7 @@ public class HallsLevel extends RegularLevel {
 	public String waterTex() {
 		return Assets.Environment.WATER_HALLS;
 	}
-	
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{

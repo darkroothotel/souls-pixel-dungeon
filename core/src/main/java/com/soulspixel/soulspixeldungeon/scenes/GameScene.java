@@ -471,10 +471,10 @@ public class GameScene extends PixelScene {
 		Dungeon.hero.next();
 
 		switch (InterlevelScene.mode){
-			case FALL: case DESCEND: case CONTINUE:
+			case FALL: case DESCEND: case CONTINUE: case SECRET_ENTRANCE:
 				Camera.main.snapTo(hero.center().x, hero.center().y - DungeonTilemap.SIZE * (defaultZoom/Camera.main.zoom));
 				break;
-			case ASCEND:
+			case ASCEND: case SECRET_EXIT:
 				Camera.main.snapTo(hero.center().x, hero.center().y + DungeonTilemap.SIZE * (defaultZoom/Camera.main.zoom));
 				break;
 			default:

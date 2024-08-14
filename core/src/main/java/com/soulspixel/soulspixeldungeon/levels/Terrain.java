@@ -69,6 +69,11 @@ public class Terrain {
 	public static final int MINE_CRYSTAL    = 35;
 	public static final int MINE_BOULDER    = 36;
 
+	public static final int SECRET_ENTRANCE = 38;
+	public static final int SECRET_EXIT     = 39;
+	public static final int REVEALED_SECRET_ENTRANCE = 40;
+	public static final int REVEALED_SECRET_EXIT     = 41;
+
 	public static final int WATER		    = 29;
 	
 	public static final int PASSABLE		= 0x01;
@@ -123,6 +128,10 @@ public class Terrain {
 		flags[MINE_CRYSTAL] = SOLID;
 		flags[MINE_BOULDER] = SOLID;
 
+		flags[SECRET_ENTRANCE] = flags[EMPTY]  | SECRET;
+		flags[SECRET_EXIT] = flags[EMPTY]  | SECRET;
+		flags[REVEALED_SECRET_ENTRANCE] = flags[ENTRANCE];
+		flags[REVEALED_SECRET_EXIT] = flags[EXIT];
 	}
 
 	public static int discover( int terr ) {
@@ -131,6 +140,10 @@ public class Terrain {
 			return DOOR;
 		case SECRET_TRAP:
 			return TRAP;
+		case SECRET_ENTRANCE:
+			return REVEALED_SECRET_ENTRANCE;
+		case SECRET_EXIT:
+			return REVEALED_SECRET_EXIT;
 		default:
 			return terr;
 		}

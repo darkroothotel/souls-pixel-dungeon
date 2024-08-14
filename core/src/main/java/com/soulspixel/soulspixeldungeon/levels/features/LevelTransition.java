@@ -40,7 +40,9 @@ public class LevelTransition extends Rect implements Bundlable {
 		REGULAR_ENTRANCE,
 		REGULAR_EXIT,
 		BRANCH_ENTRANCE,
-		BRANCH_EXIT;
+		BRANCH_EXIT,
+		SECRET_EXIT,
+		SECRET_ENTRANCE;
 	}
 
 	public Type type;
@@ -77,10 +79,20 @@ public class LevelTransition extends Rect implements Bundlable {
 				destBranch = Dungeon.branch;
 				destType = Type.REGULAR_EXIT;
 				break;
+			case SECRET_ENTRANCE:
+				destDepth = Dungeon.depth-1;
+				destBranch = Dungeon.branch;
+				destType = Type.SECRET_EXIT;
+				break;
 			case REGULAR_EXIT:
 				destDepth = Dungeon.depth+1;
 				destBranch = Dungeon.branch;
 				destType = Type.REGULAR_ENTRANCE;
+				break;
+			case SECRET_EXIT:
+				destDepth = Dungeon.depth+1;
+				destBranch = Dungeon.branch;
+				destType = Type.SECRET_ENTRANCE;
 				break;
 			case SURFACE:
 				destDepth = 0;

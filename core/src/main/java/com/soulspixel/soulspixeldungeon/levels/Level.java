@@ -523,6 +523,22 @@ public abstract class Level implements Bundlable {
 		return 0;
 	}
 
+	public int secretExit(){
+		LevelTransition l = getTransition(LevelTransition.Type.SECRET_EXIT);
+		if (l != null){
+			return l.cell();
+		}
+		return 0;
+	}
+
+	public int secretEntrance(){
+		LevelTransition l = getTransition(LevelTransition.Type.SECRET_ENTRANCE);
+		if (l != null){
+			return l.cell();
+		}
+		return 0;
+	}
+
 	public LevelTransition getTransition(LevelTransition.Type type){
 		if (transitions.isEmpty()){
 			return null;
@@ -561,6 +577,10 @@ public abstract class Level implements Bundlable {
 		if (transition.type == LevelTransition.Type.REGULAR_EXIT
 				|| transition.type == LevelTransition.Type.BRANCH_EXIT) {
 			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+		} else if(transition.type == LevelTransition.Type.SECRET_EXIT){
+			InterlevelScene.mode = InterlevelScene.Mode.SECRET_EXIT;
+		} else if(transition.type == LevelTransition.Type.SECRET_ENTRANCE){
+			InterlevelScene.mode = InterlevelScene.Mode.SECRET_ENTRANCE;
 		} else {
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 		}
@@ -939,6 +959,7 @@ public abstract class Level implements Bundlable {
 				for (int j = 1; j < PathFinder.CIRCLE8.length; j += 2){
 					if (level.solid[i+PathFinder.CIRCLE8[j]]) {
 						level.openSpace[i] = false;
+						level.openSpace[i] = false;
 					} else if (!level.solid[i+PathFinder.CIRCLE8[(j+1)%8]]
 							&& !level.solid[i+PathFinder.CIRCLE8[(j+2)%8]]){
 						level.openSpace[i] = true;
@@ -1171,6 +1192,19 @@ public abstract class Level implements Bundlable {
 			if (hard) {
 				trap = traps.get( cell );
 				GLog.i(Messages.get(Level.class, "hidden_trap", trap.name()));
+			}
+			break;
+		case Terrain.SECRET_ENTRANCE:
+			if (hard) {
+				set(cell, Terrain.REVEALED_SECRET_ENTRANCE);
+				GLog.i(Messages.get(Level.class, "hidden_entrance"));
+			}
+			break;
+
+		case Terrain.SECRET_EXIT:
+			if (hard) {
+				set(cell, Terrain.REVEALED_SECRET_EXIT);
+				GLog.i(Messages.get(Level.class, "hidden_exit"));
 			}
 			break;
 			
@@ -1504,6 +1538,8 @@ public abstract class Level implements Bundlable {
 			case Terrain.EMPTY_DECO:
 			case Terrain.CUSTOM_DECO_EMPTY:
 			case Terrain.SECRET_TRAP:
+			case Terrain.SECRET_ENTRANCE:
+			case Terrain.SECRET_EXIT:
 				return Messages.get(Level.class, "floor_name");
 			case Terrain.GRASS:
 				return Messages.get(Level.class, "grass_name");

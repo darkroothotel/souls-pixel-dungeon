@@ -74,15 +74,19 @@ import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerBossLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
+import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.WeakFloorRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
+import com.soulspixel.soulspixeldungeon.scenes.InterlevelScene;
 import com.soulspixel.soulspixeldungeon.ui.QuickSlotButton;
 import com.soulspixel.soulspixeldungeon.ui.Toolbar;
 import com.soulspixel.soulspixeldungeon.utils.DungeonSeed;
 import com.soulspixel.soulspixeldungeon.windows.WndResurrect;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -447,6 +451,15 @@ public class Dungeon {
 	public static boolean bonfireOnLevel() {
 		return depth == 1;
 	}
+
+	public static boolean secretExitOnLevel() {
+		return depth == 1;
+	}
+
+	public static boolean secretEntranceOnLevel() {
+		return depth == 3;
+	}
+
 	
 	public static boolean bossLevel() {
 		return bossLevel( depth );

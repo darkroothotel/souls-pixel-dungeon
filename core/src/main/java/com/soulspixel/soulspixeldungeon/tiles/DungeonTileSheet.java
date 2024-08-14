@@ -142,7 +142,7 @@ public class DungeonTileSheet {
 			Terrain.TRAP, Terrain.INACTIVE_TRAP, Terrain.EMPTY_DECO,
 			Terrain.CUSTOM_DECO, Terrain.WELL, Terrain.STATUE, Terrain.ALCHEMY,
 			Terrain.CUSTOM_DECO_EMPTY, Terrain.MINE_CRYSTAL, Terrain.MINE_BOULDER,
-			Terrain.DOOR, Terrain.OPEN_DOOR, Terrain.LOCKED_DOOR, Terrain.CRYSTAL_DOOR
+			Terrain.DOOR, Terrain.OPEN_DOOR, Terrain.LOCKED_DOOR, Terrain.CRYSTAL_DOOR, Terrain.SECRET_EXIT, Terrain.SECRET_ENTRANCE
 	));
 
 	//+1 for ground above, +2 for ground right, +4 for ground below, +8 for ground left.
@@ -401,12 +401,16 @@ public class DungeonTileSheet {
 		directVisuals.put(Terrain.PEDESTAL,         PEDESTAL);
 		directVisuals.put(Terrain.EMPTY_SP,         FLOOR_SP);
 		directVisuals.put(Terrain.ENTRANCE_SP,      ENTRANCE_SP);
+		directVisuals.put(Terrain.REVEALED_SECRET_ENTRANCE, ENTRANCE);
+		directVisuals.put(Terrain.REVEALED_SECRET_EXIT,     EXIT);
 
 		directVisuals.put(Terrain.SECRET_TRAP,      directVisuals.get(Terrain.EMPTY));
 		directVisuals.put(Terrain.TRAP,             directVisuals.get(Terrain.EMPTY));
 		directVisuals.put(Terrain.INACTIVE_TRAP,    directVisuals.get(Terrain.EMPTY));
 		directVisuals.put(Terrain.CUSTOM_DECO,      directVisuals.get(Terrain.EMPTY));
 		directVisuals.put(Terrain.CUSTOM_DECO_EMPTY,directVisuals.get(Terrain.EMPTY));
+		directVisuals.put(Terrain.SECRET_ENTRANCE,  directVisuals.get(Terrain.EMPTY));
+		directVisuals.put(Terrain.SECRET_EXIT,      directVisuals.get(Terrain.EMPTY));
 
 		directVisuals.put(Terrain.EMPTY_DECO,       FLOOR_DECO);
 		directVisuals.put(Terrain.LOCKED_EXIT,      LOCKED_EXIT);

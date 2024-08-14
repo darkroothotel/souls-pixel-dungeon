@@ -186,6 +186,10 @@ public class TalismanOfForesight extends Artifact {
 							earnedExp += 10;
 						} else if (oldValue == Terrain.SECRET_DOOR){
 							earnedExp += 100;
+						} else if (oldValue == Terrain.SECRET_ENTRANCE){
+							earnedExp += 150;
+						} else if (oldValue == Terrain.SECRET_EXIT){
+							earnedExp += 150;
 						}
 					}
 

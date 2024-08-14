@@ -1832,7 +1832,7 @@ public class Hero extends Char {
 
 			curAction = new HeroAction.LvlTransition( cell );
 			
-		}  else {
+		} else {
 			
 			if (!Dungeon.level.visited[cell] && !Dungeon.level.mapped[cell]
 					&& Dungeon.level.traps.get(cell) != null && Dungeon.level.traps.get(cell).visible) {
@@ -2406,8 +2406,15 @@ public class Hero extends Char {
 						//unintentional trap detection scales from 40% at floor 0 to 30% at floor 25
 						} else if (Dungeon.level.map[curr] == Terrain.SECRET_TRAP) {
 							chance = 0.4f - (Dungeon.depth / 250f);
-							
-						//unintentional door detection scales from 20% at floor 0 to 0% at floor 20
+
+						} else if (Dungeon.level.map[curr] == Terrain.SECRET_ENTRANCE) {
+							chance = 0.4f - (Dungeon.depth / 250f);
+
+							//unintentional door detection scales from 20% at floor 0 to 0% at floor 20
+						} else if (Dungeon.level.map[curr] == Terrain.SECRET_EXIT) {
+							chance = 0.4f - (Dungeon.depth / 250f);
+
+							//unintentional door detection scales from 20% at floor 0 to 0% at floor 20
 						} else {
 							chance = 0.2f - (Dungeon.depth / 100f);
 						}
@@ -2434,6 +2441,10 @@ public class Hero extends Char {
 									talisman.charge(2);
 								} else if (oldValue == Terrain.SECRET_DOOR){
 									talisman.charge(10);
+								} else if (oldValue == Terrain.SECRET_ENTRANCE){
+									talisman.charge(15);
+								} else if (oldValue == Terrain.SECRET_EXIT){
+									talisman.charge(15);
 								}
 							}
 						}

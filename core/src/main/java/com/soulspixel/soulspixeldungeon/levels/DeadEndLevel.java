@@ -118,7 +118,7 @@ public class DeadEndLevel extends Level {
 			}
 		Random.popGenerator();
 	}
-	
+
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		return entrance()-width();

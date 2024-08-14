@@ -135,7 +135,7 @@ public class LastShopLevel extends RegularLevel {
 			}
 		Random.popGenerator();
 	}
-	
+
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		ArrayList<Integer> candidates = new ArrayList<>();

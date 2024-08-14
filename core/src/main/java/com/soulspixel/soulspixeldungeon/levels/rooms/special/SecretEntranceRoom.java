@@ -23,47 +23,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.soulspixel.soulspixeldungeon.levels.rooms.secret;
+package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
+import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Heap;
+import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
+import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
-import com.soulspixel.soulspixeldungeon.levels.traps.SummoningTrap;
-import com.watabou.utils.Point;
+import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.tiles.CustomTilemap;
+import com.watabou.noosa.Tilemap;
 
-public class SecretSummoningRoom extends SecretRoom {
-	
-	//minimum of 3x3 traps, max of 6x6 traps
-	
-	@Override
-	public int maxWidth() {
-		return 8;
-	}
-	
+public class SecretEntranceRoom extends SpecialRoom {
+
 	@Override
 	public int maxHeight() {
-		return 8;
+		return 5;
 	}
-	
+
 	@Override
-	public void paint(Level level) {
-		Painter.fill(level, this, Terrain.WALL);
-		Painter.fill(level, this, 1, Terrain.SECRET_TRAP);
-		
-		Point center = center();
-		level.drop(Generator.random(), level.pointToCell(center)).setHauntedIfCursed().type = Heap.Type.SKELETON;
-		
-		for (Point p : getPoints()){
-			int cell = level.pointToCell(p);
-			if (level.map[cell] == Terrain.SECRET_TRAP){
-				level.setTrap(new SummoningTrap().hide(), cell);
-			}
-		}
-		
-		entrance().set(Door.Type.HIDDEN);
+	public int maxWidth() {
+		return 5;
 	}
-	
+
+	public void paint(Level level ) {
+
+		Painter.fill( level, this, Terrain.WALL );
+		Painter.fill( level, this, 1, Terrain.EMPTY );
+
+		for (Door door : connected.values()) {
+			door.set( Door.Type.EMPTY );
+		}
+
+		int p = level.pointToCell(center());
+		Painter.set(level, p, Terrain.SECRET_ENTRANCE);
+		entrance().set(Door.Type.HIDDEN);
+
+		level.transitions.add(new LevelTransition(level, p, LevelTransition.Type.SECRET_ENTRANCE));
+	}
 }

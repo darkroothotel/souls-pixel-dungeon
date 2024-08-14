@@ -179,7 +179,7 @@ public class CavesLevel extends RegularLevel {
 	public String waterTex() {
 		return Assets.Environment.WATER_CAVES;
 	}
-	
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{
