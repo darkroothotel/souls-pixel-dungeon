@@ -216,6 +216,7 @@ public class Dungeon {
 	public static HashSet<Integer> chapters;
 
 	public static SparseArray<ArrayList<Item>> droppedItems;
+	public static SparseArray<ArrayList<Item>> droppedItemsBranch1;
 
 	//first variable is only assigned when game is started, second is updated every time game is saved
 	public static int initialVersion;
@@ -278,6 +279,7 @@ public class Dungeon {
 		energy = 0;
 
 		droppedItems = new SparseArray<>();
+		droppedItemsBranch1 = new SparseArray<>();
 
 		LimitedDrops.reset();
 		
@@ -322,52 +324,112 @@ public class Dungeon {
 		Level level;
 		if (branch == 0) {
 			switch (depth) {
-				case 1:
-				case 2:
-				case 3:
+				case 1: //bonfire //secret exit 1
+				case 2: //--
+				case 3: //secret exit 1 //--
 				case 4:
+				case 5: //--
+				case 6: //--
+				case 7:
+				case 8: //--
+				case 9: //--
+				case 10:
+				case 11:  //--
+				case 12:  //--
 					level = new SewerLevel();
 					break;
-				case 5:
+				case 13:
 					level = new SewerBossLevel();
 					break;
-				case 6:
-				case 7:
-				case 8:
-				case 9:
+				case 14:  //--
+					level = new SewerLevel();
+					break;
+				case 15: //shop  //--
+				case 16:
+				case 17: //--
+				case 18: //--
+				case 19:
+				case 20:  //--
+				case 21: //--
+				case 22:
+				case 23: //--
+				case 24: //--
+				case 25:
+				case 26: //--
+				case 27: //--
 					level = new PrisonLevel();
 					break;
-				case 10:
+				case 28:
 					level = new PrisonBossLevel();
 					break;
-				case 11:
-				case 12:
-				case 13:
-				case 14:
+				case 29:  //--
+					level = new PrisonLevel();
+					break;
+				case 30: //shop  //--
+				case 31:
+				case 32:  //--
+				case 33:  //--
+				case 34:
+				case 35:  //--
+				case 36:  //--
+				case 37:  //
+				case 38:  //  //--
+				case 39:  //  //--
+				case 40:  //Minig Level
+				case 41:   //--
+				case 42: //--
 					level = new CavesLevel();
 					break;
-				case 15:
+				case 43:
 					level = new CavesBossLevel();
 					break;
-				case 16:
-				case 17:
-				case 18:
-				case 19:
+				case 44:  //--
+					level = new CavesLevel();
+					break;
+				case 45: //shop  //--
+				case 46:
+				case 47:  //--
+				case 48: //--
+				case 49:
+				case 50:  //--
+				case 51:   //--
+				case 52:
+				case 53:  //--
+				case 54:  //--
+				case 55:
+				case 56: //--
+				case 57:  //--
 					level = new CityLevel();
 					break;
-				case 20:
+				case 58:
 					level = new CityBossLevel();
 					break;
-				case 21:
-				case 22:
-				case 23:
-				case 24:
+				case 59:  //--
+					level = new CityLevel();
+					break;
+				case 60:  //--
+				case 61:
+				case 62:  //--
+				case 63:  //--
+				case 64:
+				case 65: //--
+				case 66: //--
+				case 67:
+				case 68: //--
+				case 69: //--
+				case 70:
+				case 71: //--
+				case 72: //--
 					level = new HallsLevel();
 					break;
-				case 25:
+				case 73:
 					level = new HallsBossLevel();
 					break;
-				case 26:
+				case 74: //--
+				case 75: //--
+					level = new HallsLevel();
+					break;
+				case 76:
 					level = new LastLevel();
 					break;
 				default:
@@ -375,10 +437,35 @@ public class Dungeon {
 			}
 		} else if (branch == 1) {
 			switch (depth) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				case 10:
 				case 11:
 				case 12:
-				case 13:
-				case 14:
+					level = new SewerLevel();
+					break;
+				case 37:
+				case 38:
+				case 39:
+				case 40:
+					level = new MiningLevel();
+					break;
+				default:
+					level = new DeadEndLevel();
+			}
+		} else if (branch == 2){
+			switch (depth){
+				case 37:
+				case 38:
+				case 39:
+				case 40:
 					level = new MiningLevel();
 					break;
 				default:
@@ -425,6 +512,10 @@ public class Dungeon {
 		switchLevel( level, level.entrance() );
 	}
 
+	public static boolean hasNoEntrance(){
+		return !((depth-1)%3==0);
+	}
+
 	public static long seedCurDepth(){
 		return seedForDepth(depth, branch);
 	}
@@ -445,7 +536,7 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
-		return depth == 6 || depth == 11 || depth == 16;
+		return depth == 15 || depth == 30 || depth == 45;
 	}
 
 	public static boolean bonfireOnLevel() {
@@ -460,20 +551,24 @@ public class Dungeon {
 		return depth == 3;
 	}
 
+	public static boolean weakFloorOnLevel() {
+		return depth == 1;
+	}
+
 	
 	public static boolean bossLevel() {
 		return bossLevel( depth );
 	}
 	
 	public static boolean bossLevel( int depth ) {
-		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+		return depth == 13 || depth == 28 || depth == 43 || depth == 58 || depth == 73;
 	}
 
 	//value used for scaling of damage values and other effects.
 	//is usually the dungeon depth, but can be set to 26 when ascending
 	public static int scalingDepth(){
 		if (Dungeon.hero != null && Dungeon.hero.buff(AscensionChallenge.class) != null){
-			return 26;
+			return 76;
 		} else {
 			return depth;
 		}
@@ -546,20 +641,29 @@ public class Dungeon {
 	}
 
 	public static void dropToChasm( Item item ) {
-		int depth = Dungeon.depth + 1;
-		ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
-		if (dropped == null) {
-			Dungeon.droppedItems.put( depth, dropped = new ArrayList<>() );
+		if(Dungeon.branch != 0){
+			int depth = Dungeon.depth;
+			ArrayList<Item> dropped = Dungeon.droppedItemsBranch1.get( depth );
+			if (dropped == null) {
+				Dungeon.droppedItemsBranch1.put( depth, dropped = new ArrayList<>() );
+			}
+			dropped.add( item );
+		} else {
+			int depth = Dungeon.depth+1;
+			ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
+			if (dropped == null) {
+				Dungeon.droppedItems.put( depth, dropped = new ArrayList<>() );
+			}
+			dropped.add( item );
 		}
-		dropped.add( item );
 	}
 
 	public static boolean posNeeded() {
 		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
+		int posLeftThisSet = 6 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 13) * 6);
 		if (posLeftThisSet <= 0) return false;
 
-		int floorThisSet = (depth % 5);
+		int floorThisSet = (depth % 13);
 
 		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
 		int targetPOSLeft = 2 - floorThisSet/2;
@@ -573,22 +677,22 @@ public class Dungeon {
 	public static boolean souNeeded() {
 		int souLeftThisSet;
 		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+		souLeftThisSet = 9 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth /13) * 9);
 		if (souLeftThisSet <= 0) return false;
 
-		int floorThisSet = (depth % 5);
+		int floorThisSet = (depth % 13);
 		//chance is floors left / scrolls left
 		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 	}
 	
 	public static boolean asNeeded() {
 		//1 AS each floor set
-		int asLeftThisSet = 1 - (LimitedDrops.ARCANE_STYLI.count - (depth / 5));
+		int asLeftThisSet = 3 - (LimitedDrops.ARCANE_STYLI.count - (depth / 13));
 		if (asLeftThisSet <= 0) return false;
 
-		int floorThisSet = (depth % 5);
+		int floorThisSet = (depth % 13);
 		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < asLeftThisSet;
+		return Random.Int(9 - floorThisSet) < asLeftThisSet;
 	}
 
 	public static boolean enchStoneNeeded(){
@@ -596,9 +700,9 @@ public class Dungeon {
 		if (!LimitedDrops.ENCH_STONE.dropped()){
 			int region = 1+depth/5;
 			if (region > 1){
-				int floorsVisited = depth - 5;
-				if (floorsVisited > 4) floorsVisited--; //skip floor 10
-				return Random.Int(9-floorsVisited) == 0; //1/8 chance each floor
+				int floorsVisited = depth - 6;
+				if (floorsVisited > 12) floorsVisited--; //skip floor 10
+				return Random.Int(6-floorsVisited) == 0; //1/8 chance each floor
 			}
 		}
 		return false;
@@ -606,20 +710,20 @@ public class Dungeon {
 
 	public static boolean intStoneNeeded(){
 		//one stone on floors 1-3
-		return depth < 5 && !LimitedDrops.INT_STONE.dropped() && Random.Int(4-depth) == 0;
+		return depth < 10 && !LimitedDrops.INT_STONE.dropped() && Random.Int(4-depth) == 0;
 	}
 
 	public static boolean trinketCataNeeded(){
 		//one trinket catalyst on floors 1-3
-		return depth < 5 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(4-depth) == 0;
+		return depth < 10 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(4-depth) == 0;
 	}
 
 	public static boolean labRoomNeeded(){
 		//one laboratory each floor set, in floor 3 or 4, 1/2 chance each floor
-		int region = 1+depth/5;
+		int region = 1+depth/6;
 		if (region > LimitedDrops.LAB_ROOM.count){
 			int floorThisRegion = depth%5;
-			if (floorThisRegion >= 4 || (floorThisRegion == 3 && Random.Int(2) == 0)){
+			if (floorThisRegion >= 3 || (floorThisRegion == 2 && Random.Int(2) == 0)){
 				return true;
 			}
 		}
@@ -646,6 +750,7 @@ public class Dungeon {
 	private static final String GOLD		= "gold";
 	private static final String ENERGY		= "energy";
 	private static final String DROPPED     = "dropped%d";
+	private static final String DROPPEDB1     = "droppedb1%d";
 	private static final String PORTED      = "ported%d";
 	private static final String LEVEL		= "level";
 	private static final String LIMDROPS    = "limited_drops";
@@ -674,6 +779,9 @@ public class Dungeon {
 
 			for (int d : droppedItems.keyArray()) {
 				bundle.put(Messages.format(DROPPED, d), droppedItems.get(d));
+			}
+			for (int d : droppedItemsBranch1.keyArray()) {
+				bundle.put(Messages.format(DROPPEDB1, d), droppedItemsBranch1.get(d));
 			}
 
 			quickslot.storePlaceholders( bundle );
@@ -851,7 +959,7 @@ public class Dungeon {
 		}
 
 		droppedItems = new SparseArray<>();
-		for (int i=1; i <= 26; i++) {
+		for (int i=1; i <= 76; i++) {
 			
 			//dropped items
 			ArrayList<Item> items = new ArrayList<>();
@@ -861,6 +969,20 @@ public class Dungeon {
 				}
 			if (!items.isEmpty()) {
 				droppedItems.put( i, items );
+			}
+
+		}
+		droppedItemsBranch1 = new SparseArray<>();
+		for (int i=1; i <= 76; i++) {
+
+			//dropped items
+			ArrayList<Item> items = new ArrayList<>();
+			if (bundle.contains(Messages.format( DROPPEDB1, i )))
+				for (Bundlable b : bundle.getCollection( Messages.format( DROPPEDB1, i ) ) ) {
+					items.add( (Item)b );
+				}
+			if (!items.isEmpty()) {
+				droppedItemsBranch1.put( i, items );
 			}
 
 		}

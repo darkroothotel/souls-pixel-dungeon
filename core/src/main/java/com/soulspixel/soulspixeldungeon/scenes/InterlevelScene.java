@@ -168,6 +168,7 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT){
+			fadeTime = NORM_FADE;
 			loadingAsset = Assets.Interfaces.SHADOW;
 		}
 		
@@ -453,14 +454,37 @@ public class InterlevelScene extends PixelScene {
 		Buff.affect( Dungeon.hero, Chasm.Falling.class );
 		Dungeon.saveAll();
 
-		Level level;
-		Dungeon.depth++;
-		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
-			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		if(fallIntoPit){
+			Level level;
+			Dungeon.depth++;
+			if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+				level = Dungeon.loadLevel( GamesInProgress.curSlot );
+			} else {
+				level = Dungeon.newLevel();
+			}
+			Dungeon.switchLevel( level, level.fallCell( fallIntoPit ));
 		} else {
-			level = Dungeon.newLevel();
+			if(Dungeon.branch == 0){
+				Level level;
+				Dungeon.branch = 1;
+				if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+					level = Dungeon.loadLevel( GamesInProgress.curSlot );
+				} else {
+					level = Dungeon.newLevel();
+				}
+				Dungeon.switchLevel( level, level.randomDestination(null));
+			} else {
+				Level level;
+				Dungeon.branch = 0;
+                Dungeon.depth++;
+				if (Dungeon.levelHasBeenGenerated(Dungeon.branch, Dungeon.depth)) {
+					level = Dungeon.loadLevel( GamesInProgress.curSlot );
+				} else {
+					level = Dungeon.newLevel();
+				}
+				Dungeon.switchLevel( level, level.randomDestination(null));
+			}
 		}
-		Dungeon.switchLevel( level, level.fallCell( fallIntoPit ));
 	}
 
 	private void ascend() throws IOException {

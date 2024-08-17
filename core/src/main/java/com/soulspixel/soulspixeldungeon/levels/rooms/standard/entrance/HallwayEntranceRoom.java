@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.entrance;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -50,7 +51,7 @@ public class HallwayEntranceRoom extends HallwayRoom {
 				break;
 			}
 		}
-		Painter.set( level, entrance, Terrain.ENTRANCE_SP );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE_SP );
 		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
 
 	}

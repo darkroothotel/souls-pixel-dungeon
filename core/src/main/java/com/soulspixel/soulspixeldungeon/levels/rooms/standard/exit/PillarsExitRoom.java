@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.exit;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -62,7 +63,7 @@ public class PillarsExitRoom extends PillarsRoom {
 			}
 
 		} while (level.findMob(exit) != null || level.map[exit] == Terrain.WALL || !valid);
-		Painter.set( level, exit, Terrain.EXIT );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
 
 		level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
 	}

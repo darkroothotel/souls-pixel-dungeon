@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.exit;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -41,7 +42,7 @@ public class RitualExitRoom extends RitualRoom {
 
 	@Override
 	protected void placeloot(Level level, Point p) {
-		Painter.set(level, p, Terrain.EXIT);
+		if(!Dungeon.hasNoEntrance()) Painter.set(level, p, Terrain.EXIT);
 		level.transitions.add(new LevelTransition(level, level.pointToCell(p), LevelTransition.Type.REGULAR_EXIT));
 	}
 }

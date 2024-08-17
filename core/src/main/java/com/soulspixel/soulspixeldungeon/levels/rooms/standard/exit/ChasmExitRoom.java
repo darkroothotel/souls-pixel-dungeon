@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.exit;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -63,7 +64,7 @@ public class ChasmExitRoom extends ChasmRoom {
 			exit = level.pointToCell(random(2));
 
 		} while (level.map[exit] == Terrain.CHASM || level.findMob(exit) != null);
-		Painter.set( level, exit, Terrain.EXIT );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
 
 		for (int i : PathFinder.NEIGHBOURS8){
 			Painter.set( level, exit+i, Terrain.EMPTY );

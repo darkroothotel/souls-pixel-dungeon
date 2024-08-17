@@ -75,7 +75,7 @@ public class LevelTransition extends Rect implements Bundlable {
 		this.type = type;
 		switch (type){
 			case REGULAR_ENTRANCE: default:
-				destDepth = Dungeon.depth-1;
+				destDepth = Dungeon.depth-3;
 				destBranch = Dungeon.branch;
 				destType = Type.REGULAR_EXIT;
 				break;
@@ -85,7 +85,7 @@ public class LevelTransition extends Rect implements Bundlable {
 				destType = Type.SECRET_EXIT;
 				break;
 			case REGULAR_EXIT:
-				destDepth = Dungeon.depth+1;
+				destDepth = Dungeon.depth+3;
 				destBranch = Dungeon.branch;
 				destType = Type.REGULAR_ENTRANCE;
 				break;

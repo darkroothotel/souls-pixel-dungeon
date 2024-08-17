@@ -112,6 +112,15 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
+		/*new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();*/
+
+
 		switch (this) {
 			case WARRIOR:
 				initWarrior( hero );

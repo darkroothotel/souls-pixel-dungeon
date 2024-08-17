@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.entrance;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -63,7 +64,7 @@ public class ChasmEntranceRoom extends ChasmRoom {
 			entrance = level.pointToCell(random(2));
 
 		} while (level.map[entrance] == Terrain.CHASM || level.findMob(entrance) != null);
-		Painter.set( level, entrance, Terrain.ENTRANCE );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE );
 
 		for (int i : PathFinder.NEIGHBOURS8){
 			Painter.set( level, entrance+i, Terrain.EMPTY );

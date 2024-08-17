@@ -97,7 +97,7 @@ public class BlacksmithRoom extends StandardRoom {
 				entrancePos,
 				LevelTransition.Type.BRANCH_EXIT,
 				Dungeon.depth,
-				Dungeon.branch + 1,
+				Dungeon.branch + 2,
 				LevelTransition.Type.BRANCH_ENTRANCE));
 		Painter.set(level, entrancePos, Terrain.EXIT);
 

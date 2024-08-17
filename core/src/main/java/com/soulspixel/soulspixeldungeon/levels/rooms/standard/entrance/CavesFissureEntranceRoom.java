@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.entrance;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -61,7 +62,7 @@ public class CavesFissureEntranceRoom extends CavesFissureRoom {
 			}
 		}
 
-		Painter.set( level, entrance, Terrain.ENTRANCE );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE );
 		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
 
 	}

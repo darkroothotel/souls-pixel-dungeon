@@ -468,6 +468,24 @@ public class GameScene extends PixelScene {
 			Dungeon.droppedItems.remove( Dungeon.depth );
 		}
 
+		ArrayList<Item> droppedb1 = Dungeon.droppedItemsBranch1.get( Dungeon.depth );
+		if (droppedb1 != null) {
+			for (Item item : droppedb1) {
+				int pos = Dungeon.level.randomRespawnCell( null );
+				if (pos == -1) pos = Dungeon.level.entrance();
+				if (item instanceof Potion) {
+					((Potion) item).shatter(pos);
+				} else if (item instanceof Plant.Seed && !Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
+					Dungeon.level.plant((Plant.Seed) item, pos);
+				} else if (item instanceof Honeypot) {
+					Dungeon.level.drop(((Honeypot) item).shatter(null, pos), pos);
+				} else {
+					Dungeon.level.drop(item, pos);
+				}
+			}
+			Dungeon.droppedItemsBranch1.remove( Dungeon.depth );
+		}
+
 		Dungeon.hero.next();
 
 		switch (InterlevelScene.mode){
@@ -495,7 +513,7 @@ public class GameScene extends PixelScene {
 				}
 
 				int spawnersAbove = Statistics.spawnersAlive;
-				if (spawnersAbove > 0 && Dungeon.depth <= 25) {
+				if (spawnersAbove > 0 && Dungeon.depth <= 75) {
 					for (Mob m : Dungeon.level.mobs) {
 						if (m instanceof DemonSpawner && ((DemonSpawner) m).spawnRecorded) {
 							spawnersAbove--;
@@ -515,6 +533,8 @@ public class GameScene extends PixelScene {
 				GLog.h(Messages.get(this, "warp"));
 			} else if (InterlevelScene.mode == InterlevelScene.Mode.RESURRECT) {
 				GLog.h(Messages.get(this, "resurrect"), Dungeon.depth);
+			} else if (InterlevelScene.mode == InterlevelScene.Mode.SECRET_EXIT) {
+				GLog.h(Messages.get(this, "secret_exit"), Dungeon.depth);
 			} else {
 				GLog.h(Messages.get(this, "return"), Dungeon.depth);
 			}

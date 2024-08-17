@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard.exit;
 
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
@@ -49,7 +50,7 @@ public class CircleBasinExitRoom extends CircleBasinRoom {
 		super.paint(level);
 
 		int exit = level.pointToCell(center());
-		Painter.set( level, exit, Terrain.EXIT );
+		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
 
 		level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
 	}
