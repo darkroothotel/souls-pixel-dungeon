@@ -72,6 +72,7 @@ public class WndSettings extends WndTabbed {
 	private DataTab     data;
 	private AudioTab    audio;
 	private LangsTab    langs;
+	private ShaderTab shader;
 
 	public static int last_index = 0;
 
@@ -165,6 +166,11 @@ public class WndSettings extends WndTabbed {
 		height = Math.max(height, langs.height());
 		add( langs );
 
+		shader = new ShaderTab();
+		shader.setSize(width, 0);
+		height = Math.max(height, shader.height());
+		add( shader );
+
 
 		IconTab langsTab = new IconTab(Icons.get(Icons.LANGS)){
 			@Override
@@ -194,7 +200,35 @@ public class WndSettings extends WndTabbed {
 
 		layoutTabs();
 
-		if (tabs.size() == 5 && last_index >= 3){
+		IconTab shadersTab = new IconTab(Icons.get(Icons.LIBGDX)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				shader.visible = shader.active = value;
+				if (value) last_index = 6;
+			}
+
+			@Override
+			protected void createChildren() {
+				super.createChildren();
+				switch(Messages.lang().status()){
+					case X_UNFINISH:
+						icon.hardlight(1.5f, 0, 0);
+						break;
+					case __UNREVIEW:
+						icon.hardlight(1.5f, 0.75f, 0f);
+						break;
+				}
+			}
+
+		};
+		add( shadersTab );
+
+		resize(width, (int)Math.ceil(height));
+
+		layoutTabs();
+
+		if (tabs.size() == 6 && last_index >= 3){
 			//input tab isn't visible
 			select(last_index-1);
 		} else {
@@ -1310,6 +1344,97 @@ public class WndSettings extends WndTabbed {
 				height = txtTranifex.bottom();
 			}
 
+		}
+	}
+
+	private static class ShaderTab extends Component{
+
+		final static int COLS_P = 3;
+		final static int COLS_L = 6;
+
+		final static int BTN_HEIGHT = 11;
+
+		RenderedTextBlock title;
+		ColorBlock sep1;
+		RenderedTextBlock txtLangInfo;
+		ColorBlock sep2;
+		RedButton[] shaderBtns;
+
+		@Override
+		protected void createChildren() {
+			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			sep1 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep1);
+
+			txtLangInfo = PixelScene.renderTextBlock(6);
+			txtLangInfo.text(Messages.get(this, "info"));
+
+			add(txtLangInfo);
+
+			sep2 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep2);
+
+			int shaders = 4;
+			shaderBtns = new RedButton[shaders];
+			for (int i = 0; i < shaders; i++){
+				final int shaderId = i;
+				RedButton btn = new RedButton(Messages.get(this, "shader_"+i), 6){
+					@Override
+					protected void onClick() {
+						super.onClick();
+						SoulsPixelDungeon.seamlessResetScene(new Game.SceneChangeCallback() {
+							@Override
+							public void beforeCreate() {
+								SPDSettings.shader(shaderId);
+								Game.setShaderId(shaderId);
+							}
+							@Override
+							public void afterCreate() {
+								//do nothing
+							}
+						});
+					}
+				};
+				shaderBtns[i] = btn;
+				add(btn);
+			}
+
+		}
+
+		@Override
+		protected void layout() {
+			title.setPos((width - title.width())/2, y + GAP);
+			sep1.size(width, 1);
+			sep1.y = title.bottom() + 3*GAP;
+
+			txtLangInfo.setPos(0, sep1.y + 1 + GAP);
+			txtLangInfo.maxWidth((int)width);
+
+			y = txtLangInfo.bottom() + 2*GAP;
+			int x = 0;
+
+			sep2.size(width, 1);
+			sep2.y = y;
+			y += 2;
+
+			int cols = PixelScene.landscape() ? COLS_L : COLS_P;
+			int btnWidth = (int)Math.floor((width - (cols-1)) / cols);
+			for (RedButton btn : shaderBtns){
+				btn.setRect(x, y, btnWidth, BTN_HEIGHT);
+				btn.setPos(x, y);
+				x += btnWidth+1;
+				if (x + btnWidth > width){
+					x = 0;
+					y += BTN_HEIGHT+1;
+				}
+			}
+			if (x > 0){
+				y += BTN_HEIGHT+1;
+			}
+			y += 2;
 		}
 	}
 }

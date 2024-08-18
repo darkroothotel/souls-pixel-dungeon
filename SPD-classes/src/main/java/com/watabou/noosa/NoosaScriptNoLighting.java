@@ -105,27 +105,102 @@ public class NoosaScriptNoLighting extends NoosaScript {
 					"\n" +
 					"varying vec2 vUV;\n" +
 					"uniform sampler2D uTex;\n" +
-					"uniform vec4 uColorM;  // Base color with metallic properties\n" +
-					"uniform vec4 uColorA;  // Ambient color\n" +
-					"uniform float uTime;   // Time uniform for animating the shimmer\n" +
+					"//1 for Protanopia, 2 for Deuteranopia, 3 for Tritanopia\n" +
 					"\n" +
 					"void main() {\n" +
-					"  // Sample the base texture color\n" +
 					"  vec4 texColor = texture2D(uTex, vUV);\n" +
 					"\n" +
-					"  // Check if the pixel is fully transparent\n" +
-					"  if (texColor.a < 1.0) {\n" +
-					"    // If fully transparent, discard the shimmer effect\n" +
-					"    gl_FragColor = texColor;\n" +
-					"  } else {\n" +
-					"    // Create a shimmer effect based on time\n" +
-					"    float shimmer = sin(uTime * 5.0) * 0.5 + 0.5;\n" +
+					"  float R = texColor.r;\n" +
+					"  float G = texColor.g;\n" +
+					"  float B = texColor.b;\n" +
 					"\n" +
-					"    // Boost the metallic color by adding the shimmer effect\n" +
-					"    vec4 metallicColor = mix(texColor * uColorM, vec4(1.0, 1.0, 1.0, 1.0), shimmer);\n" +
+					"  // Protanopia (Red-Blind)\n" +
+					"  R = 0.567 * texColor.r + 0.433 * texColor.g;\n" +
+					"  G = 0.558 * texColor.r + 0.442 * texColor.g;\n" +
+					"  B = texColor.b;\n" +
+					"  // Output the modified color\n" +
+					"  gl_FragColor = vec4(R, G, B, texColor.a);\n" +
+					"}\n";
+
+	private static final String SHADER2 =
+
+			//vertex shader
+			"uniform mat4 uCamera;\n" +
+					"uniform mat4 uModel;\n" +
+					"attribute vec4 aXYZW;\n" +
+					"attribute vec2 aUV;\n" +
+					"varying vec2 vUV;\n" +
+					"void main() {\n" +
+					"  gl_Position = uCamera * uModel * aXYZW;\n" +
+					"  vUV = aUV;\n" +
+					"}\n" +
+
+					//this symbol separates the vertex and fragment shaders (see Script.compile)
+					"//\n" +
+
+					//fragment shader
+					//preprocessor directives let us define precision on GLES platforms, and ignore it elsewhere
+					"#ifdef GL_ES\n" +
+					"  precision mediump float;\n" +
+					"#endif\n" +
 					"\n" +
-					"    // Combine the metallic color with ambient color\n" +
-					"    gl_FragColor = metallicColor + uColorA;\n" +
-					"  }\n" +
+					"varying vec2 vUV;\n" +
+					"uniform sampler2D uTex;\n" +
+					"//1 for Protanopia, 2 for Deuteranopia, 3 for Tritanopia\n" +
+					"\n" +
+					"void main() {\n" +
+					"  vec4 texColor = texture2D(uTex, vUV);\n" +
+					"\n" +
+					"  float R = texColor.r;\n" +
+					"  float G = texColor.g;\n" +
+					"  float B = texColor.b;\n" +
+					"\n" +
+					"  // Deuteranopia (Green-Blind)\n" +
+					"  R = 0.625 * texColor.r + 0.375 * texColor.g;\n" +
+					"  G = 0.7 * texColor.g + 0.3 * texColor.r;\n" +
+					"  B = texColor.b;\n" +
+					"  // Output the modified color\n" +
+					"  gl_FragColor = vec4(R, G, B, texColor.a);\n" +
+					"}\n";
+
+	private static final String SHADER3=
+
+			//vertex shader
+			"uniform mat4 uCamera;\n" +
+					"uniform mat4 uModel;\n" +
+					"attribute vec4 aXYZW;\n" +
+					"attribute vec2 aUV;\n" +
+					"varying vec2 vUV;\n" +
+					"void main() {\n" +
+					"  gl_Position = uCamera * uModel * aXYZW;\n" +
+					"  vUV = aUV;\n" +
+					"}\n" +
+
+					//this symbol separates the vertex and fragment shaders (see Script.compile)
+					"//\n" +
+
+					//fragment shader
+					//preprocessor directives let us define precision on GLES platforms, and ignore it elsewhere
+					"#ifdef GL_ES\n" +
+					"  precision mediump float;\n" +
+					"#endif\n" +
+					"\n" +
+					"varying vec2 vUV;\n" +
+					"uniform sampler2D uTex;\n" +
+					"//1 for Protanopia, 2 for Deuteranopia, 3 for Tritanopia\n" +
+					"\n" +
+					"void main() {\n" +
+					"  vec4 texColor = texture2D(uTex, vUV);\n" +
+					"\n" +
+					"  float R = texColor.r;\n" +
+					"  float G = texColor.g;\n" +
+					"  float B = texColor.b;\n" +
+					"\n" +
+					"  // Tritanopia (Blue-Blind)\n" +
+					"    R = texColor.r;\n" +
+					"    G = 0.95 * texColor.g + 0.05 * texColor.b;\n" +
+					"    B = 0.433 * texColor.g + 0.567 * texColor.b;\n" +
+					"  // Output the modified color\n" +
+					"  gl_FragColor = vec4(R, G, B, texColor.a);\n" +
 					"}\n";
 }
