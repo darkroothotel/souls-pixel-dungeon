@@ -37,6 +37,7 @@ public class NoosaScriptNoLighting extends NoosaScript {
 	@Override
 	public void lighting(float rm, float gm, float bm, float am, float ra, float ga, float ba, float aa) {
 		//Does nothing
+		setUTime();
 	}
 
 	public static NoosaScriptNoLighting get(){
@@ -44,8 +45,13 @@ public class NoosaScriptNoLighting extends NoosaScript {
 	}
 
 	@Override
-	protected String shader() {
-		return SHADER;
+	protected String shader(int id) {
+		switch (id){
+			case 0: default:
+				return SHADER;
+			case 1:
+				return SHADER1;
+		}
 	}
 
 	private static final String SHADER =
@@ -74,4 +80,52 @@ public class NoosaScriptNoLighting extends NoosaScript {
 		"void main() {\n" +
 		"  gl_FragColor = texture2D( uTex, vUV );\n" +
 		"}\n";
+
+	private static final String SHADER1 =
+
+			//vertex shader
+			"uniform mat4 uCamera;\n" +
+					"uniform mat4 uModel;\n" +
+					"attribute vec4 aXYZW;\n" +
+					"attribute vec2 aUV;\n" +
+					"varying vec2 vUV;\n" +
+					"void main() {\n" +
+					"  gl_Position = uCamera * uModel * aXYZW;\n" +
+					"  vUV = aUV;\n" +
+					"}\n" +
+
+					//this symbol separates the vertex and fragment shaders (see Script.compile)
+					"//\n" +
+
+					//fragment shader
+					//preprocessor directives let us define precision on GLES platforms, and ignore it elsewhere
+					"#ifdef GL_ES\n" +
+					"  precision mediump float;\n" +
+					"#endif\n" +
+					"\n" +
+					"varying vec2 vUV;\n" +
+					"uniform sampler2D uTex;\n" +
+					"uniform vec4 uColorM;  // Base color with metallic properties\n" +
+					"uniform vec4 uColorA;  // Ambient color\n" +
+					"uniform float uTime;   // Time uniform for animating the shimmer\n" +
+					"\n" +
+					"void main() {\n" +
+					"  // Sample the base texture color\n" +
+					"  vec4 texColor = texture2D(uTex, vUV);\n" +
+					"\n" +
+					"  // Check if the pixel is fully transparent\n" +
+					"  if (texColor.a < 1.0) {\n" +
+					"    // If fully transparent, discard the shimmer effect\n" +
+					"    gl_FragColor = texColor;\n" +
+					"  } else {\n" +
+					"    // Create a shimmer effect based on time\n" +
+					"    float shimmer = sin(uTime * 5.0) * 0.5 + 0.5;\n" +
+					"\n" +
+					"    // Boost the metallic color by adding the shimmer effect\n" +
+					"    vec4 metallicColor = mix(texColor * uColorM, vec4(1.0, 1.0, 1.0, 1.0), shimmer);\n" +
+					"\n" +
+					"    // Combine the metallic color with ambient color\n" +
+					"    gl_FragColor = metallicColor + uColorA;\n" +
+					"  }\n" +
+					"}\n";
 }

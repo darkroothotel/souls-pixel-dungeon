@@ -68,6 +68,8 @@ public class Game implements ApplicationListener {
 	
 	public static String version;
 	public static int versionCode;
+
+	public static int shaderId = 0;
 	
 	// Current scene
 	protected Scene scene;
@@ -88,6 +90,14 @@ public class Game implements ApplicationListener {
 	public static InputHandler inputHandler;
 	
 	public static PlatformSupport platform;
+
+	public static int getShaderId(){
+		return shaderId;
+	}
+
+	public static void setShaderId(int newid){
+		shaderId = newid;
+	}
 	
 	public Game(Class<? extends Scene> c, PlatformSupport platform) {
 		sceneClass = c;

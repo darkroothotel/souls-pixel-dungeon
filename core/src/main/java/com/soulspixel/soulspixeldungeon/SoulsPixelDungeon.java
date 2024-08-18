@@ -111,6 +111,7 @@ public class SoulsPixelDungeon extends Game {
 
 		updateSystemUI();
 		SPDAction.loadBindings();
+		shaderId = SPDSettings.shader();
 		
 		Music.INSTANCE.enable( SPDSettings.music() );
 		Music.INSTANCE.volume( SPDSettings.musicVol()*SPDSettings.musicVol()/100f );

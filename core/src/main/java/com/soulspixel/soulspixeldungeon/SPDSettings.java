@@ -432,6 +432,20 @@ public class SPDSettings extends GameSettings {
 		}
 	}
 
+	//Shaders
+	public static final String SHADER     = "shader";
+
+	public static void shader( int newId ) {
+		Game.setShaderId(newId);
+		put( SHADER, newId );
+	}
+
+	public static int shader() {
+		int s = getInt( SHADER, 0 );
+		Game.setShaderId(s);
+		return s;
+	}
+
 	//Window management (desktop only atm)
 	
 	public static final String KEY_WINDOW_WIDTH     = "window_width";
