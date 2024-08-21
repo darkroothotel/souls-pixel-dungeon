@@ -28,9 +28,14 @@ package com.soulspixel.soulspixeldungeon.actors.mobs.npcs;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
+import com.soulspixel.soulspixeldungeon.actors.buffs.MindVision;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Recharging;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.effects.particles.EnergyParticle;
+import com.soulspixel.soulspixeldungeon.items.food.Food;
+import com.soulspixel.soulspixeldungeon.items.food.UndeadFlesh;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
@@ -39,6 +44,7 @@ import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.windows.WndRest;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
@@ -130,6 +136,65 @@ public class Bonfire extends NPC {
 			c.undoUndead();
 			PotionOfHealing.heal(c);
 			discovered = true;
+		}
+
+		int chp;
+		switch (level){
+			case 0:
+				//nothing
+				break;
+			case 1:
+                chp = (c.HP / 6) * (level+1);
+                if(c.HP < chp) c.HP = chp;
+				break;
+			case 2:
+				chp = (c.HP / 6) * (level+1);
+				if(c.HP < chp) c.HP = chp;
+
+				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
+				Dungeon.observe();
+				break;
+			case 3:
+				chp = (c.HP / 6) * (level+1);
+				if(c.HP < chp) c.HP = chp;
+
+				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
+				Dungeon.observe();
+
+				Buff.affect(c, Recharging.class, (Recharging.DURATION/6)*(level-2));
+				charge(c);
+				break;
+			case 4:
+				chp = (c.HP / 6) * (level+1);
+				if(c.HP < chp) c.HP = chp;
+
+				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
+				Dungeon.observe();
+
+				Buff.affect(c, Recharging.class, (Recharging.DURATION/6)*(level-2));
+				charge(c);
+
+				new UndeadFlesh(0.25f).execute(c, Food.AC_EAT);
+				break;
+			default: //5
+				chp = (c.HP / 6) * (level+1);
+				if(c.HP < chp) c.HP = chp;
+
+				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
+				Dungeon.observe();
+
+				Buff.affect(c, Recharging.class, (Recharging.DURATION/6)*(level-2));
+				charge(c);
+
+				new UndeadFlesh(0.5f).execute(c, Food.AC_EAT);
+				break;
+		}
+	}
+
+	public void charge( Char user ) {
+		if (user.sprite != null) {
+			Emitter e = user.sprite.centerEmitter();
+			if (e != null) e.burst(EnergyParticle.FACTORY, 15);
 		}
 	}
 	
