@@ -32,11 +32,9 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
-import com.soulspixel.soulspixeldungeon.levels.rooms.quest.RitualSiteRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.tiles.CustomTilemap;
 import com.watabou.noosa.Tilemap;
-import com.watabou.utils.Point;
 
 public class BonfireRoom extends SpecialRoom {
 

@@ -76,6 +76,7 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Monk;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Snake;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.CheckedCell;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
@@ -166,14 +167,17 @@ import com.soulspixel.soulspixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+import com.watabou.utils.SparseArray;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
@@ -206,6 +210,8 @@ public class Hero extends Char {
 	public boolean damageInterrupt = true;
 	public HeroAction curAction = null;
 	public HeroAction lastAction = null;
+
+	private SparseArray<Bonfire> linkedbonfires = new SparseArray<>();
 
 	private Char enemy;
 	
@@ -312,6 +318,14 @@ public class Hero extends Char {
 		return STR + strBonus;
 	}
 
+	public void putLinkedBonfire(Bonfire bonfire){
+		linkedbonfires.put(bonfire.getDepth(), bonfire);
+	}
+
+	public SparseArray<Bonfire> getLinkedbonfires(){
+		return linkedbonfires;
+	}
+
 	private static final String CLASS       = "class";
 	private static final String SUBCLASS    = "subClass";
 	private static final String ABILITY     = "armorAbility";
@@ -327,6 +341,9 @@ public class Hero extends Char {
 
 	private static final String LB_DEPTH	= "lbdepth";
 	private static final String LB_POS		= "lbpos";
+
+	private static final String LINKED_BONFIRES = "linkedbonfires";
+
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -352,6 +369,8 @@ public class Hero extends Char {
 
 		bundle.put( LB_DEPTH, lastbonfiredepth );
 		bundle.put( LB_POS, lastbonfirepos );
+
+		bundle.put( LINKED_BONFIRES, linkedbonfires.valueList() );
 
 		belongings.storeInBundle( bundle );
 	}
@@ -379,6 +398,12 @@ public class Hero extends Char {
 		defenseSkill = bundle.getInt( DEFENSE );
 		
 		STR = bundle.getInt( STRENGTH );
+
+		Collection<Bundlable> collection = bundle.getCollection( LINKED_BONFIRES );
+		for (Bundlable p : collection) {
+			Bonfire b = (Bonfire) p;
+			linkedbonfires.put( b.pos, b );
+		}
 
 		belongings.restoreFromBundle( bundle );
 	}
@@ -2052,7 +2077,8 @@ public class Hero extends Char {
 					GLog.w(Messages.get(this, "revive"));
 					Statistics.ankhsUsed++;
 
-					ankh.detach(belongings.backpack);
+
+					ankh.subtractBlessedCharges(1);
 
 					for (Char ch : Actor.chars()) {
 						if (ch instanceof DriedRose.GhostHero) {
@@ -2523,7 +2549,7 @@ public class Hero extends Char {
 			super.next();
 	}
 
-	public static interface Doom {
+    public static interface Doom {
 		public void onDeath();
 	}
 }

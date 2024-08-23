@@ -25,17 +25,10 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
-import com.soulspixel.soulspixeldungeon.Assets;
-import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.blobs.BonfireLight;
-import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
-import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.tiles.CustomTilemap;
-import com.watabou.noosa.Tilemap;
 
 public class SecretEntranceRoom extends SpecialRoom {
 

@@ -32,7 +32,6 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.BlobEmitter;
 import com.soulspixel.soulspixeldungeon.effects.particles.BonfireLightShaftParticle;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.watabou.noosa.Image;
 
 public class BonfireLight extends Blob {
 	

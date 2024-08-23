@@ -74,19 +74,15 @@ import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerBossLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
-import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
-import com.soulspixel.soulspixeldungeon.levels.rooms.special.WeakFloorRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
-import com.soulspixel.soulspixeldungeon.scenes.InterlevelScene;
 import com.soulspixel.soulspixeldungeon.ui.QuickSlotButton;
 import com.soulspixel.soulspixeldungeon.ui.Toolbar;
 import com.soulspixel.soulspixeldungeon.utils.DungeonSeed;
 import com.soulspixel.soulspixeldungeon.windows.WndResurrect;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -309,10 +305,20 @@ public class Dungeon {
 	public static String getFloorName(){
 		if(branch == 0){
 			return Messages.get(Bonfire.class, "floor_"+depth+"_name");
-		} else if(branch == 1) {
+		} else if(branch != 1) {
 			return Messages.get(Bonfire.class, "floor_"+depth+"_branch_"+branch+"_branch_name");
 		} else {
 			return Messages.get(Bonfire.class, "floor_dead_end_name");
+		}
+	}
+
+	public static String getFloorDesc(){
+		if(branch == 0){
+			return Messages.get(Bonfire.class, "floor_"+depth+"_desc");
+		} else if(branch != 1) {
+			return Messages.get(Bonfire.class, "floor_"+depth+"_branch_"+branch+"_branch_desc");
+		} else {
+			return Messages.get(Bonfire.class, "floor_dead_end_desc");
 		}
 	}
 	

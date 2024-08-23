@@ -34,10 +34,10 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.effects.particles.EnergyParticle;
+import com.soulspixel.soulspixeldungeon.items.Ankh;
 import com.soulspixel.soulspixeldungeon.items.food.Food;
 import com.soulspixel.soulspixeldungeon.items.food.UndeadFlesh;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
-import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
@@ -64,6 +64,16 @@ public class Bonfire extends NPC {
 	private int depth = -1;
 	private boolean discovered = false;
 	private int level = 0;
+
+	private boolean isLinked = false;
+
+	public boolean isLinked() {
+		return isLinked;
+	}
+
+	public void setLinked(boolean isLinked) {
+		this.isLinked = isLinked;
+	}
 
 	public int getDepth(){
 		return depth;
@@ -133,7 +143,17 @@ public class Bonfire extends NPC {
 		}
 
 		if(!discovered){
-			c.undoUndead();
+			if(c.isUndead()){
+				c.undoUndead();
+			} else {
+				for (Ankh i : c.belongings.getAllItems(Ankh.class)){
+					if(i.isBlessed()){
+						i.addBlessedCharges(1);
+					} else {
+						i.bless();
+					}
+				}
+			}
 			PotionOfHealing.heal(c);
 			discovered = true;
 		}
@@ -144,18 +164,18 @@ public class Bonfire extends NPC {
 				//nothing
 				break;
 			case 1:
-                chp = (c.HP / 6) * (level+1);
+                chp = (c.HT / 10) * (level+1);
                 if(c.HP < chp) c.HP = chp;
 				break;
 			case 2:
-				chp = (c.HP / 6) * (level+1);
+				chp = (c.HT / 10) * (level+1);
 				if(c.HP < chp) c.HP = chp;
 
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
 				Dungeon.observe();
 				break;
 			case 3:
-				chp = (c.HP / 6) * (level+1);
+				chp = (c.HT / 10) * (level+1);
 				if(c.HP < chp) c.HP = chp;
 
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
@@ -165,7 +185,7 @@ public class Bonfire extends NPC {
 				charge(c);
 				break;
 			case 4:
-				chp = (c.HP / 6) * (level+1);
+				chp = (c.HT / 10) * (level+1);
 				if(c.HP < chp) c.HP = chp;
 
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
@@ -177,7 +197,7 @@ public class Bonfire extends NPC {
 				new UndeadFlesh(0.25f).execute(c, Food.AC_EAT);
 				break;
 			default: //5
-				chp = (c.HP / 6) * (level+1);
+				chp = (c.HP / 10) * (level+1);
 				if(c.HP < chp) c.HP = chp;
 
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
@@ -187,6 +207,12 @@ public class Bonfire extends NPC {
 				charge(c);
 
 				new UndeadFlesh(0.5f).execute(c, Food.AC_EAT);
+
+				if(!isLinked){
+					isLinked = true;
+					c.putLinkedBonfire(this);
+				}
+
 				break;
 		}
 	}
@@ -220,6 +246,7 @@ public class Bonfire extends NPC {
 	private static final String DISCOVERED	= "discovered";
 	private static final String DEPTH		= "depth";
 	private static final String LEVEL		= "level";
+	private static final String LINKED		= "linked";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -227,6 +254,7 @@ public class Bonfire extends NPC {
 		bundle.put(DISCOVERED, discovered);
 		bundle.put(DEPTH, depth);
 		bundle.put(LEVEL, level);
+		bundle.put(LINKED, isLinked);
 	}
 
 	@Override
@@ -235,5 +263,6 @@ public class Bonfire extends NPC {
 		discovered = bundle.getBoolean(DISCOVERED);
 		depth = bundle.getInt(DEPTH);
 		level = bundle.getInt(LEVEL);
+		isLinked = bundle.getBoolean(LINKED);
 	}
 }

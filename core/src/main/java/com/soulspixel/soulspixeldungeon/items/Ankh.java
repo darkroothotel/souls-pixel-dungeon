@@ -51,6 +51,8 @@ public class Ankh extends Item {
 	}
 
 	private boolean blessed = false;
+
+	private int blessedCharges = 0;
 	
 	@Override
 	public boolean isUpgradable() {
@@ -81,6 +83,7 @@ public class Ankh extends Item {
 			Waterskin waterskin = hero.belongings.getItem(Waterskin.class);
 			if (waterskin != null){
 				blessed = true;
+				blessedCharges++;
 				waterskin.empty();
 				GLog.p( Messages.get(this, "bless") );
 				hero.spend( 1f );
@@ -110,6 +113,28 @@ public class Ankh extends Item {
 		blessed = true;
 	}
 
+	public int getBlessedCharges(){
+		return blessedCharges;
+	}
+
+	public void addBlessedCharges(int charges){
+		blessedCharges += charges;
+		updateQuickslot();
+	}
+
+	public void setBlessedCharges(int charges){
+		blessedCharges = charges;
+		updateQuickslot();
+	}
+
+	public void subtractBlessedCharges(int charges){
+		blessedCharges -= charges;
+		if(blessedCharges <= 0){
+			blessed = false;
+		}
+		updateQuickslot();
+	}
+
 	private static final Glowing WHITE = new Glowing( 0xFFFFCC );
 
 	@Override
@@ -118,21 +143,29 @@ public class Ankh extends Item {
 	}
 
 	private static final String BLESSED = "blessed";
+	private static final String CHARGES = "charges";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( BLESSED, blessed );
+		bundle.put( CHARGES, blessedCharges );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		blessed	= bundle.getBoolean( BLESSED );
+		blessedCharges = bundle.getInt( CHARGES );
 	}
 	
 	@Override
 	public int value() {
-		return 50 * quantity;
+		return 200 * quantity * blessedCharges;
+	}
+
+	@Override
+	public String status() {
+		return blessedCharges+"";
 	}
 }

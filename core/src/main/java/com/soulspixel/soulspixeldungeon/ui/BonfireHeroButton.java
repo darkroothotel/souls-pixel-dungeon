@@ -25,12 +25,9 @@
 
 package com.soulspixel.soulspixeldungeon.ui;
 
-import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
+import com.soulspixel.soulspixeldungeon.SPDAction;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.scenes.TitleScene;
-import com.soulspixel.soulspixeldungeon.windows.WndKeyBindings;
 import com.watabou.input.GameAction;
-import com.watabou.noosa.Game;
 
 public class BonfireHeroButton extends IconButton {
 
@@ -43,7 +40,7 @@ public class BonfireHeroButton extends IconButton {
 
 	@Override
 	public GameAction keyAction() {
-		return GameAction.MIDDLE_CLICK;
+		return SPDAction.S;
 	}
 
 	@Override

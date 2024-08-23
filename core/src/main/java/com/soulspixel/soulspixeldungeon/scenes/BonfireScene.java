@@ -55,6 +55,7 @@ import com.soulspixel.soulspixeldungeon.windows.WndBag;
 import com.soulspixel.soulspixeldungeon.windows.WndHero;
 import com.soulspixel.soulspixeldungeon.windows.WndInfoItem;
 import com.soulspixel.soulspixeldungeon.windows.WndJournal;
+import com.soulspixel.soulspixeldungeon.windows.WndLinkedBonfireList;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.GameAction;
@@ -79,12 +80,12 @@ public class BonfireScene extends PixelScene {
 	private Emitter lightEmitter;
 	private BonfireSprite bonfireSprite;
 	private RenderedTextBlock title;
+	private TravelBtn travelbtn;
 
 	private SkinnedBlock bg;
 
 	private InputButton upgradeBtn = new InputButton();
 	private UpgradeBtn upgradeConfirm = new UpgradeBtn();
-	private InputButton heroBtn = new InputButton();
 
 	private static final int BTN_SIZE	= 28;
 
@@ -183,6 +184,12 @@ public class BonfireScene extends PixelScene {
 
 		pos = (int) (desc.bottom() + ((float) BTN_SIZE /4));
 
+		travelbtn = new BonfireScene.TravelBtn();
+		travelbtn.setRect(desc.centerX()+(travelbtn.centerX()/2), pos, travelbtn.width(), travelbtn.height());
+		if(Dungeon.hero.getLinkedbonfires().size > 2 && bonfire.isLinked()){
+			add(travelbtn);
+		}
+
 		upgradeBtn = new BonfireScene.InputButton();
 		upgradeBtn.setRect(desc.left(), pos, BTN_SIZE, BTN_SIZE);
 		add(upgradeBtn);
@@ -221,7 +228,7 @@ public class BonfireScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				super.onClick();
-				add(new WndJournal());
+				SoulsPixelDungeon.scene().addToFront(new WndJournal());
 			}
 
 			@Override
@@ -253,7 +260,7 @@ public class BonfireScene extends PixelScene {
 
 					@Override
 					public void onSelect(Item item) {
-						if(item != null) BonfireScene.this.addToFront(new WndInfoItem(item){
+						if(item != null) SoulsPixelDungeon.scene().addToFront(new WndInfoItem(item){
 							@Override
 							public void onBackPressed() {
 								onClick();
@@ -263,7 +270,7 @@ public class BonfireScene extends PixelScene {
 					}
 				};
 
-				BonfireScene.this.addToFront(new WndBag(Dungeon.hero.belongings.backpack, i));
+				SoulsPixelDungeon.scene().addToFront(new WndBag(Dungeon.hero.belongings.backpack, i));
 			}
 
 			public GameAction keyAction() {
@@ -367,14 +374,14 @@ public class BonfireScene extends PixelScene {
 						}
 						BonfireScene.InputButton.this.item(null);
 					}
-					BonfireScene.this.addToFront(WndBag.getBag( itemSelector ));
+					SoulsPixelDungeon.scene().addToFront(WndBag.getBag( itemSelector ));
 				}
 
 				@Override
 				protected boolean onLongClick() {
 					Item item = BonfireScene.InputButton.this.item;
 					if (item != null){
-						BonfireScene.this.addToFront(new WndInfoItem(item));
+						SoulsPixelDungeon.scene().addToFront(new WndInfoItem(item));
 						return true;
 					}
 					return false;
@@ -531,6 +538,44 @@ public class BonfireScene extends PixelScene {
 
 			layout();
 			active = enabled;
+		}
+
+	}
+
+	private class TravelBtn extends Component {
+
+		protected RedButton button;
+
+		@Override
+		protected void createChildren() {
+			super.createChildren();
+
+			button = new RedButton(Messages.get(BonfireScene.class, "travel")){
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SoulsPixelDungeon.scene().addToFront(new WndLinkedBonfireList(null));
+				}
+
+				@Override
+				protected String hoverText() {
+					return Messages.get(BonfireScene.class, "hover_travel");
+				}
+
+				@Override
+				public GameAction keyAction() {
+					return SPDAction.EXAMINE;
+				}
+			};
+			button.textColor(Window.TITLE_COLOR);
+			add(button);
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			button.setRect(x, y, BTN_SIZE, (float) BTN_SIZE /2);
 		}
 
 	}

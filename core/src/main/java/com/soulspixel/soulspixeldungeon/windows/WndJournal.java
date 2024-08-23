@@ -36,7 +36,6 @@ import com.soulspixel.soulspixeldungeon.journal.Catalog;
 import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
 import com.soulspixel.soulspixeldungeon.sprites.BlacksmithSprite;
 import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
@@ -198,7 +197,7 @@ public class WndJournal extends WndTabbed {
 					@Override
 					public boolean onClick(float x, float y) {
 						if (inside( x, y ) && found) {
-							GameScene.show( new WndStory( Document.ADVENTURERS_GUIDE.pageSprite(page),
+							SoulsPixelDungeon.scene().addToFront( new WndStory( Document.ADVENTURERS_GUIDE.pageSprite(page),
 									Document.ADVENTURERS_GUIDE.pageTitle(page),
 									Document.ADVENTURERS_GUIDE.pageBody(page) ));
 							Document.ADVENTURERS_GUIDE.readPage(page);

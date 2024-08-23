@@ -27,10 +27,8 @@ package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.items.journal.Guidebook;
-import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
@@ -40,9 +38,6 @@ import com.soulspixel.soulspixeldungeon.ui.RedButton;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
 import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
-import com.watabou.noosa.Game;
-
-import java.util.ArrayList;
 
 public class WndRest extends Window {
 

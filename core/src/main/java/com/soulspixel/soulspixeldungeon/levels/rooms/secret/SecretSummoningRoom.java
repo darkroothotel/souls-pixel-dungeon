@@ -25,7 +25,6 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.secret;
 
-import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.items.Generator;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.levels.Level;

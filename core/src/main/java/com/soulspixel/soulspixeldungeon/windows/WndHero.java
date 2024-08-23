@@ -356,7 +356,7 @@ public class WndHero extends WndTabbed {
 			
 			protected boolean onClick ( float x, float y ) {
 				if (inside( x, y )) {
-					GameScene.show(new WndInfoBuff(buff));
+					SoulsPixelDungeon.scene().addToFront(new WndInfoBuff(buff));
 					return true;
 				} else {
 					return false;

@@ -25,16 +25,10 @@
 
 package com.watabou.glwrap;
 
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static com.badlogic.gdx.graphics.GL20.GL_DEPTH_BUFFER_BIT;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.BufferUtils;
-import com.badlogic.gdx.utils.Null;
 import com.watabou.noosa.Game;
 
-import java.nio.Buffer;
 import java.nio.IntBuffer;
 
 public class Program {
