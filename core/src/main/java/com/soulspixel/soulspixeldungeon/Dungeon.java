@@ -330,11 +330,11 @@ public class Dungeon {
 		Level level;
 		if (branch == 0) {
 			switch (depth) {
-				case 1: //bonfire //secret exit 1
-				case 2: //--
-				case 3: //secret exit 1 //--
-				case 4:
-				case 5: //--
+				case 1: //bonfire secret exit to 3 fall to 2
+				case 2: //-- secret exit to 4
+				case 3: //-- secret entrance to 1 secret exit to 5
+				case 4: //bonfire secrete entrance to 2
+				case 5: //-- secret entrance to 3
 				case 6: //--
 				case 7:
 				case 8: //--
@@ -550,11 +550,11 @@ public class Dungeon {
 	}
 
 	public static boolean secretExitOnLevel() {
-		return depth == 1;
+		return depth == 1 || depth == 2 || depth == 3;
 	}
 
 	public static boolean secretEntranceOnLevel() {
-		return depth == 3;
+		return depth == 3 || depth == 5 || depth == 4;
 	}
 
 	public static boolean weakFloorOnLevel() {

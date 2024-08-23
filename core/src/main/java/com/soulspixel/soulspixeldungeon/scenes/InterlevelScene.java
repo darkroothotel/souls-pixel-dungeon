@@ -406,12 +406,24 @@ public class InterlevelScene extends PixelScene {
 			case 1:
 				exitSwitchTo(3);
 				break;
+			case 2:
+				exitSwitchTo(4);
+				break;
+			case 3:
+				exitSwitchTo(5);
+				break;
 		}
 	}
 	public void secretEntrance() throws IOException {
 		switch (Dungeon.depth){
 			case 3:
 				entranceSwitchTo(1);
+				break;
+			case 4:
+				entranceSwitchTo(2);
+				break;
+			case 5:
+				entranceSwitchTo(3);
 				break;
 		}
 	}

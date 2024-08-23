@@ -104,7 +104,7 @@ public class WndHero extends WndTabbed {
 			add( new IconTab( Icons.get(Icons.TALENT) ) {
 				protected void select( boolean value ) {
 					super.select( value );
-					if (selected) lastIdx = 1;
+					if (selected) lastIdx = 2;
 					if (selected) StatusPane.talentBlink = 0;
 					if(WndHero.this.bonfireUsed){
 						talents.visible = talents.active = selected;
@@ -125,7 +125,7 @@ public class WndHero extends WndTabbed {
 		add( new IconTab( Icons.get(Icons.BUFFS) ) {
 			protected void select( boolean value ) {
 				super.select( value );
-				if (selected) lastIdx = 2;
+				if (selected) lastIdx = 1;
 				buffs.visible = buffs.active = selected;
 			}
 		} );
@@ -137,7 +137,8 @@ public class WndHero extends WndTabbed {
 			talents.layout();
 		}
 
-		select( lastIdx );
+		//TODO: figure this shit out
+		select( 0 );
 	}
 
 	@Override
