@@ -35,7 +35,7 @@ public class Unstable extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x999999 );
 
-	private static Class<?extends Weapon.Enchantment>[] randomEnchants = new Class[]{
+	public static Class<?extends Weapon.Enchantment>[] randomEnchants = new Class[]{
 			Blazing.class,
 			Blocking.class,
 			Blooming.class,
@@ -47,7 +47,8 @@ public class Unstable extends Weapon.Enchantment {
 			Lucky.class,
 			//projecting not included, no on-hit effect
 			Shocking.class,
-			Vampiric.class
+			Vampiric.class,
+			Vortex.class
 	};
 
 	@Override

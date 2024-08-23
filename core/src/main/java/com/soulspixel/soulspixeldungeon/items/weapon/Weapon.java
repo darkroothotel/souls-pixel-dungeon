@@ -60,6 +60,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Projecting;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Unstable;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vampiric;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.RunicBlade;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Scimitar;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -367,7 +368,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public static abstract class Enchantment implements Bundlable {
 
 		public static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Chilling.class, Kinetic.class, Shocking.class};
+				Blazing.class, Chilling.class, Kinetic.class, Shocking.class, Vortex.class};
 
 		public static final Class<?>[] uncommon = new Class<?>[]{
 				Blocking.class, Blooming.class, Elastic.class,

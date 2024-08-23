@@ -61,6 +61,7 @@ import com.soulspixel.soulspixeldungeon.items.wands.WandOfWarding;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Blazing;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Grim;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.darts.HolyDart;
 import com.soulspixel.soulspixeldungeon.levels.traps.DisintegrationTrap;
 import com.soulspixel.soulspixeldungeon.levels.traps.GrimTrap;
@@ -106,6 +107,7 @@ public class AntiMagic extends Armor.Glyph {
 
 		RESISTS.add( ElementalStrike.class );
 		RESISTS.add( Blazing.class );
+		RESISTS.add( Vortex.class );
 		RESISTS.add( WandOfFireblast.FireBlastOnHit.class );
 		RESISTS.add( Shocking.class );
 		RESISTS.add( WandOfLightning.LightningOnHit.class );

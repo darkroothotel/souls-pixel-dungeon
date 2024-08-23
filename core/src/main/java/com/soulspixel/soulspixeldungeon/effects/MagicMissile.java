@@ -91,6 +91,7 @@ public class MagicMissile extends Emitter {
 	public static final int PURPLE_CONE     = 111;
 	public static final int SPARK_CONE      = 112;
 	public static final int BLOOD_CONE      = 113;
+	public static final int CONFUSION_CONE  = 114;
 	
 	public void reset( int type, int from, int to, Callback callback ) {
 		reset( type,
@@ -248,6 +249,11 @@ public class MagicMissile extends Emitter {
 				size( 10 );
 				pour( BloodParticle.FACTORY, 0.03f );
 				break;
+			case CONFUSION_CONE:
+				size( 10 );
+				pour( RainbowParticle.BURST, 0.03f );
+				break;
+
 		}
 
 		revive();

@@ -30,6 +30,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
+import com.soulspixel.soulspixeldungeon.actors.blobs.ConfusionGas;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Electricity;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Fire;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Freezing;
@@ -83,6 +84,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Projecting;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Unstable;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vampiric;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
@@ -121,6 +123,7 @@ public class ElementalStrike extends ArmorAbility {
 		effectTypes.put(Corrupting.class,   MagicMissile.SHADOW_CONE);
 		effectTypes.put(Grim.class,         MagicMissile.SHADOW_CONE);
 		effectTypes.put(Vampiric.class,     MagicMissile.BLOOD_CONE);
+		effectTypes.put(Vortex.class,       MagicMissile.CONFUSION_CONE);
 
 		effectTypes.put(Annoying.class,     MagicMissile.SHADOW_CONE);
 		effectTypes.put(Displacing.class,   MagicMissile.SHADOW_CONE);
@@ -311,7 +314,13 @@ public class ElementalStrike extends ArmorAbility {
 				GameScene.add(Blob.seed(cell, Math.round(8 * powerMulti), Freezing.class));
 			}
 
-		//*** Shocking ***
+		//*** Confusing ***
+		} else if (ench instanceof Vortex){
+			for (int cell : cone.cells) {
+				GameScene.add(Blob.seed(cell, Math.round(8 * powerMulti), ConfusionGas.class));
+			}
+
+			//*** Shocking ***
 		} else if (ench instanceof Shocking){
 			for (int cell : cone.cells) {
 				GameScene.add(Blob.seed(cell, Math.round(8 * powerMulti), Electricity.class));

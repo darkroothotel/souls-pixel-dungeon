@@ -67,10 +67,24 @@ import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfRage;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfMagicMissile;
 import com.soulspixel.soulspixeldungeon.items.weapon.SpiritBow;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Blazing;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Blocking;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Blooming;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Chilling;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Corrupting;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Elastic;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Grim;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Kinetic;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Lucky;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Projecting;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Unstable;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vampiric;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Dagger;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Gloves;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.MagesStaff;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Rapier;
+import com.soulspixel.soulspixeldungeon.items.weapon.melee.Shortsword;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.WornShortsword;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.ThrowingSpike;
@@ -118,6 +132,71 @@ public enum HeroClass {
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
+
+		WornShortsword shortsword = new WornShortsword();
+		shortsword.identify();
+		shortsword.enchant(new Blazing());
+		shortsword.collect();
+
+		WornShortsword shortsword1 = new WornShortsword();
+		shortsword1.identify();
+		shortsword1.enchant(new Blocking());
+		shortsword1.collect();
+
+		WornShortsword shortsword2 = new WornShortsword();
+		shortsword2.identify();
+		shortsword2.enchant(new Blooming());
+		shortsword2.collect();
+
+		WornShortsword shortsword3 = new WornShortsword();
+		shortsword3.identify();
+		shortsword3.enchant(new Chilling());
+		shortsword3.collect();
+
+		WornShortsword shortsword4 = new WornShortsword();
+		shortsword4.identify();
+		shortsword4.enchant(new Corrupting());
+		shortsword4.collect();
+
+		WornShortsword shortsword5 = new WornShortsword();
+		shortsword5.identify();
+		shortsword5.enchant(new Elastic());
+		shortsword5.collect();
+
+		WornShortsword shortsword6 = new WornShortsword();
+		shortsword6.identify();
+		shortsword6.enchant(new Grim());
+		shortsword6.collect();
+
+		WornShortsword shortsword7 = new WornShortsword();
+		shortsword7.identify();
+		shortsword7.enchant(new Kinetic());
+		shortsword7.collect();
+
+		WornShortsword shortsword8 = new WornShortsword();
+		shortsword8.identify();
+		shortsword8.enchant(new Lucky());
+		shortsword8.collect();
+
+		WornShortsword shortsword9 = new WornShortsword();
+		shortsword9.identify();
+		shortsword9.enchant(new Projecting());
+		shortsword9.collect();
+
+		WornShortsword shortsword10 = new WornShortsword();
+		shortsword10.identify();
+		shortsword10.enchant(new Shocking());
+		shortsword10.collect();
+
+		WornShortsword shortsword11 = new WornShortsword();
+		shortsword11.identify();
+		shortsword11.enchant(new Unstable());
+		shortsword11.collect();
+
+		WornShortsword shortsword12 = new WornShortsword();
+		shortsword12.identify();
+		shortsword12.enchant(new Vampiric());
+		shortsword12.collect();
 
 		switch (this) {
 			case WARRIOR:

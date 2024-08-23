@@ -117,6 +117,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Blazing;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Grim;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Kinetic;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Sickle;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.darts.ShockingDart;
@@ -1206,7 +1207,7 @@ public abstract class Char extends Actor {
 		//used to keep bonfires out of mindvision
 		NOT_A_MOB,
 		IMMOVABLE ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Vertigo.class) )),
+				new HashSet<Class>( Arrays.asList(Vertigo.class, Vortex.class) )),
 		//A character that acts in an unchanging manner. immune to AI state debuffs or stuns/slows
 		STATIC( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class, Terror.class, Amok.class, Charm.class, Sleep.class,
