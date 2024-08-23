@@ -80,6 +80,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Projecting;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Shocking;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Unstable;
 import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vampiric;
+import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Dagger;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Gloves;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.MagesStaff;
@@ -197,6 +198,11 @@ public enum HeroClass {
 		shortsword12.identify();
 		shortsword12.enchant(new Vampiric());
 		shortsword12.collect();
+
+		WornShortsword shortsword13 = new WornShortsword();
+		shortsword13.identify();
+		shortsword13.enchant(new Vortex());
+		shortsword13.collect();
 
 		switch (this) {
 			case WARRIOR:

@@ -54,7 +54,7 @@ public class Vortex extends Weapon.Enchantment {
 			float powerMulti = Math.max(1f, procChance);
 
 			if (defender.buff(Vertigo.class) == null){
-				Buff.affect(defender, Vertigo.class, Vertigo.DURATION*level);
+				Buff.affect(defender, Vertigo.class, Vertigo.DURATION*(level+1));
 				powerMulti -= 1;
 			}
 
