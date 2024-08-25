@@ -34,6 +34,8 @@ public class ImpShopkeeper extends Shopkeeper {
 
 	{
 		spriteClass = ImpSprite.class;
+
+		properties.add(Property.MAGIC);
 	}
 	
 	private boolean seenBefore = false;

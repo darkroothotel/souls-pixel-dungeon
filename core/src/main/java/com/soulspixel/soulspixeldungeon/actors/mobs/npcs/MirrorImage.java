@@ -54,6 +54,7 @@ public class MirrorImage extends NPC {
 		defenseSkill = 1;
 		
 		alignment = Alignment.ALLY;
+		properties.add(Property.MAGIC);
 		state = HUNTING;
 		
 		//before other mobs

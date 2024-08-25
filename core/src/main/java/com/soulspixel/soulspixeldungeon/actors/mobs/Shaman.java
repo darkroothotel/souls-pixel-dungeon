@@ -56,6 +56,8 @@ public abstract class Shaman extends Mob {
 		
 		loot = Generator.Category.WAND;
 		lootChance = 0.03f; //initially, see lootChance()
+
+		properties.add(Property.MAGIC);
 	}
 	
 	@Override

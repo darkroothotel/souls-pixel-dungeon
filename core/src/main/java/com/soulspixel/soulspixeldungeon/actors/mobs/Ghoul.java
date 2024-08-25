@@ -66,6 +66,7 @@ public class Ghoul extends Mob {
 		lootChance = 0.2f;
 		
 		properties.add(Property.UNDEAD);
+		properties.add(Property.MAGIC);
 	}
 
 	@Override

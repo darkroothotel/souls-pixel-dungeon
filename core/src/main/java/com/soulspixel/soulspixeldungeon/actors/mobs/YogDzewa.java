@@ -84,6 +84,7 @@ public class YogDzewa extends Mob {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.DEMONIC);
 		properties.add(Property.STATIC);
+		properties.add(Property.MAGIC);
 	}
 
 	private int phase = 0;
@@ -640,6 +641,7 @@ public class YogDzewa extends Mob {
 
 			properties.add(Property.DEMONIC);
 			properties.add(Property.BOSS_MINION);
+			properties.add(Property.MAGIC);
 		}
 
 		@Override
@@ -664,18 +666,21 @@ public class YogDzewa extends Mob {
 		{
 			maxLvl = -2;
 			properties.add(Property.BOSS_MINION);
+			properties.add(Property.MAGIC);
 		}
 	}
 	public static class YogEye extends Eye {
 		{
 			maxLvl = -2;
 			properties.add(Property.BOSS_MINION);
+			properties.add(Property.MAGIC);
 		}
 	}
 	public static class YogScorpio extends Scorpio {
 		{
 			maxLvl = -2;
 			properties.add(Property.BOSS_MINION);
+			properties.add(Property.MAGIC);
 		}
 	}
 }

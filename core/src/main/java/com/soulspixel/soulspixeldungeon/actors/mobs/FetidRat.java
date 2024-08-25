@@ -52,6 +52,7 @@ public class FetidRat extends Rat {
 
 		properties.add(Property.MINIBOSS);
 		properties.add(Property.DEMONIC);
+		properties.add(Property.MAGIC);
 	}
 
 	@Override

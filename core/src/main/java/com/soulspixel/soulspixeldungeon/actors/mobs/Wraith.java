@@ -57,6 +57,7 @@ public class Wraith extends Mob {
 
 		properties.add(Property.UNDEAD);
 		properties.add(Property.INORGANIC);
+		properties.add(Property.MAGIC);
 	}
 	
 	private static final String LEVEL = "level";

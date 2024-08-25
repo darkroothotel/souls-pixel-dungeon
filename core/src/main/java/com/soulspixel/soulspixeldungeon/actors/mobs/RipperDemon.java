@@ -64,6 +64,7 @@ public class RipperDemon extends Mob {
 
 		properties.add(Property.DEMONIC);
 		properties.add(Property.UNDEAD);
+		properties.add(Property.MAGIC);
 	}
 
 	@Override

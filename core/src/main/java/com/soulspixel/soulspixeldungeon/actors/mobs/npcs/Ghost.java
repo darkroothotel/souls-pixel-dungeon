@@ -71,6 +71,7 @@ public class Ghost extends NPC {
 
 		//not actually large of course, but this makes the ghost stick to the exit room
 		properties.add(Property.LARGE);
+		properties.add(Property.MAGIC);
 	}
 
 	protected class Wandering extends Mob.Wandering{

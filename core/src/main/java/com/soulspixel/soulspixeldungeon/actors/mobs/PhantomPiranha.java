@@ -45,6 +45,8 @@ public class PhantomPiranha extends Piranha {
 	{
 		spriteClass = PhantomPiranhaSprite.class;
 
+		properties.add(Property.MAGIC);
+
 		loot = PhantomMeat.class;
 		lootChance = 1f;
 	}

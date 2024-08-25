@@ -78,6 +78,7 @@ public class CrystalSpire extends Mob {
 		properties.add(Property.BOSS);
 		properties.add(Property.INORGANIC);
 		properties.add(Property.STATIC);
+		properties.add(Property.MAGIC);
 	}
 
 	private float abilityCooldown;

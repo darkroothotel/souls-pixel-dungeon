@@ -55,6 +55,7 @@ public class Imp extends NPC {
 		spriteClass = ImpSprite.class;
 
 		properties.add(Property.IMMOVABLE);
+		properties.add(Property.MAGIC);
 	}
 	
 	private boolean seenBefore = false;

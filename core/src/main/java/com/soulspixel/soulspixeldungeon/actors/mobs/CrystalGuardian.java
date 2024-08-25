@@ -60,6 +60,7 @@ public class CrystalGuardian extends Mob{
 
 		properties.add(Property.INORGANIC);
 		properties.add(Property.MINIBOSS);
+		properties.add(Property.MAGIC);
 	}
 
 	private boolean recovering = false;
