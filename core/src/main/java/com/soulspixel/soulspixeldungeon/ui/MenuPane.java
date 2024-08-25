@@ -30,6 +30,7 @@ import com.soulspixel.soulspixeldungeon.Challenges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.SPDAction;
 import com.soulspixel.soulspixeldungeon.SPDSettings;
+import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -138,7 +139,7 @@ public class MenuPane extends Component {
 		btnMenu = new MenuButton();
 		add( btnMenu );
 
-		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
+		version = new BitmapText( "v" + SoulsPixelDungeon.instance.getCorrectedGameVersion(), PixelScene.pixelFont);
 		version.alpha( 0.5f );
 		add(version);
 

@@ -47,6 +47,7 @@ import com.watabou.utils.Reflection;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Locale;
 
 public class Game implements ApplicationListener {
 
@@ -67,6 +68,11 @@ public class Game implements ApplicationListener {
 	public static float density = 1;
 	
 	public static String version;
+	public static String soulsVersion = "0.0.1a";
+	public String getCorrectedGameVersion(){
+		return soulsVersion;
+	}
+
 	public static int versionCode;
 
 	public static int shaderId = 0;

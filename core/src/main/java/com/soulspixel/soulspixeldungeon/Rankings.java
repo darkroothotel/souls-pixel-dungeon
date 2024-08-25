@@ -90,7 +90,7 @@ public enum Rankings {
 
 		//we trim version to just the numbers, ignoring alpha/beta, etc.
 		Pattern p = Pattern.compile("\\d+\\.\\d+\\.\\d+");
-		Matcher m = p.matcher(SoulsPixelDungeon.version);
+		Matcher m = p.matcher(SoulsPixelDungeon.instance.getCorrectedGameVersion());
 		if (m.find()) {
 			rec.version = "v" + m.group();
 		} else {

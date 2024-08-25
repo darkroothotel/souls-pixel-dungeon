@@ -207,7 +207,7 @@ public class TitleScene extends PixelScene {
 			btnAbout.setRect(btnSettings.right()+2, btnSettings.top(), btnSettings.width(), BTN_HEIGHT);
 		}
 
-		BitmapText version = new BitmapText( "v" + Game.version, pixelFont);
+		BitmapText version = new BitmapText( "v" + SoulsPixelDungeon.instance.getCorrectedGameVersion(), pixelFont);
 		version.measure();
 		version.hardlight( 0x888888 );
 		version.x = w - version.width() - 4;
