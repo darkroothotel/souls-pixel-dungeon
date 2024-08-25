@@ -66,6 +66,21 @@ public class AboutScene extends PixelScene {
 		Component content = list.content();
 		content.clear();
 
+		//*** Souls Pixel Dungeon Credits ***
+
+		CreditsBlock soulspd = new CreditsBlock(true, Window.SPX_COLOR,
+				"Souls Pixel Dungeon",
+				Icons.DARKROOT.get(),
+				"Developed by: _Darkroot Hotel_\nBased on Shattered Pixel Dungeon's open source", null, null);
+		if (landscape()){
+			soulspd.setRect((Camera.main.width - colWidth)/2f, 10, 120, 0);
+		} else {
+			soulspd.setRect((w - fullWidth)/2f, 6, 120, 0);
+		}
+		content.add(soulspd);
+
+		addLine(soulspd.bottom() + 4, content);
+
 		//*** Shattered Pixel Dungeon Credits ***
 
 		String shpxLink = "https://ShatteredPixel.com";
@@ -81,9 +96,9 @@ public class AboutScene extends PixelScene {
 				"ShatteredPixel.com",
 				shpxLink);
 		if (landscape()){
-			shpx.setRect((w - fullWidth)/2f - 6, 10, 120, 0);
+			shpx.setRect((w - fullWidth)/2f - 6, soulspd.bottom()+8, 120, 0);
 		} else {
-			shpx.setRect((w - fullWidth)/2f, 6, 120, 0);
+			shpx.setRect((w - fullWidth)/2f, soulspd.bottom()+8, 120, 0);
 		}
 		content.add(shpx);
 
@@ -95,7 +110,7 @@ public class AboutScene extends PixelScene {
 				"https://akomitov.artstation.com/");
 		alex.setSize(colWidth/2f, 0);
 		if (landscape()){
-			alex.setPos(shpx.right(), shpx.top() + (shpx.height() - alex.height()*2)/2f);
+			alex.setPos(shpx.right(), shpx.top());
 		} else {
 			alex.setPos(w/2f - colWidth/2f, shpx.bottom()+5);
 		}
