@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.actors.mobs.npcs;
 
+import com.soulspixel.soulspixeldungeon.Challenges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
@@ -154,7 +155,11 @@ public class Bonfire extends NPC {
 					}
 				}
 			}
-			PotionOfHealing.heal(c);
+			if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+				PotionOfHealing.pharmacophobiaProc(c);
+			} else {
+				PotionOfHealing.heal(c);
+			}
 			discovered = true;
 		}
 
@@ -164,30 +169,42 @@ public class Bonfire extends NPC {
 				//nothing
 				break;
 			case 1:
-                chp = (c.HT / 10) * (level+1);
-                if(c.HP < chp) c.HP = chp;
+				if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+					PotionOfHealing.pharmacophobiaProc(c);
+				} else {
+					chp = (c.HT / 10) * (level+1);
+					if(c.HP < chp) c.HP = chp;
+				}
 				break;
 			case 2:
-				chp = (c.HT / 10) * (level+1);
-				if(c.HP < chp) c.HP = chp;
-
+				if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+					PotionOfHealing.pharmacophobiaProc(c);
+				} else {
+					chp = (c.HT / 10) * (level + 1);
+					if (c.HP < chp) c.HP = chp;
+				}
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
 				Dungeon.observe();
 				break;
 			case 3:
-				chp = (c.HT / 10) * (level+1);
-				if(c.HP < chp) c.HP = chp;
-
-				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
-				Dungeon.observe();
-
+				if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+					PotionOfHealing.pharmacophobiaProc(c);
+				} else {
+					chp = (c.HT / 10) * (level + 1);
+					if (c.HP < chp) c.HP = chp;
+				}
+					Buff.affect(c, MindVision.class, (MindVision.DURATION / 6) * (level - 1));
+					Dungeon.observe();
 				Buff.affect(c, Recharging.class, (Recharging.DURATION/6)*(level-2));
 				charge(c);
 				break;
 			case 4:
-				chp = (c.HT / 10) * (level+1);
-				if(c.HP < chp) c.HP = chp;
-
+				if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+					PotionOfHealing.pharmacophobiaProc(c);
+				} else {
+					chp = (c.HT / 10) * (level + 1);
+					if (c.HP < chp) c.HP = chp;
+				}
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
 				Dungeon.observe();
 
@@ -197,9 +214,12 @@ public class Bonfire extends NPC {
 				new UndeadFlesh(0.25f).execute(c, Food.AC_EAT);
 				break;
 			default: //5
-				chp = (c.HP / 10) * (level+1);
-				if(c.HP < chp) c.HP = chp;
-
+				if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+					PotionOfHealing.pharmacophobiaProc(c);
+				} else {
+					chp = (c.HP / 10) * (level + 1);
+					if (c.HP < chp) c.HP = chp;
+				}
 				Buff.affect( c, MindVision.class, (MindVision.DURATION/6) * (level-1) );
 				Dungeon.observe();
 

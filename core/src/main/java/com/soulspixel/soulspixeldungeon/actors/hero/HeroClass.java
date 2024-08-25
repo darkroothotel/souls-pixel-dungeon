@@ -59,6 +59,8 @@ import com.soulspixel.soulspixeldungeon.items.potions.PotionOfInvisibility;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfMindVision;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfStrength;
+import com.soulspixel.soulspixeldungeon.items.rings.RingOfAccuracy;
+import com.soulspixel.soulspixeldungeon.items.rings.RingOfAntiMagic;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -126,7 +128,7 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
-		new ScrollOfMagicMapping().identify().collect();
+		/**new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
@@ -203,6 +205,9 @@ public enum HeroClass {
 		shortsword13.identify();
 		shortsword13.enchant(new Vortex());
 		shortsword13.collect();
+
+		new RingOfAntiMagic().upgrade(1).identify().collect();
+		new RingOfAccuracy().upgrade(1).identify().collect();**/
 
 		switch (this) {
 			case WARRIOR:

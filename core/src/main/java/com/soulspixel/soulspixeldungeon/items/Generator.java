@@ -71,6 +71,7 @@ import com.soulspixel.soulspixeldungeon.items.potions.elixirs.Elixir;
 import com.soulspixel.soulspixeldungeon.items.potions.exotic.ExoticPotion;
 import com.soulspixel.soulspixeldungeon.items.rings.Ring;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfAccuracy;
+import com.soulspixel.soulspixeldungeon.items.rings.RingOfAntiMagic;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfArcana;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfElements;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfEnergy;
@@ -541,8 +542,9 @@ public class Generator {
 					RingOfMight.class,
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
-					RingOfWealth.class};
-			RING.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+					RingOfWealth.class,
+					RingOfAntiMagic.class};
+			RING.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
 			RING.probs = RING.defaultProbs.clone();
 			
 			ARTIFACT.classes = new Class<?>[]{

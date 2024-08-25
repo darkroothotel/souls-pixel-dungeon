@@ -60,6 +60,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Hex;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Hunger;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LifeLink;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LostInventory;
+import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicalSleep;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Momentum;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MonkEnergy;
@@ -1196,6 +1197,8 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
 		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class, Elemental.FireElemental.class)),
 				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class))),
+		MAGIC ( new HashSet<Class>(),
+				new HashSet<Class>()),
 		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
 				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),
 		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),

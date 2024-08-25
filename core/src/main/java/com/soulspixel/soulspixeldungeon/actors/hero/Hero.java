@@ -118,7 +118,9 @@ import com.soulspixel.soulspixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.soulspixel.soulspixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.soulspixel.soulspixeldungeon.items.quest.DarkGold;
 import com.soulspixel.soulspixeldungeon.items.quest.Pickaxe;
+import com.soulspixel.soulspixeldungeon.items.rings.Ring;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfAccuracy;
+import com.soulspixel.soulspixeldungeon.items.rings.RingOfAntiMagic;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfEvasion;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfForce;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfFuror;
@@ -1521,6 +1523,10 @@ public class Hero extends Char {
 		
 		if (belongings.armor() != null) {
 			damage = belongings.armor().proc( enemy, this, damage );
+		}
+
+		if(RingOfAntiMagic.isTriggered(this)){
+			RingOfAntiMagic.antiMagicFieldChar(this, enemy);
 		}
 
 		WandOfLivingEarth.RockArmor rockArmor = buff(WandOfLivingEarth.RockArmor.class);
