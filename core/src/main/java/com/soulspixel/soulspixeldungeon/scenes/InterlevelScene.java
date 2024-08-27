@@ -33,7 +33,6 @@ import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
-import com.soulspixel.soulspixeldungeon.items.Generator;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.LostBackpack;
 import com.soulspixel.soulspixeldungeon.items.ShowItems;
@@ -44,7 +43,6 @@ import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
-import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.soulspixel.soulspixeldungeon.ui.GameLog;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
 import com.soulspixel.soulspixeldungeon.ui.Window;
@@ -109,12 +107,12 @@ public class InterlevelScene extends PixelScene {
 	}
 
 	//TODO: work around -> ALL items should be split into desc and info in Messages
-	public String removeLinesWithPercent(String input) {
+	public String removeLinesWithPercentAndUnderscore(String input) {
 		StringBuilder result = new StringBuilder();
 		String[] lines = input.split("\n");
 
 		for (String line : lines) {
-			if (!line.contains("%")) {
+			if (!line.contains("%_")) {
 				result.append(line).append("\n");
 			}
 		}
@@ -177,7 +175,7 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		//flush the texture cache whenever moving between regions, helps reduce memory load
-		int region = (int)Math.ceil(loadingDepth / 5f);
+		int region = (int)Math.ceil(loadingDepth / 5f*3f);
 		if (region != lastRegion){
 			TextureCache.clear();
 			lastRegion = region;
@@ -237,7 +235,7 @@ public class InterlevelScene extends PixelScene {
 		String text = Messages.get(item, "desc");
 		String name = Messages.get(item, "name");
 
-		text = removeLinesWithPercent(text);
+		text = removeLinesWithPercentAndUnderscore(text);
 		name = Messages.titleCase(name);
 
 		message = PixelScene.renderTextBlock( text, 9 );
