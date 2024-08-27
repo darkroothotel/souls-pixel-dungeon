@@ -33,16 +33,21 @@ import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.items.Generator;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.LostBackpack;
+import com.soulspixel.soulspixeldungeon.items.ShowItems;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
+import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.soulspixel.soulspixeldungeon.ui.GameLog;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
+import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.soulspixel.soulspixeldungeon.windows.WndError;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
@@ -54,6 +59,7 @@ import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.utils.BArray;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Random;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,7 +68,7 @@ import java.util.ArrayList;
 public class InterlevelScene extends PixelScene {
 	
 	//slow fade on entering a new region
-	private static final float SLOW_FADE = 1f; //.33 in, 1.33 steady, .33 out, 2 seconds total
+	private static final float SLOW_FADE = 2f; //.33 in, 1.33 steady, .33 out, 2 seconds total
 	//norm fade when loading, falling, returning, or descending to a new floor
 	private static final float NORM_FADE = 0.67f; //.33 in, .67 steady, .33 out, 1.33 seconds total
 	//fast fade when ascending, or descending to a floor you've been on
@@ -89,6 +95,8 @@ public class InterlevelScene extends PixelScene {
 	private float timeLeft;
 	
 	private RenderedTextBlock message;
+	private RenderedTextBlock title;
+	private Image sprite;
 	
 	private static Thread thread;
 	private static Exception error = null;
@@ -99,6 +107,25 @@ public class InterlevelScene extends PixelScene {
 	{
 		inGameScene = true;
 	}
+
+	//TODO: work around -> ALL items should be split into desc and info in Messages
+	public String removeLinesWithPercent(String input) {
+		StringBuilder result = new StringBuilder();
+		String[] lines = input.split("\n");
+
+		for (String line : lines) {
+			if (!line.contains("%")) {
+				result.append(line).append("\n");
+			}
+		}
+
+		// Remove the last newline character if it exists
+		if (result.length() > 0) {
+			result.setLength(result.length() - 1);
+		}
+
+		return result.toString();
+	}
 	
 	@Override
 	public void create() {
@@ -107,7 +134,7 @@ public class InterlevelScene extends PixelScene {
 		String loadingAsset;
 		int loadingDepth;
 		final float scrollSpeed;
-		fadeTime = NORM_FADE;
+		fadeTime = SLOW_FADE;
 		switch (mode){
 			default:
 				loadingDepth = Dungeon.depth;
@@ -125,7 +152,7 @@ public class InterlevelScene extends PixelScene {
 					if (curTransition != null)  loadingDepth = curTransition.destDepth;
 					else                        loadingDepth = Dungeon.depth+1;
 					if (Statistics.deepestFloor >= loadingDepth) {
-						fadeTime = FAST_FADE;
+						fadeTime = SLOW_FADE;
 					} else if (loadingDepth == 6 || loadingDepth == 11
 							|| loadingDepth == 16 || loadingDepth == 21) {
 						fadeTime = SLOW_FADE;
@@ -138,7 +165,7 @@ public class InterlevelScene extends PixelScene {
 				scrollSpeed = 50;
 				break;
 			case ASCEND:
-				fadeTime = FAST_FADE;
+				fadeTime = SLOW_FADE;
 				if (curTransition != null)  loadingDepth = curTransition.destDepth;
 				else                        loadingDepth = Dungeon.depth-1;
 				scrollSpeed = -5;
@@ -162,13 +189,9 @@ public class InterlevelScene extends PixelScene {
 		else if (lastRegion == 4)    loadingAsset = Assets.Interfaces.LOADING_CITY;
 		else if (lastRegion == 5)    loadingAsset = Assets.Interfaces.LOADING_HALLS;
 		else                         loadingAsset = Assets.Interfaces.SHADOW;
-		
-		if (DeviceCompat.isDebug()){
-			fadeTime = 0f;
-		}
 
 		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT){
-			fadeTime = NORM_FADE;
+			fadeTime = SLOW_FADE;
 			loadingAsset = Assets.Interfaces.SHADOW;
 		}
 		
@@ -210,15 +233,33 @@ public class InterlevelScene extends PixelScene {
 		im.scale.y = Camera.main.width;
 		add(im);
 
-		String text = Messages.get(Mode.class, mode.name());
-		
+		Class<?> item = Random.element(ShowItems.showableItems.keySet());
+		String text = Messages.get(item, "desc");
+		String name = Messages.get(item, "name");
+
+		text = removeLinesWithPercent(text);
+		name = Messages.titleCase(name);
+
 		message = PixelScene.renderTextBlock( text, 9 );
-		message.setPos(
-				(Camera.main.width - message.width()) / 2,
-				(Camera.main.height - message.height()) / 2
-		);
+		message.maxWidth(120);
+		message.setPos((Camera.main.width - message.width()) / 2,
+				(Camera.main.height - message.height()) / 2);
 		align(message);
 		add( message );
+
+		title = PixelScene.renderTextBlock( name, 12 );
+		title.hardlight(Window.TITLE_COLOR);
+		title.maxWidth(120);
+		title.setPos(message.left(), message.top()-title.height()-3);
+		align(title);
+		add( title );
+
+		sprite = new ItemSprite(ShowItems.showableItems.get(item));
+		sprite.scale.scale(2f);
+		sprite.x = title.left()-(sprite.width()+3);
+		sprite.y = title.top();
+		align(sprite);
+		add(sprite);
 
 		phase = Phase.FADE_IN;
 		timeLeft = fadeTime;
@@ -292,7 +333,9 @@ public class InterlevelScene extends PixelScene {
 		switch (phase) {
 		
 		case FADE_IN:
+			title.alpha(1-p);
 			message.alpha( 1 - p );
+			sprite.alpha(1 - p );
 			if ((timeLeft -= Game.elapsed) <= 0) {
 				synchronized (thread) {
 					if (!thread.isAlive() && error == null) {
@@ -306,8 +349,9 @@ public class InterlevelScene extends PixelScene {
 			break;
 			
 		case FADE_OUT:
+			title.alpha( p );
 			message.alpha( p );
-			
+			sprite.alpha( p );
 			if ((timeLeft -= Game.elapsed) <= 0) {
 				Game.switchScene( GameScene.class );
 				thread = null;
@@ -459,7 +503,8 @@ public class InterlevelScene extends PixelScene {
 	}
 
 	//TODO atm falling always just increments depth by 1, do we eventually want to roll it into the transition system?
-	private void fall() throws IOException {
+	@SuppressWarnings("SuspiciousIndentation")
+    private void fall() throws IOException {
 
 		Mob.holdAllies( Dungeon.level );
 

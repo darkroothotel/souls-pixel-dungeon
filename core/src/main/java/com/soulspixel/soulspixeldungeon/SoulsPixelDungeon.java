@@ -25,6 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon;
 
+import com.soulspixel.soulspixeldungeon.items.ShowItems;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
 import com.soulspixel.soulspixeldungeon.scenes.TitleScene;
@@ -112,7 +113,8 @@ public class SoulsPixelDungeon extends Game {
 		updateSystemUI();
 		SPDAction.loadBindings();
 		shaderId = SPDSettings.shader();
-		
+		ShowItems.loadShowableItems();
+
 		Music.INSTANCE.enable( SPDSettings.music() );
 		Music.INSTANCE.volume( SPDSettings.musicVol()*SPDSettings.musicVol()/100f );
 		Sample.INSTANCE.enable( SPDSettings.soundFx() );
