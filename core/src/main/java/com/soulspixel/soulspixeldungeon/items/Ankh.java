@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
@@ -96,7 +97,16 @@ public class Ankh extends Item {
 			}
 		}
 	}
-	
+
+	@Override
+	public boolean collect() {
+		for (Ankh i : curUser.belongings.getAllItems(Ankh.class)){
+			i.addBlessedCharges(1);
+			return true;
+		}
+		return super.collect();
+	}
+
 	@Override
 	public String desc() {
 		if (blessed)
