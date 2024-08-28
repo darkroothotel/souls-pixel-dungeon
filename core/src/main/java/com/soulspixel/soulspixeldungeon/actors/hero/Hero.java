@@ -65,6 +65,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.PhysicalEmpower;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Recharging;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Undeath;
 import com.soulspixel.soulspixeldungeon.actors.buffs.UndeathInvulnerability;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
@@ -145,13 +146,9 @@ import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.MiningLevel;
-import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
-import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
-import com.soulspixel.soulspixeldungeon.levels.rooms.moods.EntranceEffect;
-import com.soulspixel.soulspixeldungeon.levels.rooms.moods.LingeringMood;
 import com.soulspixel.soulspixeldungeon.levels.traps.Trap;
 import com.soulspixel.soulspixeldungeon.mechanics.Ballistica;
 import com.soulspixel.soulspixeldungeon.mechanics.ShadowCaster;
@@ -751,13 +748,6 @@ public class Hero extends Char {
 			speed *= (2f + 0.25f*pointsInTalent(Talent.GROWING_POWER));
 		}
 
-		for(Buff b : buffs()){
-			if(b instanceof Carcinisation){
-				speed /= 3;
-				break;
-			}
-		}
-
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
 		
 		return speed;
@@ -849,43 +839,6 @@ public class Hero extends Char {
 		next();
 	}
 
-	public static boolean isPointInsideRoom(Room rect, Point point) {
-		// Shrink the rectangle by 1 unit on each side
-		return point.x > rect.left && point.x < rect.right &&
-				point.y > rect.top && point.y < rect.bottom ;
-	}
-
-	public Room getRoom(){
-		for(Room r : ((RegularLevel) Dungeon.level).rooms()){
-			if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
-				return r;
-			}
-		}
-		return null;
-	}
-
-	public void getCurrentRoomEFfect(){
-		if(Dungeon.level instanceof RegularLevel){
-			for(Room r : ((RegularLevel) Dungeon.level).rooms()){
-				if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
-					if(!r.discovered){
-						r.discovered = true;
-						if(r.type < 0){
-							GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
-							EntranceEffect.getEffect(r.type, this, (RegularLevel) Dungeon.level);
-						} else if(r.type != 0) {
-							GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
-						}
-					}
-					if(r.type > 0){
-						LingeringMood.getEffect(r.type, this, (RegularLevel) Dungeon.level);
-					}
-					break;
-				}
-			}
-		}
-	}
-
 
 	@Override
 	public boolean act() {
@@ -894,7 +847,7 @@ public class Hero extends Char {
 		fieldOfView = Dungeon.level.heroFOV;
 
 		//discover rooms or trigger room effects
-		getCurrentRoomEFfect();
+		getCurrentRoomEffect();
 
 		if(buff(Undeath.class) == null && isUndead()){
 			Buff.affect(this, Undeath.class);
@@ -1584,13 +1537,6 @@ public class Hero extends Char {
 		WandOfLivingEarth.RockArmor rockArmor = buff(WandOfLivingEarth.RockArmor.class);
 		if (rockArmor != null) {
 			damage = rockArmor.absorb(damage);
-		}
-
-		for(Buff b : buffs()){
-			if(b instanceof Carcinisation){
-				damage /= 2;
-				break;
-			}
 		}
 
         return super.defenseProc( enemy, damage );

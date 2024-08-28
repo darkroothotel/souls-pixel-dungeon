@@ -42,6 +42,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Bleeding;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Bless;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Burning;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Carcinisation;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ChampionEnemy;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Charm;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Chill;
@@ -60,7 +61,6 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Hex;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Hunger;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LifeLink;
 import com.soulspixel.soulspixeldungeon.actors.buffs.LostInventory;
-import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicalSleep;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Momentum;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MonkEnergy;
@@ -74,6 +74,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Slow;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Speed;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vulnerable;
@@ -122,9 +123,13 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Sickle;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.levels.features.Door;
+import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
+import com.soulspixel.soulspixeldungeon.levels.rooms.moods.EntranceEffect;
+import com.soulspixel.soulspixeldungeon.levels.rooms.moods.LingeringMood;
 import com.soulspixel.soulspixeldungeon.levels.traps.GeyserTrap;
 import com.soulspixel.soulspixeldungeon.levels.traps.GnollRockfallTrap;
 import com.soulspixel.soulspixeldungeon.levels.traps.GrimTrap;
@@ -139,6 +144,7 @@ import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -176,6 +182,49 @@ public abstract class Char extends Actor {
 	public boolean[] fieldOfView = null;
 	
 	private LinkedHashSet<Buff> buffs = new LinkedHashSet<>();
+
+	public static boolean isPointInsideRoom(Room rect, Point point) {
+		// Shrink the rectangle by 1 unit on each side
+		return point.x > rect.left && point.x < rect.right &&
+				point.y > rect.top && point.y < rect.bottom ;
+	}
+
+	public Room getRoom(){
+		for(Room r : ((RegularLevel) Dungeon.level).rooms()){
+			if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
+				return r;
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Room> getRooms(){
+		return ((RegularLevel) Dungeon.level).rooms();
+	}
+
+	public void getCurrentRoomEffect(){
+		if(Dungeon.level instanceof RegularLevel){
+			for(Room r : ((RegularLevel) Dungeon.level).rooms()){
+				if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
+					if(!r.discovered){
+						if(this instanceof Hero){
+							r.discovered = true;
+						}
+						if(r.type < 0){
+							if(this instanceof Hero) GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
+							EntranceEffect.getEffect(r.type, this, (RegularLevel) Dungeon.level);
+						} else if(r.type != 0) {
+							if(this instanceof Hero) GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
+						}
+					}
+					if(r.type > 0){
+						LingeringMood.getEffect(r.type, this, (RegularLevel) Dungeon.level);
+					}
+					break;
+				}
+			}
+		}
+	}
 	
 	@Override
 	protected boolean act() {
@@ -654,6 +703,8 @@ public abstract class Char extends Actor {
 			damage = armor.absorb( damage );
 		}
 
+		if ( buff( Carcinisation.class ) != null) damage /= 2;
+
 		return damage;
 	}
 	
@@ -664,6 +715,8 @@ public abstract class Char extends Actor {
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
+		if ( buff( Carcinisation.class ) != null) speed /= 3f;
+		if ( buff( Stickyfloor.class ) != null) speed /= 2f;
 		return speed;
 	}
 

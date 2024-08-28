@@ -26,12 +26,15 @@
 package com.soulspixel.soulspixeldungeon.items.stones;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.bags.Bag;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
+import com.soulspixel.soulspixeldungeon.utils.GLog;
 import com.soulspixel.soulspixeldungeon.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 
@@ -56,6 +59,12 @@ public abstract class InventoryStone extends Runestone {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 		if (action.equals(AC_USE)){
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 			activate(curUser.pos);
 		}
 	}

@@ -26,7 +26,10 @@
 package com.soulspixel.soulspixeldungeon.items.spells;
 
 
+import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Sick;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -61,6 +64,13 @@ public abstract class Spell extends Item {
 		super.execute( hero, action );
 		
 		if (action.equals( AC_CAST )) {
+
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 			
 			if (curUser.buff(MagicImmune.class) != null){
 				GLog.w( Messages.get(this, "no_magic") );

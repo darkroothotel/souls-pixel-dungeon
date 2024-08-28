@@ -34,6 +34,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Cripple;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
 import com.soulspixel.soulspixeldungeon.effects.Chains;
@@ -94,6 +95,12 @@ public class EtherealChains extends Artifact {
 		if (hero.buff(MagicImmune.class) != null) return;
 
 		if (action.equals(AC_CAST)){
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 
 			curUser = hero;
 

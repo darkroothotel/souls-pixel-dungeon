@@ -25,44 +25,84 @@
 
 package com.soulspixel.soulspixeldungeon.levels.rooms.moods;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Blindness;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Carcinisation;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Sick;
-import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Weakness;
 import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 
 public class LingeringMood {
 
-    public static void getEffect(int type, Hero hero, RegularLevel regularLevel){
+    public static void getEffect(int type, Char ch, RegularLevel regularLevel){
         switch (type){
             case 1:
-                blindness(hero);
+                blindness(ch);
                 break;
             case 2:
-                crabArmor(hero);
+                crabArmor(ch);
                 break;
             case 3:
-                vomitNoEat(hero);
+                vomitNoEat(ch);
+                break;
+            case 4:
+                silence(ch);
+                break;
+            case 5:
+                weak(ch);
+                break;
+            case 6:
+                invisibility(ch);
+                break;
+            case 7:
+                stickyfloor(ch);
                 break;
         }
     }
 
-    private static void blindness(Hero hero){
-        if(hero.buff( Blindness.class ) == null){
-            Buff.affect(hero, Blindness.class, 12f);
+    private static void blindness(Char ch){
+        if(ch.buff( Blindness.class ) == null){
+            Buff.affect(ch, Blindness.class, 12f);
         }
     }
 
-    private static void crabArmor(Hero hero){
-        if(hero.buff( Carcinisation.class ) == null){
-            Buff.affect(hero, Carcinisation.class, 12f);
+    private static void crabArmor(Char ch){
+        if(ch.buff( Carcinisation.class ) == null){
+            Buff.affect(ch, Carcinisation.class, 12f);
         }
     }
 
-    public static void vomitNoEat(Hero hero){
-        if(hero.buff( Sick.class ) == null){
-            Buff.affect(hero, Sick.class, 12f);
+    public static void vomitNoEat(Char ch){
+        if(ch.buff( Sick.class ) == null){
+            Buff.affect(ch, Sick.class, 12f);
+        }
+    }
+
+    public static void silence(Char ch){
+        if(ch.buff( Silenced.class ) == null){
+            Buff.affect(ch, Silenced.class, 12f);
+        }
+    }
+
+    public static void weak(Char ch){
+        if(ch.buff( Weakness.class ) == null){
+            Buff.prolong(ch, Weakness.class, 12f);
+        }
+    }
+
+    public static void invisibility(Char ch){
+        if(ch.buff( Invisibility.class ) == null){
+            Buff.affect(ch, Invisibility.class, 6f);
+        }
+    }
+
+    public static void stickyfloor(Char ch){
+        if(ch.buff( Stickyfloor.class ) == null){
+            Buff.affect(ch, Stickyfloor.class, 6f);
         }
     }
 

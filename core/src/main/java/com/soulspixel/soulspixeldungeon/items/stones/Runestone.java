@@ -27,9 +27,13 @@ package com.soulspixel.soulspixeldungeon.items.stones;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Actor;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.items.Item;
+import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+import com.soulspixel.soulspixeldungeon.utils.GLog;
 
 public abstract class Runestone extends Item {
 	
@@ -45,6 +49,13 @@ public abstract class Runestone extends Item {
 				(Dungeon.level.pit[cell] && Actor.findChar(cell) == null)){
 			super.onThrow( cell );
 		} else {
+			for(Buff b : curUser.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					super.onThrow( cell );
+					return;
+				}
+			}
 			activate(cell);
 			if (Actor.findChar(cell) == null) Dungeon.level.pressCell( cell );
 			Invisibility.dispel();

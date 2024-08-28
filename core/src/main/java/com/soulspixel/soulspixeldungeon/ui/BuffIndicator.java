@@ -129,6 +129,9 @@ public class BuffIndicator extends Component {
 	public static final int LIGHTS		= 73;
 	public static final int CARCINISATION= 74;
 	public static final int SICK		= 75;
+	public static final int SILENCED	= 76;
+	public static final int STICKY_FLOOR= 77;
+
 
 	public static final int SIZE_SMALL  = 7;
 	public static final int SIZE_LARGE  = 16;

@@ -38,6 +38,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Recharging;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ScrollEmpower;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SoulMark;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.HeroClass;
@@ -116,6 +117,13 @@ public abstract class Wand extends Item {
 		super.execute( hero, action );
 
 		if (action.equals( AC_ZAP )) {
+
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 			
 			curUser = hero;
 			curItem = this;

@@ -26,6 +26,8 @@
 package com.soulspixel.soulspixeldungeon.items;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Belongings;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.Enchanting;
@@ -70,6 +72,13 @@ public class Stylus extends Item {
 		super.execute( hero, action );
 
 		if (action.equals(AC_INSCRIBE)) {
+
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 
 			curUser = hero;
 			GameScene.selectItem( itemSelector );

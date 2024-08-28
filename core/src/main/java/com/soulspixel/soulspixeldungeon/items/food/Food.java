@@ -66,9 +66,7 @@ public class Food extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if(hero.buffs(Sick.class) == null){
-			actions.add( AC_EAT );
-		}
+		actions.add( AC_EAT );
 		return actions;
 	}
 	
@@ -78,6 +76,13 @@ public class Food extends Item {
 		super.execute( hero, action );
 
 		if (action.equals( AC_EAT )) {
+
+			for(Buff b : hero.buffs()){
+				if(b instanceof Sick){
+					GLog.n( Messages.get(Sick.class, "eat_msg") );
+					return;
+				}
+			}
 			
 			detach( hero.belongings.backpack );
 			

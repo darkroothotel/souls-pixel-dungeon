@@ -210,7 +210,7 @@ public abstract class StandardRoom extends Room {
 	public static StandardRoom createRoom(){
 		StandardRoom standardRoom = Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
 		//standardRoom.type = Random.chances(chancesRoomMood[Dungeon.depth]);
-		standardRoom.type = Random.IntRange(0, 3);
+		standardRoom.type = Random.IntRange(-3, 3);
 		return standardRoom;
 	}
 	

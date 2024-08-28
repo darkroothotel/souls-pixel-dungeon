@@ -31,6 +31,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Blindness;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
 import com.soulspixel.soulspixeldungeon.effects.particles.ElmoParticle;
@@ -117,6 +118,12 @@ public class UnstableSpellbook extends Artifact {
 		if (hero.buff(MagicImmune.class) != null) return;
 
 		if (action.equals( AC_READ )) {
+			for(Buff b : hero.buffs()){
+				if(b instanceof Silenced){
+					GLog.n( Messages.get(Silenced.class, "cast_msg") );
+					return;
+				}
+			}
 
 			if (hero.buff( Blindness.class ) != null) GLog.w( Messages.get(this, "blinded") );
 			else if (!isEquipped( hero ))             GLog.i( Messages.get(Artifact.class, "need_to_equip") );

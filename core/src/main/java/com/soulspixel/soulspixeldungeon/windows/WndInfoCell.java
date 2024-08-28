@@ -159,13 +159,13 @@ public class WndInfoCell extends Window {
 			}
 		}
 
-		Room r = Dungeon.hero.getRoom();
-		if(r != null){
+		for (Room r : Dungeon.hero.getRooms()){
 			if(Hero.isPointInsideRoom(r, Dungeon.level.cellToPoint(cell))){
 				if (desc.length() > 0) {
 					desc += "\n\n";
 				}
-				desc += r.typeDesc();
+				desc += Messages.get(Room.class, "type_desc_"+r.type);
+				break;
 			}
 		}
 		
