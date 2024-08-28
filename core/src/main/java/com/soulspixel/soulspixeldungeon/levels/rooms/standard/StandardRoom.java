@@ -164,7 +164,8 @@ public abstract class StandardRoom extends Room {
 		rooms.add(SuspiciousChestRoom.class);
 		rooms.add(MinefieldRoom.class);
 	}
-	
+
+	//TODO; Add
 	private static float[][] chances = new float[27][];
 	static {
 		chances[1] =  new float[]{5,  10,10,10,5, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,  1,0,1,0,1,0,1,1,0,0};
@@ -184,10 +185,33 @@ public abstract class StandardRoom extends Room {
 		chances[21] = new float[]{5,  0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 15,10,5,5,   1,1,1,1,1,1,1,1,1,1};
 		chances[26] = chances[25] = chances[24] = chances[23] = chances[22] = chances[21];
 	}
+
+	private static float[][] chancesRoomMood = new float[27][];
+	static {
+		chancesRoomMood[1] =  new float[]{5,  10,10,10,5, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,  1,0,1,0,1,0,1,1,0,0};
+		chancesRoomMood[2] =  new float[]{5,  10,10,10,5, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,  1,1,1,1,1,1,1,1,1,1};
+		chancesRoomMood[4] =  chancesRoomMood[3] = chancesRoomMood[2];
+		chances[5] =  new float[]{5,  10,10,10,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,  0,0,0,0,0,0,0,0,0,0};
+
+		chancesRoomMood[6] =  new float[]{5,  0,0,0,0, 10,10,10,5, 0,0,0,0, 0,0,0,0, 0,0,0,0,  1,1,1,1,1,1,1,1,1,1};
+		chancesRoomMood[10] = chancesRoomMood[9] = chancesRoomMood[8] = chancesRoomMood[7] = chancesRoomMood[6];
+
+		chancesRoomMood[11] = new float[]{5,  0,0,0,0, 0,0,0,0, 15,10,5,5,  0,0,0,0, 0,0,0,0,  1,1,1,1,1,1,1,1,1,1};
+		chancesRoomMood[15] = chancesRoomMood[14] = chancesRoomMood[13] = chancesRoomMood[12] = chancesRoomMood[11];
+
+		chancesRoomMood[16] = new float[]{5,  0,0,0,0, 0,0,0,0, 0,0,0,0, 10,10,10,5, 0,0,0,0,  1,1,1,1,1,1,1,1,1,1};
+		chancesRoomMood[20] = chancesRoomMood[19] = chancesRoomMood[18] = chancesRoomMood[17] = chancesRoomMood[16];
+
+		chancesRoomMood[21] = new float[]{5,  0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 15,10,5,5,   1,1,1,1,1,1,1,1,1,1};
+		chancesRoomMood[26] = chancesRoomMood[25] = chancesRoomMood[24] = chancesRoomMood[23] = chancesRoomMood[22] = chancesRoomMood[21];
+	}
 	
 	
 	public static StandardRoom createRoom(){
-		return Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
+		StandardRoom standardRoom = Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
+		//standardRoom.type = Random.chances(chancesRoomMood[Dungeon.depth]);
+		standardRoom.type = Random.IntRange(0, 3);
+		return standardRoom;
 	}
 	
 }

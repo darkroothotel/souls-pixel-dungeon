@@ -27,6 +27,7 @@ package com.soulspixel.soulspixeldungeon.levels.rooms;
 
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
+import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -45,6 +46,9 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public int distance;
 	public int price = 1;
+
+	public int type = 0;
+	public boolean discovered = false;
 	
 	public Room(){
 		super();
@@ -53,7 +57,11 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 	public Room( Rect other ){
 		super(other);
 	}
-	
+
+	public String typeDesc() {
+		return Messages.get(Room.class, "type_desc_"+type);
+	}
+
 	public Room set( Room other ) {
 		super.set( other );
 		for (Room r : other.neigbours){
@@ -427,6 +435,8 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 		bundle.put( "top", top );
 		bundle.put( "right", right );
 		bundle.put( "bottom", bottom );
+		bundle.put( "type", type );
+		bundle.put( "discovered", discovered);
 	}
 	
 	@Override
@@ -435,6 +445,8 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 		top = bundle.getInt( "top" );
 		right = bundle.getInt( "right" );
 		bottom = bundle.getInt( "bottom" );
+		type = bundle.getInt( "type" );
+		discovered = bundle.getBoolean("discovered");
 	}
 
 	//FIXME currently connections and neighbours are not preserved on load

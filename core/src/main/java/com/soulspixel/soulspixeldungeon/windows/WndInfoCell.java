@@ -27,7 +27,10 @@ package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
+import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
+import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
+import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
 import com.soulspixel.soulspixeldungeon.tiles.CustomTilemap;
@@ -153,6 +156,16 @@ public class WndInfoCell extends Window {
 					}
 					desc += blob.tileDesc();
 				}
+			}
+		}
+
+		Room r = Dungeon.hero.getRoom();
+		if(r != null){
+			if(Hero.isPointInsideRoom(r, Dungeon.level.cellToPoint(cell))){
+				if (desc.length() > 0) {
+					desc += "\n\n";
+				}
+				desc += r.typeDesc();
 			}
 		}
 		

@@ -47,6 +47,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Berserk;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Bless;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Burning;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Carcinisation;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Charm;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Combo;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Drowsy;
@@ -118,7 +119,6 @@ import com.soulspixel.soulspixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.soulspixel.soulspixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.soulspixel.soulspixeldungeon.items.quest.DarkGold;
 import com.soulspixel.soulspixeldungeon.items.quest.Pickaxe;
-import com.soulspixel.soulspixeldungeon.items.rings.Ring;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfAccuracy;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfAntiMagic;
 import com.soulspixel.soulspixeldungeon.items.rings.RingOfEvasion;
@@ -145,9 +145,13 @@ import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.journal.Notes;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.MiningLevel;
+import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
+import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
+import com.soulspixel.soulspixeldungeon.levels.rooms.moods.EntranceEffect;
+import com.soulspixel.soulspixeldungeon.levels.rooms.moods.LingeringMood;
 import com.soulspixel.soulspixeldungeon.levels.traps.Trap;
 import com.soulspixel.soulspixeldungeon.mechanics.Ballistica;
 import com.soulspixel.soulspixeldungeon.mechanics.ShadowCaster;
@@ -747,6 +751,13 @@ public class Hero extends Char {
 			speed *= (2f + 0.25f*pointsInTalent(Talent.GROWING_POWER));
 		}
 
+		for(Buff b : buffs()){
+			if(b instanceof Carcinisation){
+				speed /= 3;
+				break;
+			}
+		}
+
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
 		
 		return speed;
@@ -837,12 +848,53 @@ public class Hero extends Char {
 		spend( time );
 		next();
 	}
-	
+
+	public static boolean isPointInsideRoom(Room rect, Point point) {
+		// Shrink the rectangle by 1 unit on each side
+		return point.x > rect.left && point.x < rect.right &&
+				point.y > rect.top && point.y < rect.bottom ;
+	}
+
+	public Room getRoom(){
+		for(Room r : ((RegularLevel) Dungeon.level).rooms()){
+			if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
+				return r;
+			}
+		}
+		return null;
+	}
+
+	public void getCurrentRoomEFfect(){
+		if(Dungeon.level instanceof RegularLevel){
+			for(Room r : ((RegularLevel) Dungeon.level).rooms()){
+				if(isPointInsideRoom(r, Dungeon.level.cellToPoint(pos))){
+					if(!r.discovered){
+						r.discovered = true;
+						if(r.type < 0){
+							GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
+							EntranceEffect.getEffect(r.type, this, (RegularLevel) Dungeon.level);
+						} else if(r.type != 0) {
+							GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
+						}
+					}
+					if(r.type > 0){
+						LingeringMood.getEffect(r.type, this, (RegularLevel) Dungeon.level);
+					}
+					break;
+				}
+			}
+		}
+	}
+
+
 	@Override
 	public boolean act() {
 		
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
+
+		//discover rooms or trigger room effects
+		getCurrentRoomEFfect();
 
 		if(buff(Undeath.class) == null && isUndead()){
 			Buff.affect(this, Undeath.class);
@@ -1533,8 +1585,15 @@ public class Hero extends Char {
 		if (rockArmor != null) {
 			damage = rockArmor.absorb(damage);
 		}
-		
-		return super.defenseProc( enemy, damage );
+
+		for(Buff b : buffs()){
+			if(b instanceof Carcinisation){
+				damage /= 2;
+				break;
+			}
+		}
+
+        return super.defenseProc( enemy, damage );
 	}
 	
 	@Override

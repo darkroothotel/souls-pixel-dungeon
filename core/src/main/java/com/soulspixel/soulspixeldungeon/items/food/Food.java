@@ -32,6 +32,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Hunger;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Sick;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
@@ -65,7 +66,9 @@ public class Food extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_EAT );
+		if(hero.buffs(Sick.class) == null){
+			actions.add( AC_EAT );
+		}
 		return actions;
 	}
 	
