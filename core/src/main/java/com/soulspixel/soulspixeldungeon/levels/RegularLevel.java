@@ -161,6 +161,13 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.weakFloorOnLevel())
 			initRooms.add(new WeakFloorRoom());
 
+		if (Dungeon.pitRoomOnLevel())
+			initRooms.add(new PitRoom());
+
+		if(Dungeon.feelingOnLevel() != Feeling.NONE){
+			feeling = Dungeon.feelingOnLevel();
+		}
+
 		//force max special rooms and add one more for large levels
 		int specials = specialRooms(feeling == Feeling.LARGE);
 		if (feeling == Feeling.LARGE){
@@ -169,8 +176,10 @@ public abstract class RegularLevel extends Level {
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
 			SpecialRoom s = SpecialRoom.createRoom();
-			if (s instanceof PitRoom) specials++;
-			initRooms.add(s);
+			//PitRooms no longer randomly generate they are instead used to make extra secret pathways
+			if (!(s instanceof PitRoom)){
+				initRooms.add(s);
+			}
 		}
 		
 		int secrets = SecretRoom.secretsForFloor(Dungeon.depth);

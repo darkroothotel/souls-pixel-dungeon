@@ -128,15 +128,20 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
-		/**new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
+		new ScrollOfMagicMapping().identify().collect();
+		new PotionOfHealing().identify().collect();
+		new PotionOfHealing().identify().collect();
+		new PotionOfHealing().identify().collect();
+		new PotionOfHealing().identify().collect();
+		new PotionOfHealing().identify().collect();
 
-		WornShortsword shortsword = new WornShortsword();
+		/**WornShortsword shortsword = new WornShortsword();
 		shortsword.identify();
 		shortsword.enchant(new Blazing());
 		shortsword.collect();

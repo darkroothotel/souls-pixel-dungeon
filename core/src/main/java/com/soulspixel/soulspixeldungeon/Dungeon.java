@@ -506,6 +506,10 @@ public class Dungeon {
 		
 		if (branch == 0) Statistics.qualifiedForNoKilling = !bossLevel();
 		Statistics.qualifiedForBossChallengeBadge = false;
+
+		if(hasNoEntrance()){
+			level.entrance=level.exit=-1;
+		}
 		
 		return level;
 	}
@@ -518,6 +522,15 @@ public class Dungeon {
 		switchLevel( level, level.entrance() );
 	}
 
+	public static Level.Feeling feelingOnLevel(){
+		switch (depth){
+			default:
+				return Level.Feeling.NONE;
+			case 2:
+				return Level.Feeling.WATER;
+		}
+	}
+
 	public static boolean hasNoEntrance(){
 		return !((depth-1)%3==0);
 	}
@@ -528,7 +541,7 @@ public class Dungeon {
 
 	public static long seedForDepth(int depth, int branch){
 		int lookAhead = depth;
-		lookAhead += 30*branch; //Assumes depth is always 1-30, and branch is always 0 or higher
+		lookAhead += 100*branch; //Assumes depth is always 1-30, and branch is always 0 or higher
 
 		Random.pushGenerator( seed );
 
@@ -559,6 +572,10 @@ public class Dungeon {
 
 	public static boolean weakFloorOnLevel() {
 		return depth == 1;
+	}
+
+	public static boolean pitRoomOnLevel() {
+		return depth == 2;
 	}
 
 	

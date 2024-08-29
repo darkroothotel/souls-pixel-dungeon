@@ -74,6 +74,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Slow;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Speed;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Sticky;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
@@ -237,6 +238,8 @@ public abstract class Char extends Actor {
 		if (properties().contains(Property.IMMOVABLE)){
 			throwItems();
 		}
+		//discover rooms or trigger room effects
+		getCurrentRoomEffect();
 		return false;
 	}
 
@@ -717,6 +720,8 @@ public abstract class Char extends Actor {
 		if ( buff( Dread.class ) != null) speed *= 2f;
 		if ( buff( Carcinisation.class ) != null) speed /= 3f;
 		if ( buff( Stickyfloor.class ) != null) speed /= 2f;
+		if ( buff( Sticky.class ) != null) speed /= 1.5f;
+
 		return speed;
 	}
 

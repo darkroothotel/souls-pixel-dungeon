@@ -272,6 +272,7 @@ public class Assets {
 		public static final String AMULET   = "sprites/amulet.png";
 
 		public static final String RAT      = "sprites/rat.png";
+		public static final String FROG     = "sprites/frog.png";
 		public static final String BRUTE    = "sprites/brute.png";
 		public static final String SPINNER  = "sprites/spinner.png";
 		public static final String DM300    = "sprites/dm300.png";

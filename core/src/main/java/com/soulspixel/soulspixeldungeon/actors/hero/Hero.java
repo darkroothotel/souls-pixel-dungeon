@@ -846,7 +846,6 @@ public class Hero extends Char {
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
 
-		//discover rooms or trigger room effects
 		getCurrentRoomEffect();
 
 		if(buff(Undeath.class) == null && isUndead()){
