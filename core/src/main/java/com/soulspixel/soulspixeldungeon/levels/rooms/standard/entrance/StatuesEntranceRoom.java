@@ -61,8 +61,10 @@ public class StatuesEntranceRoom extends StatuesRoom {
 			}
 		}
 
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE_SP );
-		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+		if(!Dungeon.hasNoEntrance()){
+			Painter.set( level, entrance, Terrain.ENTRANCE_SP );
+			level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+		}
 
 	}
 }

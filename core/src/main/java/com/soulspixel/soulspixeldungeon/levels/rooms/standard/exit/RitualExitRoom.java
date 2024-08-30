@@ -42,7 +42,9 @@ public class RitualExitRoom extends RitualRoom {
 
 	@Override
 	protected void placeloot(Level level, Point p) {
-		if(!Dungeon.hasNoEntrance()) Painter.set(level, p, Terrain.EXIT);
-		level.transitions.add(new LevelTransition(level, level.pointToCell(p), LevelTransition.Type.REGULAR_EXIT));
+		if(!Dungeon.hasNoExit()){
+			Painter.set(level, p, Terrain.EXIT);
+			level.transitions.add(new LevelTransition(level, level.pointToCell(p), LevelTransition.Type.REGULAR_EXIT));
+		}
 	}
 }

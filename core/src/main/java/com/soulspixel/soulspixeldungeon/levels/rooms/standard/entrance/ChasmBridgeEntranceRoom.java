@@ -64,8 +64,8 @@ public class ChasmBridgeEntranceRoom extends ChasmBridgeRoom {
 			Painter.set(level, entrance + i, Terrain.EMPTY);
 		}
 
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE );
-		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+		if(!Dungeon.hasNoEntrance()){ Painter.set( level, entrance, Terrain.ENTRANCE );
+		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));}
 	}
 
 }

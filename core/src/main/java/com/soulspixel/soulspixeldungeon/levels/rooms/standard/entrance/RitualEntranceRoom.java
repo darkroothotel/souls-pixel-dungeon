@@ -42,7 +42,9 @@ public class RitualEntranceRoom extends RitualRoom {
 
 	@Override
 	protected void placeloot(Level level, Point p) {
-		if(!Dungeon.hasNoEntrance()) Painter.set(level, p, Terrain.ENTRANCE);
-		level.transitions.add(new LevelTransition(level, level.pointToCell(p), LevelTransition.Type.REGULAR_ENTRANCE));
+		if(!Dungeon.hasNoEntrance()){
+			Painter.set(level, p, Terrain.ENTRANCE);
+			level.transitions.add(new LevelTransition(level, level.pointToCell(p), LevelTransition.Type.REGULAR_ENTRANCE));
+		}
 	}
 }

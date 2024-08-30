@@ -65,8 +65,10 @@ public class ExitRoom extends StandardRoom {
 		}
 		
 		int exit = level.pointToCell(random( 2 ));
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
-		level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
+		if(!Dungeon.hasNoExit()){
+			Painter.set( level, exit, Terrain.EXIT );
+			level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
+		}
 	}
 	
 	@Override

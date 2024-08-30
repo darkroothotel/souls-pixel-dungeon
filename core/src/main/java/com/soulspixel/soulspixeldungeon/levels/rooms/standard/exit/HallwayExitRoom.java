@@ -51,8 +51,10 @@ public class HallwayExitRoom extends HallwayRoom {
 				break;
 			}
 		}
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
-		level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
+		if(!Dungeon.hasNoExit()){
+			Painter.set( level, exit, Terrain.EXIT );
+			level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
+		}
 
 	}
 

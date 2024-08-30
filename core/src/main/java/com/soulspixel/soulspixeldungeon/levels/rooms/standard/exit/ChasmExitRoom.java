@@ -64,13 +64,14 @@ public class ChasmExitRoom extends ChasmRoom {
 			exit = level.pointToCell(random(2));
 
 		} while (level.map[exit] == Terrain.CHASM || level.findMob(exit) != null);
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, exit, Terrain.EXIT );
+		if(!Dungeon.hasNoExit()){
+			Painter.set( level, exit, Terrain.EXIT );
+			level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
+		}
 
 		for (int i : PathFinder.NEIGHBOURS8){
 			Painter.set( level, exit+i, Terrain.EMPTY );
 		}
-
-		level.transitions.add(new LevelTransition(level, exit, LevelTransition.Type.REGULAR_EXIT));
 	}
 
 }

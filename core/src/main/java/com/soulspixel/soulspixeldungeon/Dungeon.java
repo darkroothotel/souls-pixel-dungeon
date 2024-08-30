@@ -511,10 +511,6 @@ public class Dungeon {
 		
 		if (branch == 0) Statistics.qualifiedForNoKilling = !bossLevel();
 		Statistics.qualifiedForBossChallengeBadge = false;
-
-		if(hasNoEntrance()){
-			level.entrance=level.exit=-1;
-		}
 		
 		return level;
 	}
@@ -537,7 +533,19 @@ public class Dungeon {
 	}
 
 	public static boolean hasNoEntrance(){
-		return !((depth-1)%3==0);
+		boolean v = !((depth-1)%3==0);
+		if(v){
+			level.entrance=-1;
+		}
+		return v;
+	}
+
+	public static boolean hasNoExit(){
+		boolean v = !((depth-1)%3==0);
+		if(v){
+			level.exit=-1;
+		}
+		return v;
 	}
 
 	public static long seedCurDepth(){

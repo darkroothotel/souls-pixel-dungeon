@@ -75,7 +75,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, SECRET_EXIT, SECRET_ENTRANCE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, SECRET_EXIT, SECRET_ENTRANCE, ASCEND_FALL_BRANCH, DESCEND_FALL_BRANCH
 	}
 	public static Mode mode;
 
@@ -112,7 +112,7 @@ public class InterlevelScene extends PixelScene {
 		String[] lines = input.split("\n");
 
 		for (String line : lines) {
-			if (!line.contains("%_")) {
+			if (!line.contains("%_") || !line.contains("_%") || !line.contains("_")) {
 				result.append(line).append("\n");
 			}
 		}
@@ -150,9 +150,6 @@ public class InterlevelScene extends PixelScene {
 					if (curTransition != null)  loadingDepth = curTransition.destDepth;
 					else                        loadingDepth = Dungeon.depth+1;
 					if (Statistics.deepestFloor >= loadingDepth) {
-						fadeTime = SLOW_FADE;
-					} else if (loadingDepth == 6 || loadingDepth == 11
-							|| loadingDepth == 16 || loadingDepth == 21) {
 						fadeTime = SLOW_FADE;
 					}
 				}
@@ -535,10 +532,19 @@ public class InterlevelScene extends PixelScene {
 					level = Dungeon.newLevel();
 				}
 				Dungeon.switchLevel( level, level.randomDestination(null));
-			} else {
+			} else if(Dungeon.branch > 0) {
 				Level level;
 				Dungeon.branch = 0;
                 Dungeon.depth++;
+				if (Dungeon.levelHasBeenGenerated(Dungeon.branch, Dungeon.depth)) {
+					level = Dungeon.loadLevel( GamesInProgress.curSlot );
+				} else {
+					level = Dungeon.newLevel();
+				}
+				Dungeon.switchLevel( level, level.randomDestination(null));
+			} else {
+				Level level;
+				Dungeon.branch = 0;
 				if (Dungeon.levelHasBeenGenerated(Dungeon.branch, Dungeon.depth)) {
 					level = Dungeon.loadLevel( GamesInProgress.curSlot );
 				} else {

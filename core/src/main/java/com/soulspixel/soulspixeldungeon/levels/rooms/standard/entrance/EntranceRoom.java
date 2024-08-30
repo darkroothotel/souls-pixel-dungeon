@@ -90,12 +90,13 @@ public class EntranceRoom extends StandardRoom {
 		do {
 			entrance = level.pointToCell(random(2));
 		} while (level.findMob(entrance) != null);
-		if(!Dungeon.hasNoEntrance()) Painter.set( level, entrance, Terrain.ENTRANCE );
-
-		if (Dungeon.depth == 1){
-			level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.SURFACE));
-		} else {
-			level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+		if(!Dungeon.hasNoEntrance()){
+			Painter.set( level, entrance, Terrain.ENTRANCE );
+			if (Dungeon.depth == 1){
+				level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.SURFACE));
+			} else {
+				level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+			}
 		}
 
 		//use a separate generator here so meta progression doesn't affect levelgen
