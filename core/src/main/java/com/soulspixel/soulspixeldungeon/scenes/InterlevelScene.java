@@ -174,19 +174,26 @@ public class InterlevelScene extends PixelScene {
 				break;
 		}
 
-		//flush the texture cache whenever moving between regions, helps reduce memory load
-		int region = (int)Math.ceil(loadingDepth / 5f*3f);
-		if (region != lastRegion){
+		//flush the texture cache whenever moving between floors, helps reduce memory load
+		int depth = loadingDepth;
+		if (depth != lastRegion){
 			TextureCache.clear();
-			lastRegion = region;
+			lastRegion = depth;
 		}
 
-		if      (lastRegion == 1)    loadingAsset = Assets.Interfaces.LOADING_SEWERS;
-		else if (lastRegion == 2)    loadingAsset = Assets.Interfaces.LOADING_PRISON;
-		else if (lastRegion == 3)    loadingAsset = Assets.Interfaces.LOADING_CAVES;
-		else if (lastRegion == 4)    loadingAsset = Assets.Interfaces.LOADING_CITY;
-		else if (lastRegion == 5)    loadingAsset = Assets.Interfaces.LOADING_HALLS;
-		else                         loadingAsset = Assets.Interfaces.SHADOW;
+		//TODO: Update
+		switch (lastRegion){
+			default:
+				loadingAsset = Assets.Interfaces.SHADOW;
+				break;
+			case 1:
+            case 3:
+                loadingAsset = Assets.Interfaces.LOADING_SEWERS;
+				break;
+			case 2:
+				loadingAsset = Assets.Interfaces.LOADING_SEWERS_FROG;
+				break;
+        }
 
 		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT){
 			fadeTime = SLOW_FADE;

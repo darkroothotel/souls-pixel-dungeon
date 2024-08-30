@@ -41,20 +41,22 @@ public class Assets {
 		public static final String VISUAL_GRID  = "environment/visual_grid.png";
 		public static final String WALL_BLOCKING= "environment/wall_blocking.png";
 
-		public static final String TILES_SEWERS = "environment/tiles_sewers.png";
-		public static final String TILES_PRISON = "environment/tiles_prison.png";
-		public static final String TILES_CAVES  = "environment/tiles_caves.png";
-		public static final String TILES_CITY   = "environment/tiles_city.png";
-		public static final String TILES_HALLS  = "environment/tiles_halls.png";
+		public static final String TILES_SEWERS 		= "environment/tiles_sewers.png";
+		public static final String TILES_SEWERS_FROG 	= "environment/tiles_sewers_frogs.png";
+		public static final String TILES_PRISON 		= "environment/tiles_prison.png";
+		public static final String TILES_CAVES  		= "environment/tiles_caves.png";
+		public static final String TILES_CITY   		= "environment/tiles_city.png";
+		public static final String TILES_HALLS  		= "environment/tiles_halls.png";
 
 		public static final String TILES_CAVES_CRYSTAL  = "environment/tiles_caves_crystal.png";
 		public static final String TILES_CAVES_GNOLL    = "environment/tiles_caves_gnoll.png";
 
-		public static final String WATER_SEWERS = "environment/water0.png";
-		public static final String WATER_PRISON = "environment/water1.png";
-		public static final String WATER_CAVES  = "environment/water2.png";
-		public static final String WATER_CITY   = "environment/water3.png";
-		public static final String WATER_HALLS  = "environment/water4.png";
+		public static final String WATER_SEWERS 		= "environment/water0.png";
+		public static final String WATER_PRISON 		= "environment/water1.png";
+		public static final String WATER_CAVES  		= "environment/water2.png";
+		public static final String WATER_CITY   		= "environment/water3.png";
+		public static final String WATER_HALLS  		= "environment/water4.png";
+		public static final String WATER_SEWERS_FROG 	= "environment/water5.png";
 
 		public static final String GOLDEN_FOG  	= "environment/golden_fog.png";
 
@@ -94,11 +96,12 @@ public class Assets {
 
 		public static final String SURFACE  = "interfaces/surface.png";
 
-		public static final String LOADING_SEWERS   = "interfaces/loading_sewers.png";
-		public static final String LOADING_PRISON   = "interfaces/loading_prison.png";
-		public static final String LOADING_CAVES    = "interfaces/loading_caves.png";
-		public static final String LOADING_CITY     = "interfaces/loading_city.png";
-		public static final String LOADING_HALLS    = "interfaces/loading_halls.png";
+		public static final String LOADING_SEWERS   		= "interfaces/loading_sewers.png";
+		public static final String LOADING_SEWERS_FROG   	= "interfaces/loading_sewers_frogs.png";
+		public static final String LOADING_PRISON   		= "interfaces/loading_prison.png";
+		public static final String LOADING_CAVES    		= "interfaces/loading_caves.png";
+		public static final String LOADING_CITY     		= "interfaces/loading_city.png";
+		public static final String LOADING_HALLS    		= "interfaces/loading_halls.png";
 
 		public static final String BUFFS_SMALL      = "interfaces/buffs.png";
 		public static final String BUFFS_LARGE      = "interfaces/large_buffs.png";

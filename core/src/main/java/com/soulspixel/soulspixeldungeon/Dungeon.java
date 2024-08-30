@@ -72,6 +72,7 @@ import com.soulspixel.soulspixeldungeon.levels.PrisonBossLevel;
 import com.soulspixel.soulspixeldungeon.levels.PrisonLevel;
 import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerBossLevel;
+import com.soulspixel.soulspixeldungeon.levels.SewerFrogLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
@@ -331,7 +332,11 @@ public class Dungeon {
 		if (branch == 0) {
 			switch (depth) {
 				case 1: //bonfire secret exit to 3 fall to 2
-				case 2: //-- secret exit to 4
+					level = new SewerLevel();
+					break;
+				case 2: //-- secret exit to 4 pit from 1
+					level = new SewerFrogLevel();
+					break;
 				case 3: //-- secret entrance to 1 secret exit to 5
 				case 4: //bonfire secrete entrance to 2
 				case 5: //-- secret entrance to 3
