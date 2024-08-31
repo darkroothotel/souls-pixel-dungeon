@@ -33,8 +33,8 @@ import java.util.Arrays;
 
 public class Bestiary {
 	
-	public static ArrayList<Class<? extends Mob>> getMobRotation( int depth ){
-		ArrayList<Class<? extends Mob>> mobs = standardMobRotation( depth );
+	public static ArrayList<Class<? extends Mob>> getMobRotation(int depth, int branch){
+		ArrayList<Class<? extends Mob>> mobs = standardMobRotation( depth, branch);
 		addRareMobs(depth, mobs);
 		swapMobAlts(mobs);
 		Random.shuffle(mobs);
@@ -42,15 +42,22 @@ public class Bestiary {
 	}
 	
 	//returns a rotation of standard mobs, unshuffled.
-	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
+	private static ArrayList<Class<? extends Mob>> standardMobRotation(int depth, int branch){
 		switch(depth){
-			
 			// Sewers
 			case 1: default:
-				//3x rat, 1x snake
-				return new ArrayList<>(Arrays.asList(
-						Rat.class, Rat.class, Rat.class,
-						Snake.class));
+				switch (branch){
+					default: case 0:
+						//3x rat, 1x snake
+						return new ArrayList<>(Arrays.asList(
+								Rat.class, Rat.class, Rat.class,
+								Snake.class));
+					case 1:
+						//3x rat, 1x snake
+						return new ArrayList<>(Arrays.asList(
+								Snake.class, Rat.class, Rat.class,
+								Snake.class));
+				}
 			case 2:
 				//1x snake 2x frog 1x toad 1x exotic frog 1x tree frog
 				return new ArrayList<>(Arrays.asList(Snake.class, Frog.class, Frog.class,

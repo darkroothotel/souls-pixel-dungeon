@@ -28,4 +28,9 @@ package com.soulspixel.soulspixeldungeon.levels.falllevels;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
 
 public class SewerFallLevel extends SewerLevel {
+
+    {
+        viewDistance = viewDistance/2;
+    }
+
 }

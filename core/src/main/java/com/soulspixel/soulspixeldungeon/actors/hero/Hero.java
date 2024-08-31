@@ -40,6 +40,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.AdrenalineSurge;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ArtifactRecharge;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AscensionChallenge;
+import com.soulspixel.soulspixeldungeon.actors.buffs.AtEase;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Awareness;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Barkskin;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Barrier;
@@ -66,6 +67,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Undeath;
 import com.soulspixel.soulspixeldungeon.actors.buffs.UndeathInvulnerability;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Uneasy;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -855,6 +857,11 @@ public class Hero extends Char {
 
 		if (buff(Endure.EndureTracker.class) != null){
 			buff(Endure.EndureTracker.class).endEnduring();
+		}
+
+		//buffs
+		if(buff(AtEase.class) != null && buff(Uneasy.class) != null){
+			buff(AtEase.class).detach();
 		}
 		
 		if (!ready) {
