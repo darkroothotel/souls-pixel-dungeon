@@ -28,8 +28,6 @@ package com.soulspixel.soulspixeldungeon.actors.mobs;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Sticky;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
-import com.soulspixel.soulspixeldungeon.sprites.ExoticfrogSprite;
 import com.soulspixel.soulspixeldungeon.sprites.TreefrogSprite;
 
 public class TreeFrog extends Frog{

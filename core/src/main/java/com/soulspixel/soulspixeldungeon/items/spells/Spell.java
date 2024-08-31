@@ -28,7 +28,6 @@ package com.soulspixel.soulspixeldungeon.items.spells;
 
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Sick;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.items.Item;

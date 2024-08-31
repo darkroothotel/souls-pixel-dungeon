@@ -28,7 +28,6 @@ package com.soulspixel.soulspixeldungeon.windows;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
-import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.messages.Messages;

@@ -28,7 +28,6 @@ package com.soulspixel.soulspixeldungeon.actors.mobs;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Paralysis;
-import com.soulspixel.soulspixeldungeon.items.food.MysteryMeat;
 import com.soulspixel.soulspixeldungeon.sprites.ToadSprite;
 
 public class Toad extends Frog{

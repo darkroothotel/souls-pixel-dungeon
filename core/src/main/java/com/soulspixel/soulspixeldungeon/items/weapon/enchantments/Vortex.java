@@ -25,12 +25,9 @@
 
 package com.soulspixel.soulspixeldungeon.items.weapon.enchantments;
 
-import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Burning;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
-import com.soulspixel.soulspixeldungeon.effects.particles.FlameParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.RainbowParticle;
 import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite.Glowing;

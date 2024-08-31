@@ -26,7 +26,6 @@
 package com.soulspixel.soulspixeldungeon.items;
 
 import com.soulspixel.soulspixeldungeon.Assets;
-import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.Speck;

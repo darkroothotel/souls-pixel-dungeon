@@ -27,7 +27,6 @@ package com.soulspixel.soulspixeldungeon.sprites;
 
 import com.soulspixel.soulspixeldungeon.Assets;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.utils.Random;
 
 public class ToadSprite extends FrogSprite {
 

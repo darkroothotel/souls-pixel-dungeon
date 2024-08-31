@@ -47,7 +47,6 @@ import com.watabou.utils.Reflection;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Locale;
 
 public class Game implements ApplicationListener {
 

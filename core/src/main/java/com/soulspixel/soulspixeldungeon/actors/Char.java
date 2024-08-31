@@ -98,7 +98,6 @@ import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.particles.ShadowParticle;
-import com.soulspixel.soulspixeldungeon.effects.particles.SparkParticle;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.armor.glyphs.AntiMagic;
 import com.soulspixel.soulspixeldungeon.items.armor.glyphs.Potential;

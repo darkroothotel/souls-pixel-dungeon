@@ -27,15 +27,12 @@ package com.soulspixel.soulspixeldungeon.items.rings;
 
 
 import com.soulspixel.soulspixeldungeon.Badges;
-import com.soulspixel.soulspixeldungeon.Challenges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Barrier;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
-import com.soulspixel.soulspixeldungeon.items.Item;
-import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
 import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.CharSprite;

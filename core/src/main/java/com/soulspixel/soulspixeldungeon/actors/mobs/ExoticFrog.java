@@ -28,9 +28,7 @@ package com.soulspixel.soulspixeldungeon.actors.mobs;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Bufotoxin;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Ooze;
 import com.soulspixel.soulspixeldungeon.sprites.ExoticfrogSprite;
-import com.soulspixel.soulspixeldungeon.sprites.ToadSprite;
 
 public class ExoticFrog extends Frog{
 

@@ -33,8 +33,6 @@ import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Cripple;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Light;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Sleep;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
