@@ -56,9 +56,11 @@ public class PlatformRoom extends StandardRoom {
 		if (mergeTerrain != Terrain.CHASM
 				&& (other instanceof PlatformRoom || other instanceof ChasmRoom)){
 			super.merge(l, other, merge, Terrain.CHASM);
+			mergeType(l, other);
 			Painter.set(l, connected.get(other), Terrain.EMPTY_SP);
 		} else {
 			super.merge(l, other, merge, mergeTerrain);
+			mergeType(l, other);
 		}
 	}
 

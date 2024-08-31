@@ -65,6 +65,8 @@ import com.soulspixel.soulspixeldungeon.levels.painters.Painter;
 import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.BonfireRoom;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.FallAscendRoom;
+import com.soulspixel.soulspixeldungeon.levels.rooms.special.FallDescendRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.PitRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SecretEntranceRoom;
@@ -145,24 +147,29 @@ public abstract class RegularLevel extends Level {
 			i += s.sizeFactor()-1;
 			initRooms.add(s);
 		}
-		
-		if (Dungeon.shopOnLevel())
-			initRooms.add(new ShopRoom());
+		if(Dungeon.branch==0){
+			if (Dungeon.shopOnLevel())
+				initRooms.add(new ShopRoom());
 
-		if (Dungeon.bonfireOnLevel())
-			initRooms.add(new BonfireRoom());
+			if (Dungeon.bonfireOnLevel())
+				initRooms.add(new BonfireRoom());
 
-		if (Dungeon.secretEntranceOnLevel())
-			initRooms.add(new SecretEntranceRoom());
+			if (Dungeon.secretEntranceOnLevel())
+				initRooms.add(new SecretEntranceRoom());
 
-		if (Dungeon.secretExitOnLevel())
-			initRooms.add(new SecretExitRoom());
+			if (Dungeon.secretExitOnLevel())
+				initRooms.add(new SecretExitRoom());
 
-		if (Dungeon.weakFloorOnLevel())
-			initRooms.add(new WeakFloorRoom());
+			if (Dungeon.weakFloorOnLevel())
+				initRooms.add(new WeakFloorRoom());
 
-		if (Dungeon.pitRoomOnLevel())
-			initRooms.add(new PitRoom());
+			if (Dungeon.pitRoomOnLevel()){
+				initRooms.add(new PitRoom());
+			}
+			initRooms.add(new FallAscendRoom());
+		} else if(Dungeon.branch == 1){
+			initRooms.add(new FallDescendRoom());
+		}
 
 		if(Dungeon.feelingOnLevel() != Feeling.NONE){
 			feeling = Dungeon.feelingOnLevel();

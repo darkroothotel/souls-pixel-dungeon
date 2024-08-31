@@ -55,6 +55,7 @@ public class HallwayRoom extends StandardRoom {
 	@Override
 	public void merge(Level l, Room other, Rect merge, int mergeTerrain) {
 		super.merge(l, other, merge, mergeTerrain);
+		mergeType(l, other);
 		Painter.set(l, connected.get(other), Terrain.EMPTY_SP);
 	}
 

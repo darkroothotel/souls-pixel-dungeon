@@ -42,7 +42,9 @@ public class LevelTransition extends Rect implements Bundlable {
 		BRANCH_ENTRANCE,
 		BRANCH_EXIT,
 		SECRET_EXIT,
-		SECRET_ENTRANCE;
+		SECRET_ENTRANCE,
+		ASCEND_FALL_BRANCH,
+		DESCEND_FALL_BRANCH;
 	}
 
 	public Type type;
@@ -93,6 +95,16 @@ public class LevelTransition extends Rect implements Bundlable {
 				destDepth = Dungeon.depth+1;
 				destBranch = Dungeon.branch;
 				destType = Type.SECRET_ENTRANCE;
+				break;
+			case ASCEND_FALL_BRANCH:
+				destDepth = Dungeon.depth;
+				destBranch = Dungeon.branch-1;
+				destType = Type.DESCEND_FALL_BRANCH;
+				break;
+			case DESCEND_FALL_BRANCH:
+				destDepth = Dungeon.depth;
+				destBranch = Dungeon.branch+1;
+				destType = Type.ASCEND_FALL_BRANCH;
 				break;
 			case SURFACE:
 				destDepth = 0;

@@ -73,6 +73,8 @@ public class Terrain {
 	public static final int SECRET_EXIT     = 39;
 	public static final int REVEALED_SECRET_ENTRANCE = 40;
 	public static final int REVEALED_SECRET_EXIT     = 41;
+	public static final int ASCEND_FALL_BRANCH       = 42;
+	public static final int DESCEND_FALL_BRANCH      = 43;
 
 	public static final int WATER		    = 29;
 	
@@ -132,6 +134,8 @@ public class Terrain {
 		flags[SECRET_EXIT] = flags[EMPTY]  | SECRET;
 		flags[REVEALED_SECRET_ENTRANCE] = flags[ENTRANCE];
 		flags[REVEALED_SECRET_EXIT] = flags[EXIT];
+		flags[ASCEND_FALL_BRANCH] = flags[ENTRANCE];
+		flags[DESCEND_FALL_BRANCH] = flags[EXIT];
 	}
 
 	public static int discover( int terr ) {

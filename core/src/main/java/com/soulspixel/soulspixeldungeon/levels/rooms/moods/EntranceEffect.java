@@ -71,7 +71,14 @@ public class EntranceEffect {
             case -7:
                 plantArmor(ch);
                 break;
+            case -8:
+                placeholder(ch);
+                break;
         }
+    }
+
+    private static void placeholder(Char ch){
+        //TODO:
     }
 
     private static void shiftingVision(){

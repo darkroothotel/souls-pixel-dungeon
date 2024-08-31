@@ -74,7 +74,9 @@ import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerBossLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerFrogLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
+import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
+import com.soulspixel.soulspixeldungeon.levels.rooms.Room;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -98,6 +100,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -510,7 +513,6 @@ public class Dungeon {
 		level.create();
 		
 		if (branch == 0) Statistics.qualifiedForNoKilling = !bossLevel();
-		Statistics.qualifiedForBossChallengeBadge = false;
 		
 		return level;
 	}
@@ -534,18 +536,16 @@ public class Dungeon {
 
 	public static boolean hasNoEntrance(){
 		boolean v = !((depth-1)%3==0);
-		if(v){
-			level.entrance=-1;
-		}
-		return v;
+		boolean f = branch == 1;
+		boolean c = v || f;
+		return c;
 	}
 
 	public static boolean hasNoExit(){
 		boolean v = !((depth-1)%3==0);
-		if(v){
-			level.exit=-1;
-		}
-		return v;
+		boolean f = branch == 1;
+		boolean c = v || f;
+		return c;
 	}
 
 	public static long seedCurDepth(){

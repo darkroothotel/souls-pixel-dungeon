@@ -251,6 +251,14 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 			return false;
 	}
 
+	public void mergeType(Level l, Room other){
+		if(other.type != 0 && type == 0){
+			type = other.type;
+		} else {
+			other.type = type;
+		}
+	}
+
 	public boolean canMerge(Level l, Room other, Point p, int mergeTerrain){
 		return false;
 	}

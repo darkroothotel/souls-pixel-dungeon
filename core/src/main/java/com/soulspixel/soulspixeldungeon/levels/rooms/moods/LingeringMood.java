@@ -61,49 +61,70 @@ public class LingeringMood {
             case 7:
                 stickyfloor(ch);
                 break;
+            case 8:
+                fallAscndMood(ch);
+                break;
         }
     }
 
     private static void blindness(Char ch){
         if(ch.buff( Blindness.class ) == null){
-            Buff.affect(ch, Blindness.class, 12f);
+            Buff.affect(ch, Blindness.class, 1f);
+        } else {
+            Buff.prolong(ch, Blindness.class, 1f);
         }
     }
 
     private static void crabArmor(Char ch){
         if(ch.buff( Carcinisation.class ) == null){
-            Buff.affect(ch, Carcinisation.class, 12f);
+            Buff.affect(ch, Carcinisation.class, 1f);
+        } else {
+            Buff.prolong(ch, Carcinisation.class, 1f);
         }
     }
 
     public static void vomitNoEat(Char ch){
         if(ch.buff( Sick.class ) == null){
-            Buff.affect(ch, Sick.class, 12f);
+            Buff.affect(ch, Sick.class, 1f);
+        } else {
+            Buff.prolong(ch, Sick.class, 1f);
         }
     }
 
     public static void silence(Char ch){
         if(ch.buff( Silenced.class ) == null){
-            Buff.affect(ch, Silenced.class, 12f);
+            Buff.affect(ch, Silenced.class, 1f);
+        } else {
+            Buff.prolong(ch, Silenced.class, 1f);
         }
     }
 
     public static void weak(Char ch){
         if(ch.buff( Weakness.class ) == null){
-            Buff.prolong(ch, Weakness.class, 12f);
+            Buff.prolong(ch, Weakness.class, 1f);
+        } else {
+            Buff.prolong(ch, Weakness.class, 1f);
         }
     }
 
     public static void invisibility(Char ch){
         if(ch.buff( Invisibility.class ) == null){
-            Buff.affect(ch, Invisibility.class, 6f);
+            Buff.affect(ch, Invisibility.class, 1f);
+        } else {
+            Buff.prolong(ch, Invisibility.class, 1f);
         }
     }
 
     public static void stickyfloor(Char ch){
         if(ch.buff( Stickyfloor.class ) == null){
-            Buff.affect(ch, Stickyfloor.class, 6f);
+            Buff.affect(ch, Stickyfloor.class, 1f);
+        } else {
+            Buff.prolong(ch, Stickyfloor.class, 1f);
         }
+    }
+
+    public static void fallAscndMood(Char ch){
+        //TODO:
     }
 
 }

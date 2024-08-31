@@ -60,6 +60,8 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.Piranha;
 import com.soulspixel.soulspixeldungeon.actors.mobs.YogFist;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Sheep;
+import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
+import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.particles.FlowParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.WindParticle;
 import com.soulspixel.soulspixeldungeon.items.Generator;
@@ -539,6 +541,22 @@ public abstract class Level implements Bundlable {
 		return 0;
 	}
 
+	public int ascendFallBranch(){
+		LevelTransition l = getTransition(LevelTransition.Type.ASCEND_FALL_BRANCH);
+		if (l != null){
+			return l.cell();
+		}
+		return 0;
+	}
+
+	public int descendFallBranch(){
+		LevelTransition l = getTransition(LevelTransition.Type.DESCEND_FALL_BRANCH);
+		if (l != null){
+			return l.cell();
+		}
+		return 0;
+	}
+
 	public LevelTransition getTransition(LevelTransition.Type type){
 		if (transitions.isEmpty()){
 			return null;
@@ -581,6 +599,10 @@ public abstract class Level implements Bundlable {
 			InterlevelScene.mode = InterlevelScene.Mode.SECRET_EXIT;
 		} else if(transition.type == LevelTransition.Type.SECRET_ENTRANCE){
 			InterlevelScene.mode = InterlevelScene.Mode.SECRET_ENTRANCE;
+		} else if(transition.type == LevelTransition.Type.ASCEND_FALL_BRANCH){
+			InterlevelScene.mode = InterlevelScene.Mode.ASCEND_FALL_BRANCH;
+		} else if(transition.type == LevelTransition.Type.DESCEND_FALL_BRANCH){
+			InterlevelScene.mode = InterlevelScene.Mode.DESCEND_FALL_BRANCH;
 		} else {
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 		}
@@ -1198,6 +1220,7 @@ public abstract class Level implements Bundlable {
 			if (hard) {
 				set(cell, Terrain.REVEALED_SECRET_ENTRANCE);
 				GLog.i(Messages.get(Level.class, "hidden_entrance"));
+				CellEmitter.get( cell ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
 			}
 			break;
 
@@ -1205,6 +1228,7 @@ public abstract class Level implements Bundlable {
 			if (hard) {
 				set(cell, Terrain.REVEALED_SECRET_EXIT);
 				GLog.i(Messages.get(Level.class, "hidden_exit"));
+				CellEmitter.get( cell ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
 			}
 			break;
 			
@@ -1531,6 +1555,10 @@ public abstract class Level implements Bundlable {
 	public String tileName( int tile ) {
 		
 		switch (tile) {
+			case Terrain.ASCEND_FALL_BRANCH:
+				return Messages.get(Level.class, "ascend_fall_branch_name");
+			case Terrain.DESCEND_FALL_BRANCH:
+				return Messages.get(Level.class, "descend_fall_branch_name");
 			case Terrain.CHASM:
 				return Messages.get(Level.class, "chasm_name");
 			case Terrain.EMPTY:
@@ -1601,6 +1629,10 @@ public abstract class Level implements Bundlable {
 	public String tileDesc( int tile ) {
 		
 		switch (tile) {
+			case Terrain.ASCEND_FALL_BRANCH:
+				return Messages.get(Level.class, "ascend_fall_branch_desc");
+			case Terrain.DESCEND_FALL_BRANCH:
+				return Messages.get(Level.class, "descend_fall_branch_desc");
 			case Terrain.CHASM:
 				return Messages.get(Level.class, "chasm_desc");
 			case Terrain.WATER:

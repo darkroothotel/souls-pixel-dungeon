@@ -54,7 +54,7 @@ public class BranchesBuilder extends RegularBuilder {
 			placeRoom(branchable, entrance, shop, Random.Float(360f));
 		}
 
-		if (bonfire != null){
+		if (bonfire != null && exit != null){
 			placeRoom(branchable, exit, bonfire, Random.Float(360f));
 		}
 

@@ -75,7 +75,8 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, SECRET_EXIT, SECRET_ENTRANCE, ASCEND_FALL_BRANCH, DESCEND_FALL_BRANCH
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE,
+		SECRET_EXIT, SECRET_ENTRANCE, ASCEND_FALL_BRANCH, DESCEND_FALL_BRANCH
 	}
 	public static Mode mode;
 
@@ -192,7 +193,7 @@ public class InterlevelScene extends PixelScene {
 				break;
         }
 
-		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT){
+		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT || mode == Mode.ASCEND_FALL_BRANCH || mode == Mode.DESCEND_FALL_BRANCH){
 			fadeTime = SLOW_FADE;
 			loadingAsset = Assets.Interfaces.SHADOW;
 		}
@@ -302,6 +303,12 @@ public class InterlevelScene extends PixelScene {
 								break;
 							case SECRET_EXIT:
 								secretExit();
+								break;
+							case ASCEND_FALL_BRANCH:
+								ascendFallBranch();
+								break;
+							case DESCEND_FALL_BRANCH:
+								descendFallBranch();
 								break;
 						}
 						
@@ -447,6 +454,14 @@ public class InterlevelScene extends PixelScene {
 
 	}
 
+	public void ascendFallBranch() throws IOException {
+		ascendFallBranchSwitch();
+	}
+
+	public void descendFallBranch() throws IOException {
+		descendFallBranchSwitch();
+	}
+
 	public void secretExit() throws IOException {
 		switch (Dungeon.depth){
 			case 1:
@@ -460,6 +475,7 @@ public class InterlevelScene extends PixelScene {
 				break;
 		}
 	}
+
 	public void secretEntrance() throws IOException {
 		switch (Dungeon.depth){
 			case 3:
@@ -502,6 +518,36 @@ public class InterlevelScene extends PixelScene {
 			level = Dungeon.newLevel();
 		}
 		Dungeon.switchLevel( level, level.secretExit());
+	}
+
+	private void ascendFallBranchSwitch() throws IOException {
+		Mob.holdAllies( Dungeon.level );
+
+		Dungeon.saveAll();
+
+		Level level;
+		Dungeon.branch = 0;
+		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		} else {
+			level = Dungeon.newLevel();
+		}
+		Dungeon.switchLevel( level, level.descendFallBranch());
+	}
+
+	private void descendFallBranchSwitch() throws IOException {
+		Mob.holdAllies( Dungeon.level );
+
+		Dungeon.saveAll();
+
+		Level level;
+		Dungeon.branch = 1;
+		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		} else {
+			level = Dungeon.newLevel();
+		}
+		Dungeon.switchLevel( level, level.ascendFallBranch());
 	}
 
 	//TODO atm falling always just increments depth by 1, do we eventually want to roll it into the transition system?

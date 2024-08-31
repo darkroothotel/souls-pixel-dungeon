@@ -78,9 +78,11 @@ public class ChasmRoom extends PatchRoom {
 		if (mergeTerrain == Terrain.EMPTY
 				&& (other instanceof ChasmRoom || other instanceof PlatformRoom)){
 			super.merge(l, other, merge, Terrain.CHASM);
+			mergeType(l, other);
 			Painter.set(l, connected.get(other), Terrain.EMPTY);
 		} else {
 			super.merge(l, other, merge, mergeTerrain);
+			mergeType(l, other);
 		}
 	}
 

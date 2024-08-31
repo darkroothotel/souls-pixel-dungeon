@@ -43,8 +43,10 @@ public class StripedRoom extends StandardRoom {
 	public void merge(Level l, Room other, Rect merge, int mergeTerrain) {
 		if (other instanceof StripedRoom && mergeTerrain == Terrain.EMPTY){
 			super.merge(l, other, merge, Terrain.EMPTY_SP);
+			mergeType(l, other);
 		} else {
 			super.merge(l, other, merge, mergeTerrain);
+			mergeType(l, other);
 		}
 
 	}

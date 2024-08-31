@@ -260,110 +260,112 @@ public abstract class StandardRoom extends Room {
 		chances[75] = new float[]{5,  0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 15,10,5,5,   1,1,1,1,1,1,1,1,1,1};
 	}
 
-	//plantArmor, light, confuse, teleport, trip, detect, shader, normal, blindness, crabArmor, vomit, silence, weak, invisibility, sticky,
+	//placeholder, plantArmor, light, confuse, teleport, trip, detect, shader, normal, blindness, crabArmor, vomit, silence, weak, invisibility, sticky, fallascend,
 	private static float[][] chancesRoomMood = new float[76][];
 	static {
 		//dungeon 1
-		chancesRoomMood[1] =  new float[]{0, 5, 0, 0, 0, 0, 0,  10, 5, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[2] =  new float[]{5, 5, 0, 0, 0, 5, 0,  30, 5, 5, 0, 5, 0, 0, 0};
-		chancesRoomMood[3] =  new float[]{5, 5, 5, 0, 5, 5, 0,  50, 5, 5, 5, 5, 5, 0, 0};
-		chancesRoomMood[4] =  new float[]{5, 5, 5, 5, 5, 5, 5,  70, 5, 5, 5, 5, 5, 5, 5};
-		chancesRoomMood[5] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[6] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[7] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[8] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[9] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[10] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[11] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[12] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[1] =  new float[]{0, 0, 5, 0, 0, 0, 0, 0,  10, 5, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[2] =  new float[]{0,5, 5, 0, 0, 0, 5, 0,  30, 5, 5, 0, 5, 0, 0, 0, 0};
+		chancesRoomMood[3] =  new float[]{0, 5, 5, 5, 0, 5, 5, 0,  50, 5, 5, 5, 5, 5, 0, 0, 0};
+		chancesRoomMood[4] =  new float[]{0, 5, 5, 5, 5, 5, 5, 5,  70, 5, 5, 5, 5, 5, 5, 5, 0};
+		chancesRoomMood[5] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[6] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[7] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[8] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[9] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[10] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[11] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[12] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//boss
-		chancesRoomMood[13] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[13] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//extra floor
-		chancesRoomMood[14] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[14] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//dungeon 2
-		chancesRoomMood[15] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[16] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[17] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[18] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[19] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[20] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[21] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[22] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[23] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[24] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[25] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[26] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[27] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[15] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[16] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[17] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[18] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[19] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[20] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[21] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[22] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[23] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[24] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[25] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[26] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[27] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//boss room
-		chancesRoomMood[28] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[28] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//extra floor
-		chancesRoomMood[29] =  new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[29] =  new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//dungeon 3
-		chancesRoomMood[30] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[31] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[32] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[33] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[34] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[35] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[36] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[37] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[38] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[39] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[40] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[41] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[42] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[30] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[31] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[32] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[33] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[34] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[35] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[36] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[37] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[38] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[39] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[40] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[41] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[42] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//boss level
-		chancesRoomMood[43] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[43] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//extra level
-		chancesRoomMood[44] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[44] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//dungeon 4
-		chancesRoomMood[45] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[46] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[47] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[48] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[49] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[50] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[51] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[52] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[53] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[54] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[55] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[56] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[57] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[45] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[46] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[47] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[48] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[49] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[50] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[51] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[52] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[53] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[54] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[55] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[56] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[57] = new float[]{0, 0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//boss level
-		chancesRoomMood[58] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[58] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//extra level
-		chancesRoomMood[59] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[59] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//dungeon 5
-		chancesRoomMood[60] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[61] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[62] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[63] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[64] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[65] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[66] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[67] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[68] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[69] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[70] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[71] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[60] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[61] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[62] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[63] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[64] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[65] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[66] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[67] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[68] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[69] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[70] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[71] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//boss level
-		chancesRoomMood[72] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[72] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//extra levels
-		chancesRoomMood[73] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
-		chancesRoomMood[74] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[73] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[74] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 		//last level
-		chancesRoomMood[75] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0};
+		chancesRoomMood[75] = new float[]{0, 0, 0, 0, 0, 0, 0,  10, 0, 0, 0, 0, 0, 0, 0, 0};
 	}
 
-	private static final int NUMBER_OF_MOODS = 15;
+	private static final int NUMBER_OF_MOODS = 17;
 	
 	
 	public static StandardRoom createRoom(){
 		StandardRoom standardRoom = Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
 		//standardRoom.type = Random.chances(chancesRoomMood[Dungeon.depth]);
-        standardRoom.type = Random.chances(chancesRoomMood[Dungeon.depth]) - ((NUMBER_OF_MOODS - 1) / 2);
-		return standardRoom;
+        if (standardRoom != null) {
+            standardRoom.type = Random.chances(chancesRoomMood[Dungeon.depth]) - ((NUMBER_OF_MOODS - 1) / 2);
+        }
+        return standardRoom;
 	}
 	
 }

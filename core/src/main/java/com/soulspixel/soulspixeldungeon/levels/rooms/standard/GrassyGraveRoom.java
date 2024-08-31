@@ -42,8 +42,10 @@ public class GrassyGraveRoom extends StandardRoom {
 		if (mergeTerrain == Terrain.EMPTY &&
 				(other instanceof GrassyGraveRoom || other instanceof PlantsRoom)){
 			super.merge(l, other, merge, Terrain.GRASS);
+			mergeType(l, other);
 		} else {
 			super.merge(l, other, merge, mergeTerrain);
+			mergeType(l, other);
 		}
 	}
 	

@@ -94,7 +94,9 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.Necromancer;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Tengu;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
+import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.particles.ShadowParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.SparkParticle;
 import com.soulspixel.soulspixeldungeon.items.Heap;
@@ -215,14 +217,14 @@ public abstract class Char extends Actor {
 						if(r.type < 0){
 							if(this instanceof Hero){
 								GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
-								this.sprite.centerEmitter().start(SparkParticle.FACTORY, 3, 3);
+								CellEmitter.get( pos ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
 								Sample.INSTANCE.play( Assets.Sounds.SECRET );
 							}
 							EntranceEffect.getEffect(r.type, this, (RegularLevel) Dungeon.level);
 						} else if(r.type != 0) {
 							if(this instanceof Hero){
 								GLog.w(Messages.get(Room.class, "type_ann_"+r.type));
-								this.sprite.centerEmitter().start(SparkParticle.FACTORY, 3, 3);
+								CellEmitter.get( pos ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
 								Sample.INSTANCE.play( Assets.Sounds.SECRET );
 							}
 						}
