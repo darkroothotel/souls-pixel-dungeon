@@ -74,6 +74,7 @@ import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerBossLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerFrogLevel;
 import com.soulspixel.soulspixeldungeon.levels.SewerLevel;
+import com.soulspixel.soulspixeldungeon.levels.falllevels.SewerFallLevel;
 import com.soulspixel.soulspixeldungeon.levels.features.LevelTransition;
 import com.soulspixel.soulspixeldungeon.levels.rooms.secret.SecretRoom;
 import com.soulspixel.soulspixeldungeon.levels.rooms.special.SpecialRoom;
@@ -449,6 +450,8 @@ public class Dungeon {
 		} else if (branch == 1) {
 			switch (depth) {
 				case 1:
+					level = new SewerFallLevel();
+					break;
 				case 2:
 				case 3:
 				case 4:

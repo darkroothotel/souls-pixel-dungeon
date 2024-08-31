@@ -133,6 +133,8 @@ public class BuffIndicator extends Component {
 	public static final int STICKY_FLOOR = 77;
 	public static final int BUFOTOXIN    = 78;
 	public static final int STICKY    	 = 79;
+	public static final int UNEASY    	 = 80;
+	public static final int ATEASE    	 = 81;
 
 
 	public static final int SIZE_SMALL  = 7;

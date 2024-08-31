@@ -30,6 +30,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.SPDSettings;
 import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
+import com.soulspixel.soulspixeldungeon.actors.buffs.AtEase;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Cripple;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Light;
@@ -70,13 +71,9 @@ public class EntranceEffect {
                 plantArmor(ch);
                 break;
             case -8:
-                placeholder(ch);
+                atEase(ch);
                 break;
         }
-    }
-
-    private static void placeholder(Char ch){
-        //TODO:
     }
 
     private static void shiftingVision(){
@@ -131,6 +128,10 @@ public class EntranceEffect {
         if (armor != null) {
             Buff.affect( ch, Earthroot.Armor.class ).level(ch.HP);
         }
+    }
+
+    private static void atEase(Char ch){
+        Buff.affect(ch, AtEase.class, AtEase.DURATION);
     }
 
 }

@@ -36,6 +36,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.AllyBuff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Amok;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ArcaneArmor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AscensionChallenge;
+import com.soulspixel.soulspixeldungeon.actors.buffs.AtEase;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Barkskin;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Berserk;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Bleeding;
@@ -77,6 +78,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Sticky;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Uneasy;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vertigo;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Vulnerable;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Weakness;
@@ -250,6 +252,11 @@ public abstract class Char extends Actor {
 		}
 		//discover rooms or trigger room effects
 		getCurrentRoomEffect();
+
+		//buffs
+		if(buff(AtEase.class) != null && buff(Uneasy.class) != null){
+			buff(AtEase.class).detach();
+		}
 		return false;
 	}
 
@@ -646,8 +653,10 @@ public abstract class Char extends Actor {
 
 		float acuRoll = Random.Float( acuStat );
 		if (attacker.buff(Bless.class) != null) acuRoll *= 1.25f;
+		if (attacker.buff(AtEase.class) != null) acuRoll *= 1.5f;
 		if (attacker.buff(  Hex.class) != null) acuRoll *= 0.8f;
 		if (attacker.buff( Daze.class) != null) acuRoll *= 0.5f;
+		if (attacker.buff( Uneasy.class) != null) acuRoll *= 0.9f;
 		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
 			acuRoll *= buff.evasionAndAccuracyFactor();
 		}
@@ -655,8 +664,10 @@ public abstract class Char extends Actor {
 		
 		float defRoll = Random.Float( defStat );
 		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
+		if (defender.buff(AtEase.class) != null) defRoll *= 1.5f;
 		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
 		if (defender.buff( Daze.class) != null) defRoll *= 0.5f;
+		if (defender.buff( Uneasy.class) != null) defRoll *= 0.9f;
 		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
 			defRoll *= buff.evasionAndAccuracyFactor();
 		}

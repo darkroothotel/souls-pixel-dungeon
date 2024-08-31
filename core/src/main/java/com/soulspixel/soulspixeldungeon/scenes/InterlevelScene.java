@@ -143,6 +143,8 @@ public class InterlevelScene extends PixelScene {
 				loadingDepth = GamesInProgress.check(GamesInProgress.curSlot).depth;
 				scrollSpeed = 5;
 				break;
+			case DESCEND_FALL_BRANCH:
+			case SECRET_ENTRANCE:
 			case DESCEND:
 				if (Dungeon.hero == null){
 					loadingDepth = 1;
@@ -160,6 +162,8 @@ public class InterlevelScene extends PixelScene {
 				loadingDepth = Dungeon.depth+1;
 				scrollSpeed = 50;
 				break;
+			case ASCEND_FALL_BRANCH:
+			case SECRET_EXIT:
 			case ASCEND:
 				fadeTime = SLOW_FADE;
 				if (curTransition != null)  loadingDepth = curTransition.destDepth;
@@ -194,7 +198,6 @@ public class InterlevelScene extends PixelScene {
         }
 
 		if(mode == Mode.SECRET_ENTRANCE || mode == Mode.SECRET_EXIT || mode == Mode.ASCEND_FALL_BRANCH || mode == Mode.DESCEND_FALL_BRANCH){
-			fadeTime = SLOW_FADE;
 			loadingAsset = Assets.Interfaces.SHADOW;
 		}
 		

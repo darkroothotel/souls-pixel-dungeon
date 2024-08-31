@@ -33,6 +33,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Invisibility;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Sick;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Silenced;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Uneasy;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Weakness;
 import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 
@@ -62,7 +63,7 @@ public class LingeringMood {
                 stickyfloor(ch);
                 break;
             case 8:
-                fallAscndMood(ch);
+                fallAscendMood(ch);
                 break;
         }
     }
@@ -123,8 +124,12 @@ public class LingeringMood {
         }
     }
 
-    public static void fallAscndMood(Char ch){
-        //TODO:
+    public static void fallAscendMood(Char ch){
+        if(ch.buff( Uneasy.class ) == null){
+            Buff.affect(ch, Uneasy.class, 1f);
+        } else {
+            Buff.prolong(ch, Uneasy.class, 1f);
+        }
     }
 
 }
