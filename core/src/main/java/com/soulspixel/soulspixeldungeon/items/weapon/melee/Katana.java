@@ -31,6 +31,8 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 
+import java.util.ArrayList;
+
 public class Katana extends MeleeWeapon {
 
 	{
@@ -39,6 +41,17 @@ public class Katana extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 4;
+
+		damageTypeDealt = Char.DamageType.SLASH;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
+		}};
+
+		damageTypeWeak = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.STRIKE);
+		}};
 	}
 
 	@Override

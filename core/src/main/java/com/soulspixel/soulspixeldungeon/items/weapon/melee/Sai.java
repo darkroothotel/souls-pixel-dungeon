@@ -42,6 +42,8 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
+import java.util.ArrayList;
+
 public class Sai extends MeleeWeapon {
 
 	{
@@ -51,6 +53,12 @@ public class Sai extends MeleeWeapon {
 
 		tier = 3;
 		DLY = 0.5f; //2x speed
+
+		damageTypeDealt = Char.DamageType.PIERCE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.PIERCE);
+		}};
 	}
 
 	@Override

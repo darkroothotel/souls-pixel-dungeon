@@ -40,6 +40,8 @@ public class Bolas extends MissileWeapon {
 		
 		tier = 3;
 		baseUses = 5;
+
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 	
 	@Override

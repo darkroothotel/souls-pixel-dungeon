@@ -46,6 +46,8 @@ public class HeavyBoomerang extends MissileWeapon {
 		
 		tier = 4;
 		sticky = false;
+
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 	
 	@Override

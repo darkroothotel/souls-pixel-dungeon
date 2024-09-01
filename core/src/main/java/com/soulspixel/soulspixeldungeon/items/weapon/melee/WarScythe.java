@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
@@ -38,7 +39,9 @@ public class WarScythe extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 5;
-		ACC = 0.8f; //20% penalty to accuracy
+		ACC = 0.8f; //20% penalty to accuracy -> ??? you literally cant miss
+
+		damageTypeDealt = Char.DamageType.SLASH;
 	}
 
 	@Override

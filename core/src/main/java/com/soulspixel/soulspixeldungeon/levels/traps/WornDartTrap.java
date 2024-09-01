@@ -85,7 +85,7 @@ public class WornDartTrap extends Trap {
 									@Override
 									public void call() {
 										int dmg = Char.combatRoll(4, 8) - finalTarget.drRoll();
-										finalTarget.damage(dmg, WornDartTrap.this, null);
+										finalTarget.damage(dmg, WornDartTrap.this, Char.DamageType.PIERCE);
 										if (finalTarget == Dungeon.hero && !finalTarget.isAlive()){
 											Dungeon.fail( WornDartTrap.this  );
 										}
@@ -97,7 +97,7 @@ public class WornDartTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.damage(Char.combatRoll(4, 8) - finalTarget.drRoll(), WornDartTrap.this, null);
+						finalTarget.damage(Char.combatRoll(4, 8) - finalTarget.drRoll(), WornDartTrap.this, Char.DamageType.PIERCE);
 						return true;
 					}
 				} else {

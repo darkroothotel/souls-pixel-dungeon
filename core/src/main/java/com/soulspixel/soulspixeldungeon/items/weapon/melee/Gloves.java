@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
@@ -41,6 +42,8 @@ public class Gloves extends MeleeWeapon {
 		DLY = 0.5f; //2x speed
 		
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.STANDARD;
 	}
 
 	@Override

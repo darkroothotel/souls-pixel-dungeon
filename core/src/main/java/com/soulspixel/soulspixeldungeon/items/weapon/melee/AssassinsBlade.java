@@ -40,6 +40,8 @@ public class AssassinsBlade extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 4;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 
 	@Override

@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
@@ -39,6 +40,8 @@ public class Gauntlet extends MeleeWeapon {
 		
 		tier = 5;
 		DLY = 0.5f; //2x speed
+
+		damageTypeDealt = Char.DamageType.STANDARD;
 	}
 	
 	@Override

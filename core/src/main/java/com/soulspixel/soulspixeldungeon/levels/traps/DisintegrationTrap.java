@@ -77,7 +77,7 @@ public class DisintegrationTrap extends Trap {
 				Sample.INSTANCE.play(Assets.Sounds.RAY);
 				SoulsPixelDungeon.scene().add(new Beam.DeathRay(DungeonTilemap.tileCenterToWorld(pos), target.sprite.center()));
 			}
-			target.damage( Char.combatRoll(30, 50) + scalingDepth(), this, null);
+			target.damage( Char.combatRoll(30, 50) + scalingDepth(), this, Char.DamageType.MAGIC);
 			if (target == Dungeon.hero){
 				Hero hero = (Hero)target;
 				if (!hero.isAlive()){

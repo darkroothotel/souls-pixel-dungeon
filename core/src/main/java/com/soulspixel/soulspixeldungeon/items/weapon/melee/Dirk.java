@@ -40,6 +40,8 @@ public class Dirk extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 2;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 
 	@Override

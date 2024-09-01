@@ -49,6 +49,8 @@ public class ForceCube extends MissileWeapon {
 		baseUses = 5;
 		
 		sticky = false;
+
+		damageTypeDealt = Char.DamageType.MAGIC;
 	}
 
 	@Override

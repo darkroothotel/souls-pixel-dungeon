@@ -62,6 +62,8 @@ abstract public class MissileWeapon extends Weapon {
 
 		defaultAction = AC_THROW;
 		usesTargeting = true;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 	
 	protected boolean sticky = true;

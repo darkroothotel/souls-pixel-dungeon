@@ -30,12 +30,30 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 
+import java.util.ArrayList;
+
 public class Greatshield extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.GREATSHIELD;
 
 		tier = 5;
+
+		damageTypeDealt = Char.DamageType.STANDARD;
+
+		damageTypeImmune = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
+		}};
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.STRIKE);
+		}};
+
+		damageTypeWeak = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.MAGIC);
+			add(Char.DamageType.STANDARD);
+		}};
 	}
 
 	@Override

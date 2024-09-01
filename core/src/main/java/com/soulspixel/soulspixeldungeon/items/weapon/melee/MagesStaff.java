@@ -85,6 +85,16 @@ public class MagesStaff extends MeleeWeapon {
 
 		unique = true;
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.MAGIC;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.MAGIC);
+		}};
+
+		damageTypeWeak = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.STANDARD);
+		}};
 	}
 
 	public MagesStaff() {

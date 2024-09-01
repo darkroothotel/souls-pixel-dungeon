@@ -49,6 +49,8 @@ public class Sword extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 3;
+
+		damageTypeDealt = Char.DamageType.STANDARD;
 	}
 
 	@Override

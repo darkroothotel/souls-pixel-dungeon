@@ -134,7 +134,7 @@ public class CrystalSpire extends Mob {
 						dmg += 12; //18-27 damage
 						Buff.prolong(ch, Cripple.class, 30f);
 					}
-					ch.damage(dmg, new SpireSpike(), null);
+					ch.damage(dmg, new SpireSpike(), DamageType.MAGIC);
 
 					int movePos = i;
 					//crystal guardians get knocked away from the hero, others get knocked away from the spire
@@ -325,7 +325,7 @@ public class CrystalSpire extends Mob {
 					//we pretend the spire is the owner here so that properties like hero str or or other equipment do not factor in
 					int dmg = p.damageRoll(CrystalSpire.this);
 
-					damage(dmg, p, null);
+					damage(dmg, p, DamageType.MAGIC);
 					abilityCooldown -= dmg/10f;
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
@@ -357,7 +357,7 @@ public class CrystalSpire extends Mob {
 						for (Char ch : Actor.chars()){
 							if (fieldOfView[ch.pos]) {
 								if (ch instanceof CrystalGuardian) {
-									ch.damage(ch.HT, new SpireSpike(), null);
+									ch.damage(ch.HT, new SpireSpike(), DamageType.MAGIC);
 								}
 								if (ch instanceof CrystalWisp) {
 									Buff.affect(ch, Blindness.class, 5f);

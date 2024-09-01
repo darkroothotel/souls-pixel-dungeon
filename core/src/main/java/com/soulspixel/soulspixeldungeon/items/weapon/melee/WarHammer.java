@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
@@ -39,6 +40,8 @@ public class WarHammer extends MeleeWeapon {
 
 		tier = 5;
 		ACC = 1.20f; //20% boost to accuracy
+
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 
 	@Override

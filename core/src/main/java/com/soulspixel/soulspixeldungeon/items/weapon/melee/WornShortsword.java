@@ -41,6 +41,8 @@ public class WornShortsword extends MeleeWeapon {
 		tier = 1;
 		
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.STANDARD;
 	}
 
 	@Override

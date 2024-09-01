@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -43,6 +44,8 @@ public class Crossbow extends MeleeWeapon {
 		//check Dart.class for additional properties
 		
 		tier = 4;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 
 	@Override

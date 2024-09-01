@@ -28,6 +28,7 @@ package com.soulspixel.soulspixeldungeon.items.artifacts;
 import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.MagicImmune;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
@@ -126,7 +127,7 @@ public class ChaliceOfBlood extends Artifact {
 			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
 		}
 
-		hero.damage(damage, this, null);
+		hero.damage(damage, this, Char.DamageType.MAGIC);
 
 		if (!hero.isAlive()) {
 			Badges.validateDeathFromFriendlyMagic();

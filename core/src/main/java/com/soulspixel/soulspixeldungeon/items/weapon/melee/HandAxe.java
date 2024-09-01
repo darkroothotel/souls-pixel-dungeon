@@ -26,9 +26,12 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class HandAxe extends MeleeWeapon {
 
@@ -39,6 +42,12 @@ public class HandAxe extends MeleeWeapon {
 
 		tier = 2;
 		ACC = 1.32f; //32% boost to accuracy
+
+		damageTypeDealt = Char.DamageType.STANDARD;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.PIERCE);
+		}};
 	}
 
 	@Override

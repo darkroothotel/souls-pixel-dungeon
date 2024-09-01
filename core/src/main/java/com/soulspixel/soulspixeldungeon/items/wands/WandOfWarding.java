@@ -337,7 +337,7 @@ public class WandOfWarding extends Wand {
 			//always hits
 			int dmg = Char.combatRoll( 2 + wandLevel, 8 + 4*wandLevel );
 			Char enemy = this.enemy;
-			enemy.damage( dmg, this, null);
+			enemy.damage( dmg, this, DamageType.MAGIC);
 			if (enemy.isAlive()){
 				Wand.wandProc(enemy, wandLevel, 1);
 			}
@@ -356,13 +356,13 @@ public class WandOfWarding extends Wand {
 					}
 					break;
 				case 4:
-					damage(5, this, null);
+					damage(5, this, DamageType.MAGIC);
 					break;
 				case 5:
-					damage(6, this, null);
+					damage(6, this, DamageType.MAGIC);
 					break;
 				case 6:
-					damage(7, this, null);
+					damage(7, this, DamageType.MAGIC);
 					break;
 			}
 		}

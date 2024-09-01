@@ -39,6 +39,8 @@ public class Shuriken extends MissileWeapon {
 		
 		tier = 2;
 		baseUses = 5;
+
+		damageTypeDealt = Char.DamageType.SLASH;
 	}
 	
 	@Override

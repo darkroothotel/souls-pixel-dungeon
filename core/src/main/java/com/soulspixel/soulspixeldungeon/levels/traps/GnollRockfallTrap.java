@@ -86,7 +86,7 @@ public class GnollRockfallTrap extends RockfallTrap {
 			if (ch != null && ch.isAlive() && !(ch instanceof GnollGeomancer)){
 				//deals notably less damage than a regular rockfall trap, but ignores armor
 				int damage = Char.combatRoll(6, 12);
-				ch.damage( Math.max(damage, 0) , this, null);
+				ch.damage( Math.max(damage, 0) , this, Char.DamageType.STRIKE);
 
 				//guards take full paralysis, otherwise just a little
 				Buff.prolong(ch, Paralysis.class, ch instanceof GnollGuard ? 10 : 3);

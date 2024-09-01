@@ -46,6 +46,8 @@ public class Greataxe extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 5;
+
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 
 	@Override

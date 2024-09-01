@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.melee;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.FlavourBuff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
@@ -42,6 +43,8 @@ public class Scimitar extends MeleeWeapon {
 
 		tier = 3;
 		DLY = 0.8f; //1.25x speed
+
+		damageTypeDealt = Char.DamageType.SLASH;
 	}
 
 	@Override

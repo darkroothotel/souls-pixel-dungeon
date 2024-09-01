@@ -76,7 +76,7 @@ public class Skeleton extends Mob {
 				damage = Math.round( damage * AscensionChallenge.statModifier(this));
 				//armor is 2x effective against bone explosion
 				damage = Math.max( 0,  damage - (ch.drRoll() + ch.drRoll()) );
-				ch.damage( damage, this, null);
+				ch.damage( damage, this, DamageType.MAGIC);
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
 				}

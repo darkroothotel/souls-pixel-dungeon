@@ -37,6 +37,8 @@ import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
+import java.util.ArrayList;
+
 public class RoundShield extends MeleeWeapon {
 
 	{
@@ -45,6 +47,13 @@ public class RoundShield extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 3;
+
+		damageTypeDealt = Char.DamageType.STANDARD;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.STRIKE);
+		}};
 	}
 
 	@Override

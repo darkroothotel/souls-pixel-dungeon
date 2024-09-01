@@ -34,6 +34,8 @@ import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 
+import java.util.ArrayList;
+
 public class Quarterstaff extends MeleeWeapon {
 
 	{
@@ -42,6 +44,16 @@ public class Quarterstaff extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 2;
+
+		damageTypeDealt = Char.DamageType.STRIKE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+		}};
+
+		damageTypeWeak = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.STRIKE);
+		}};
 	}
 
 	@Override

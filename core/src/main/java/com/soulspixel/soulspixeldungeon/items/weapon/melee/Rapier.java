@@ -42,6 +42,8 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 
+import java.util.ArrayList;
+
 public class Rapier extends MeleeWeapon {
 
 	{
@@ -52,6 +54,12 @@ public class Rapier extends MeleeWeapon {
 		tier = 1;
 
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+		add(Char.DamageType.PIERCE);
+	}};
 	}
 
 	@Override

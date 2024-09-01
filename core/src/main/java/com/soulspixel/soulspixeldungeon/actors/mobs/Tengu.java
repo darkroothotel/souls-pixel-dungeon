@@ -634,7 +634,7 @@ public class Tengu extends Mob {
 							dmg -= ch.drRoll();
 
 							if (dmg > 0) {
-								ch.damage(dmg, Bomb.class, null);
+								ch.damage(dmg, Bomb.class, DamageType.STRIKE);
 							}
 
 							if (ch == Dungeon.hero){
@@ -1064,7 +1064,7 @@ public class Tengu extends Mob {
 							
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
-								ch.damage(2 + Dungeon.scalingDepth(), new Electricity(), null);
+								ch.damage(2 + Dungeon.scalingDepth(), new Electricity(), DamageType.MAGIC);
 								
 								if (ch == Dungeon.hero){
 									Statistics.qualifiedForBossChallengeBadge = false;

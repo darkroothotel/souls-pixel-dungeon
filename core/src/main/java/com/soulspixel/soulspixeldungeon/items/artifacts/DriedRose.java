@@ -591,7 +591,7 @@ public class DriedRose extends Artifact {
 			if (rose == null
 					|| !rose.isEquipped(Dungeon.hero)
 					|| Dungeon.hero.buff(MagicImmune.class) != null){
-				damage(1, new NoRoseDamage(), null);
+				damage(1, new NoRoseDamage(), DamageType.MAGIC);
 			}
 			
 			if (!isAlive()) {

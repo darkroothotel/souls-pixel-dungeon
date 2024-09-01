@@ -54,6 +54,8 @@ public class Dagger extends MeleeWeapon {
 		tier = 1;
 		
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 
 	@Override

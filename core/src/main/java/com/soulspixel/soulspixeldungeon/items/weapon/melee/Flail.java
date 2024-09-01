@@ -50,6 +50,8 @@ public class Flail extends MeleeWeapon {
 		tier = 4;
 		ACC = 0.8f; //0.8x accuracy
 		//also cannot surprise attack, see Hero.canSurpriseAttack
+
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 
 	@Override

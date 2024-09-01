@@ -70,6 +70,8 @@ public class SpiritBow extends Weapon {
 		
 		unique = true;
 		bones = false;
+
+		damageTypeDealt = Char.DamageType.MAGIC;
 	}
 	
 	public boolean sniperSpecial = false;
