@@ -35,6 +35,8 @@ import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.SnakeSprite;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
 
+import java.util.ArrayList;
+
 public class Snake extends Mob {
 	
 	{
@@ -48,6 +50,12 @@ public class Snake extends Mob {
 		
 		loot = Generator.Category.SEED;
 		lootChance = 0.25f;
+
+		damageTypeDealt = DamageType.PIERCE;
+
+		damageResisted = new ArrayList<DamageType>(){{
+			add(DamageType.PIERCE);
+		}};
 	}
 	
 	@Override

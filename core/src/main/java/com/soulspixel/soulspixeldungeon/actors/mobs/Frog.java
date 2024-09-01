@@ -44,6 +44,8 @@ import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 public class Frog extends Mob {
 
 	{
@@ -54,8 +56,19 @@ public class Frog extends Mob {
 		viewDistance = Light.DISTANCE;
 
 		HUNTING = new Hunting();
+		//AI State craoking?
 		
 		maxLvl = 5;
+
+		damageTypeDealt = DamageType.STANDARD;
+
+		damageResisted = new ArrayList<DamageType>(){{
+			add(DamageType.STANDARD);
+		}};
+
+		damageWeak = new ArrayList<DamageType>(){{
+			add(DamageType.STRIKE);
+		}};
 	}
 
 

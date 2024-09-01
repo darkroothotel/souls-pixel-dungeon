@@ -30,6 +30,8 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Paralysis;
 import com.soulspixel.soulspixeldungeon.sprites.ToadSprite;
 
+import java.util.ArrayList;
+
 public class Toad extends Frog{
 
     {
@@ -40,6 +42,15 @@ public class Toad extends Frog{
 
         //loot = new MysteryMeat(); //TODO:
         //lootChance = 1f;
+
+        damageTypeDealt = DamageType.STRIKE;
+
+        damageResisted = new ArrayList<DamageType>(){{
+            add(DamageType.STANDARD);
+            add(DamageType.STRIKE);
+        }};
+
+        damageWeak = new ArrayList<>();
     }
 
     @Override
