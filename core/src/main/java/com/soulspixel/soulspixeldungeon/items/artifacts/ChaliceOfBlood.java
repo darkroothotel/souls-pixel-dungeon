@@ -126,7 +126,7 @@ public class ChaliceOfBlood extends Artifact {
 			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
 		}
 
-		hero.damage(damage, this);
+		hero.damage(damage, this, null);
 
 		if (!hero.isAlive()) {
 			Badges.validateDeathFromFriendlyMagic();

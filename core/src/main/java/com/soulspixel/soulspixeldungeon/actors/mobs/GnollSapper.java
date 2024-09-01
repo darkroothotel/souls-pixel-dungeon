@@ -109,8 +109,8 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
-		super.damage(dmg, src);
+	public void damage(int dmg, Object src, DamageType damageType) {
+		super.damage(dmg, src, damageType);
 		abilityCooldown -= dmg/10f;
 	}
 

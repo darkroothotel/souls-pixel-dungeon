@@ -44,7 +44,7 @@ public class ArmoredStatue extends Statue {
 		spriteClass = StatueSprite.class;
 	}
 
-	protected Armor armor;
+	public Armor armor;
 
 	public ArmoredStatue(){
 		super();
@@ -103,7 +103,7 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 		//TODO improve this when I have proper damage source logic
 		if (armor != null && armor.hasGlyph(AntiMagic.class, this)
 				&& AntiMagic.RESISTS.contains(src.getClass())){
@@ -111,7 +111,7 @@ public class ArmoredStatue extends Statue {
 			dmg = Math.max(dmg, 0);
 		}
 
-		super.damage( dmg, src );
+		super.damage( dmg, src, damageType);
 
 		//for the rose status indicator
 		Item.updateQuickslot();

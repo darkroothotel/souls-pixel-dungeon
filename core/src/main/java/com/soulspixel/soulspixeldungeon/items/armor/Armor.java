@@ -40,6 +40,7 @@ import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.items.BrokenSeal;
 import com.soulspixel.soulspixeldungeon.items.EquipableItem;
 import com.soulspixel.soulspixeldungeon.items.Item;
+import com.soulspixel.soulspixeldungeon.items.KindOfWeapon;
 import com.soulspixel.soulspixeldungeon.items.armor.curses.AntiEntropy;
 import com.soulspixel.soulspixeldungeon.items.armor.curses.Bulk;
 import com.soulspixel.soulspixeldungeon.items.armor.curses.Corrosion;
@@ -119,6 +120,10 @@ public class Armor extends EquipableItem {
 	private static final int USES_TO_ID = 10;
 	private float usesLeftToID = USES_TO_ID;
 	private float availableUsesToID = USES_TO_ID/2f;
+
+	public ArrayList<Char.DamageType> damageTypeImmune = new ArrayList<>();
+	public ArrayList<Char.DamageType> damageTypeResisted = new ArrayList<>();
+	public ArrayList<Char.DamageType> damageTypeWeak = new ArrayList<>();
 	
 	public Armor( int tier ) {
 		this.tier = tier;
@@ -526,6 +531,25 @@ public class Armor extends EquipableItem {
 				info += "\n\n" + Messages.get(Armor.class, "weak_cursed");
 			} else {
 				info += "\n\n" + Messages.get(Armor.class, "not_cursed");
+			}
+		}
+
+		if(!damageTypeImmune.isEmpty()){
+			info += "\n"+Messages.get(KindOfWeapon.class, "immune_info");
+			for (Char.DamageType dt : damageTypeImmune){
+				info += "\n_"+dt.getName(dt)+"_";
+			}
+		}
+		if(!damageTypeResisted.isEmpty()){
+			info += "\n"+Messages.get(KindOfWeapon.class, "resisted_info");
+			for (Char.DamageType dt : damageTypeResisted){
+				info += "\n_"+dt.getName(dt)+"_";
+			}
+		}
+		if(!damageTypeWeak.isEmpty()){
+			info += "\n"+Messages.get(KindOfWeapon.class, "weak_info");
+			for (Char.DamageType dt : damageTypeWeak){
+				info += "\n_"+dt.getName(dt)+"_";
 			}
 		}
 		

@@ -59,6 +59,7 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.NPC;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Pushing;
@@ -843,7 +844,7 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 
 		if (!isInvulnerable(src.getClass())) {
 			if (state == SLEEPING) {
@@ -854,7 +855,7 @@ public abstract class Mob extends Char {
 			}
 		}
 		
-		super.damage( dmg, src );
+		super.damage( dmg, src, damageType);
 	}
 	
 	
@@ -1069,6 +1070,32 @@ public abstract class Mob extends Char {
 
 	public String info(){
 		String desc = description();
+
+		if(properties.contains(Property.NOT_A_MOB)){
+			return desc;
+		}
+
+		if(!(this instanceof NPC)){
+			desc += "\n"+Messages.get(this, "deals_damage_type_desc", getDamageTypeDealt().getName(getDamageTypeDealt()));
+			if(!getDamageImmune().isEmpty()){
+				desc += "\n"+Messages.get(this, "immune_info");
+				for (DamageType dt : getDamageImmune()){
+					desc += "\n_"+dt.getName(dt)+"_";
+				}
+			}
+			if(!getDamageResisted().isEmpty()){
+				desc += "\n"+Messages.get(this, "resisted_info");
+				for (DamageType dt : getDamageResisted()){
+					desc += "\n_"+dt.getName(dt)+"_";
+				}
+			}
+			if(!getDamageWeak().isEmpty()){
+				desc += "\n"+Messages.get(this, "weak_info");
+				for (DamageType dt : getDamageWeak()){
+					desc += "\n_"+dt.getName(dt)+"_";
+				}
+			}
+		}
 
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();

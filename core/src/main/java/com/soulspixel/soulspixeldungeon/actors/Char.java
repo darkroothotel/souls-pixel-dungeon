@@ -88,11 +88,13 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.warrior.Endure;
+import com.soulspixel.soulspixeldungeon.actors.mobs.ArmoredStatue;
 import com.soulspixel.soulspixeldungeon.actors.mobs.CrystalSpire;
 import com.soulspixel.soulspixeldungeon.actors.mobs.DwarfKing;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Elemental;
 import com.soulspixel.soulspixeldungeon.actors.mobs.GnollGeomancer;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Necromancer;
+import com.soulspixel.soulspixeldungeon.actors.mobs.Statue;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Tengu;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.PrismaticImage;
@@ -154,6 +156,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -187,6 +190,82 @@ public abstract class Char extends Actor {
 	public boolean[] fieldOfView = null;
 	
 	private LinkedHashSet<Buff> buffs = new LinkedHashSet<>();
+
+	public enum DamageType{
+		STANDARD,
+		STRIKE,
+		SLASH,
+		PIERCE,
+		MAGIC;
+
+		public String getName(DamageType dt){
+			String s = null;
+			switch (dt){
+				case STANDARD:
+					s = Messages.get(Char.class, "dt_standard_name");
+					break;
+                case STRIKE:
+					s = Messages.get(Char.class, "dt_strike_name");
+                    break;
+                case SLASH:
+					s = Messages.get(Char.class, "dt_slash_name");
+                    break;
+                case PIERCE:
+					s = Messages.get(Char.class, "dt_pierce_name");
+                    break;
+                case MAGIC:
+					s = Messages.get(Char.class, "dt_magic_name");
+                    break;
+            }
+			return s;
+		}
+
+		public float whenWeak(DamageType dt) {
+			float dmg = 0f;
+			switch (dt) {
+				case STANDARD:
+				case STRIKE:
+				case SLASH:
+				case PIERCE:
+				case MAGIC:
+					dmg = dmg * 0.2f;
+					break;
+			}
+			return dmg;
+		}
+
+		public float whenResist(DamageType dt) {
+			float dmg = 0f;
+			switch (dt) {
+				case STANDARD:
+				case STRIKE:
+				case SLASH:
+				case PIERCE:
+				case MAGIC:
+					dmg = dmg * -0.2f;
+					break;
+			}
+			return dmg;
+		}
+	}
+
+	public DamageType damageTypeDealt = DamageType.STANDARD;
+	public ArrayList<DamageType> damageResisted = new ArrayList<>();
+	public ArrayList<DamageType> damageWeak = new ArrayList<>();
+	public ArrayList<DamageType> damageImmune = new ArrayList<>();
+
+	public DamageType getDamageTypeDealt(){
+		return damageTypeDealt;
+	}
+	public ArrayList<DamageType> getDamageResisted(){
+		return damageResisted;
+	}
+	public ArrayList<DamageType> getDamageWeak(){
+		return damageWeak;
+	}
+	public ArrayList<DamageType> getDamageImmune(){
+		return damageImmune;
+	}
 
 	public static boolean isPointInsideRoom(Room rect, Point point) {
 		// Shrink the rectangle by 1 unit on each side
@@ -539,7 +618,7 @@ public abstract class Char extends Actor {
 				return true;
 			}
 
-			enemy.damage( effectiveDamage, this );
+			enemy.damage( effectiveDamage, this, null);
 
 			if (buff(FireImbue.class) != null)  buff(FireImbue.class).proc(enemy);
 			if (buff(FrostImbue.class) != null) buff(FrostImbue.class).proc(enemy);
@@ -550,7 +629,7 @@ public abstract class Char extends Actor {
 					enemy.die(this);
 				} else {
 					//helps with triggering any on-damage effects that need to activate
-					enemy.damage(-1, this);
+					enemy.damage(-1, this, null);
 					DeathMark.processFearTheReaper(enemy);
 				}
 				if (enemy.sprite != null) {
@@ -568,7 +647,7 @@ public abstract class Char extends Actor {
 						enemy.die(this);
 					} else {
 						//helps with triggering any on-damage effects that need to activate
-						enemy.damage(-1, this);
+						enemy.damage(-1, this, null);
 						DeathMark.processFearTheReaper(enemy);
 					}
 					if (enemy.sprite != null) {
@@ -767,8 +846,129 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
+
+	private int weighDamageTypes(int dmg, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, DamageType subject){
+		dmg = (int) (dmg + Collections.frequency(resists, subject)*subject.whenResist(subject) + Collections.frequency(weaknesses, subject)*subject.whenWeak(subject));
+		return dmg;
+	}
+
+	private DamageType getDealtOf(Char ch){
+		if(ch instanceof Hero){
+			return ((Hero) ch).belongings.weapon().damageTypeDealt;
+		}
+		if(ch instanceof Statue){
+			return ((Statue) ch).weapon.damageTypeDealt;
+		}
+		return ch.getDamageTypeDealt();
+	}
+
+	private ArrayList<DamageType> getImmuneOf(Char ch){
+		if(ch instanceof Hero){
+			ArrayList<DamageType> i;
+			i = ch.getDamageImmune();
+			i.addAll(((Hero) ch).belongings.weapon().damageTypeImmune);
+			i.addAll(((Hero) ch).belongings.armor().damageTypeImmune);
+			return i;
+		}
+		if(ch instanceof Statue){
+			ArrayList<DamageType> i;
+			i = ch.getDamageImmune();
+			i.addAll(((Statue) ch).weapon.damageTypeImmune);
+			if(ch instanceof ArmoredStatue){
+				i.addAll(((ArmoredStatue) ch).armor().damageTypeImmune);
+			}
+			return i;
+		}
+		return ch.getDamageImmune();
+	}
+
+	private ArrayList<DamageType> getResistOf(Char ch){
+		if(ch instanceof Hero){
+			ArrayList<DamageType> i;
+			i = ch.getDamageResisted();
+			i.addAll(((Hero) ch).belongings.weapon().damageTypeResisted);
+			i.addAll(((Hero) ch).belongings.armor().damageTypeResisted);
+			return i;
+		}
+		if(ch instanceof Statue){
+			ArrayList<DamageType> i;
+			i = ch.getDamageResisted();
+			i.addAll(((Statue) ch).weapon.damageTypeResisted);
+			if(ch instanceof ArmoredStatue){
+				i.addAll(((ArmoredStatue) ch).armor().damageTypeResisted);
+			}
+			return i;
+		}
+		return ch.getDamageResisted();
+	}
+
+	private ArrayList<DamageType> getWeakOf(Char ch){
+		if(ch instanceof Hero){
+			ArrayList<DamageType> i;
+			i = ch.getDamageWeak();
+			i.addAll(((Hero) ch).belongings.weapon().damageTypeWeak);
+			i.addAll(((Hero) ch).belongings.armor().damageTypeWeak);
+			return i;
+		}
+		if(ch instanceof Statue){
+			ArrayList<DamageType> i;
+			i = ch.getDamageWeak();
+			i.addAll(((Statue) ch).weapon.damageTypeWeak);
+			if(ch instanceof ArmoredStatue){
+				i.addAll(((ArmoredStatue) ch).armor().damageTypeWeak);
+			}
+			return i;
+		}
+		return ch.getDamageWeak();
+	}
+
+	private int chAttackedByCh(int dmg, Char rec, Char inf, int id){
+		switch (id){
+			case 1:
+				if(getImmuneOf(rec).contains(getDealtOf(inf))){
+					dmg = 0;
+					rec.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "unfazed"));
+				}
+				break;
+			case 2:
+				if (getResistOf(rec).contains(getDealtOf(inf)) || getWeakOf(rec).contains(getDealtOf(inf))){
+					return weighDamageTypes(dmg, getResistOf(rec), getWeakOf(rec), getDealtOf(inf));
+				}
+				break;
+		}
+		return dmg;
+	}
+
+	private int damageWithType(int dmg, Char rec, DamageType damageType, int id){
+		switch (id){
+			case 1:
+				if(getImmuneOf(rec).contains(damageType)){
+					dmg = 0;
+					rec.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "unfazed"));
+				}
+				break;
+			case 2:
+				if (getResistOf(rec).contains(damageType) || getWeakOf(rec).contains(damageType)){
+					return weighDamageTypes(dmg, getResistOf(rec), getWeakOf(rec), damageType);
+				}
+				break;
+		}
+		return dmg;
+	}
+
+	private int damageTypeCheck(int dmg, Object src, int id){
+		if(src instanceof Char){
+			dmg = chAttackedByCh(dmg, this, (Char) src, id);
+		}
+		return dmg;
+	}
+
+	private int damageTypeCheck(int dmg, DamageType damageType, int id){
+		dmg = damageWithType(dmg, this, damageType, id);
+		return dmg;
+	}
 	
-	public void damage( int dmg, Object src ) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 		
 		if (!isAlive() || dmg < 0) {
 			return;
@@ -777,6 +977,14 @@ public abstract class Char extends Actor {
 		if(isInvulnerable(src.getClass())){
 			sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
 			return;
+		}
+
+		if(damageType == null){
+			dmg = damageTypeCheck(dmg, src,1); //immune
+			dmg = damageTypeCheck(dmg, src,2); //resist/weakness
+		} else {
+			dmg = damageTypeCheck(dmg, damageType, 1); //immune
+			dmg = damageTypeCheck(dmg, damageType, 2); //resist/weakness
 		}
 
 		if (!(src instanceof LifeLink) && buff(LifeLink.class) != null){
@@ -791,7 +999,7 @@ public abstract class Char extends Actor {
 			for (LifeLink link : links){
 				Char ch = (Char)Actor.findById(link.object);
 				if (ch != null) {
-					ch.damage(dmg, link);
+					ch.damage(dmg, link, null);
 					if (!ch.isAlive()) {
 						link.detach();
 					}

@@ -189,7 +189,7 @@ public abstract class Elemental extends Mob {
 	@Override
 	public boolean add( Buff buff ) {
 		if (harmfulBuffs.contains( buff.getClass() )) {
-			damage( Char.combatRoll( HT/2, HT * 3/5 ), buff );
+			damage( Char.combatRoll( HT/2, HT * 3/5 ), buff, null);
 			return false;
 		} else {
 			return super.add( buff );
@@ -520,7 +520,7 @@ public abstract class Elemental extends Mob {
 			}
 			
 			for (Char ch : affected) {
-				ch.damage( Math.round( damage * 0.4f ), new Shocking() );
+				ch.damage( Math.round( damage * 0.4f ), new Shocking(), null);
 				if (ch == Dungeon.hero && !ch.isAlive()){
 					Dungeon.fail(this);
 					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );

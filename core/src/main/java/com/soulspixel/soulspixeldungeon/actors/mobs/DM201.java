@@ -55,12 +55,12 @@ public class DM201 extends DM200 {
 	private boolean threatened = false;
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 		if ((src instanceof Char && !Dungeon.level.adjacent(pos, ((Char)src).pos))
 				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)){
 			threatened = true;
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src, damageType);
 	}
 
 	public void onZapComplete(){

@@ -100,7 +100,7 @@ public class PoisonDartTrap extends Trap {
 									@Override
 									public void call() {
 										int dmg = Char.combatRoll(4, 8) - finalTarget.drRoll();
-										finalTarget.damage(dmg, PoisonDartTrap.this);
+										finalTarget.damage(dmg, PoisonDartTrap.this, null);
 										if (finalTarget == Dungeon.hero){
 											//for the poison dart traps in the Tengu fight
 											if (Dungeon.depth == 10) {
@@ -120,7 +120,7 @@ public class PoisonDartTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.damage(Char.combatRoll(4, 8) - finalTarget.drRoll(), PoisonDartTrap.this);
+						finalTarget.damage(Char.combatRoll(4, 8) - finalTarget.drRoll(), PoisonDartTrap.this, null);
 						Buff.affect( finalTarget, Poison.class ).set( poisonAmount() );
 						return true;
 					}

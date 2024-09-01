@@ -64,6 +64,7 @@ public class WndInfoMob extends WndTitledMessage {
 			health = new HealthBar();
 			health.level(mob);
 			if(!mob.properties().contains(Char.Property.NOT_A_MOB)){
+				//Mobs that "are not mobs" don't show health
 				add( health );
 			}
 

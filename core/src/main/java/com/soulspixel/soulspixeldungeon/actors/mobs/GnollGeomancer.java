@@ -207,7 +207,7 @@ public class GnollGeomancer extends Mob {
 
 					dmg = Math.min(dmg, buff(RockArmor.class).shielding());
 
-					damage(dmg, p);
+					damage(dmg, p, null);
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
 
@@ -259,7 +259,7 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 		int hpBracket = HT / 3;
 
 		int curbracket = HP / hpBracket;
@@ -267,7 +267,7 @@ public class GnollGeomancer extends Mob {
 
 		inFinalBracket = curbracket == 0;
 
-		super.damage(dmg, src);
+		super.damage(dmg, src, damageType);
 
 		abilityCooldown -= dmg/10f;
 
@@ -697,7 +697,7 @@ public class GnollGeomancer extends Mob {
 						}
 
 						if (ch != null && !(ch instanceof GnollGeomancer)){
-							ch.damage(Char.combatRoll(6, 12), new GnollGeomancer.Boulder());
+							ch.damage(Char.combatRoll(6, 12), new GnollGeomancer.Boulder(), null);
 
 							if (ch.isAlive()){
 								Buff.prolong( ch, Paralysis.class, ch instanceof GnollGuard ? 10 : 3 );
@@ -800,7 +800,7 @@ public class GnollGeomancer extends Mob {
 
 		@Override
 		public void affectChar(Char ch) {
-			ch.damage(Char.combatRoll(6, 12), this);
+			ch.damage(Char.combatRoll(6, 12), this, null);
 			if (ch.isAlive()) {
 				Buff.prolong(ch, Paralysis.class, ch instanceof GnollGuard ? 10 : 3);
 			} else if (ch == Dungeon.hero){

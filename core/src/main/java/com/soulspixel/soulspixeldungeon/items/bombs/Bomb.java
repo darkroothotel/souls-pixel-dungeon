@@ -197,7 +197,7 @@ public class Bomb extends Item {
 				dmg -= ch.drRoll();
 
 				if (dmg > 0) {
-					ch.damage(dmg, this);
+					ch.damage(dmg, this, null);
 				}
 				
 				if (ch == Dungeon.hero && !ch.isAlive()) {

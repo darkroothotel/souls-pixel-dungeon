@@ -243,9 +243,9 @@ public class YogDzewa extends Mob {
 
 					if (hit( this, ch, true )) {
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
-							ch.damage(Char.combatRoll(30, 50), new Eye.DeathGaze());
+							ch.damage(Char.combatRoll(30, 50), new Eye.DeathGaze(), null);
 						} else {
-							ch.damage(Char.combatRoll(20, 30), new Eye.DeathGaze());
+							ch.damage(Char.combatRoll(20, 30), new Eye.DeathGaze(), null);
 						}
 						if (Dungeon.level.heroFOV[pos]) {
 							ch.sprite.flash();
@@ -384,10 +384,10 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 
 		int preHP = HP;
-		super.damage( dmg, src );
+		super.damage( dmg, src, damageType);
 
 		if (phase == 0 || findFist() != null) return;
 

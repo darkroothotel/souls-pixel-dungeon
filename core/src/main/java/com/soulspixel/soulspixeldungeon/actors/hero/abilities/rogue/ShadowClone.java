@@ -264,7 +264,7 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, DamageType damageType) {
 
 			//TODO improve this when I have proper damage source logic
 			if (Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)
@@ -275,7 +275,7 @@ public class ShadowClone extends ArmorAbility {
 				dmg = Math.max(dmg, 0);
 			}
 
-			super.damage(dmg, src);
+			super.damage(dmg, src, damageType);
 		}
 
 		@Override

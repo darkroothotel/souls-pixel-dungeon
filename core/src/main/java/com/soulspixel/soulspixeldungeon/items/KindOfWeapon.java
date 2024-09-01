@@ -43,10 +43,17 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
+import java.util.ArrayList;
+
 abstract public class KindOfWeapon extends EquipableItem {
 
 	protected String hitSound = Assets.Sounds.HIT;
 	protected float hitSoundPitch = 1f;
+
+	public Char.DamageType damageTypeDealt = Char.DamageType.STANDARD;
+	public ArrayList<Char.DamageType> damageTypeImmune = new ArrayList<>();
+	public ArrayList<Char.DamageType> damageTypeResisted = new ArrayList<>();
+	public ArrayList<Char.DamageType> damageTypeWeak = new ArrayList<>();
 	
 	@Override
 	public void execute(Hero hero, String action) {
@@ -91,6 +98,31 @@ abstract public class KindOfWeapon extends EquipableItem {
 		} else {
 			super.execute(hero, action);
 		}
+	}
+
+	@Override
+	public String info() {
+		String desc = super.info();
+		desc += "\n\n"+Messages.get(this, "dt_deals_info", damageTypeDealt.getName(damageTypeDealt));
+		if(!damageTypeImmune.isEmpty()){
+			desc += "\n"+Messages.get(this, "immune_info");
+			for (Char.DamageType dt : damageTypeImmune){
+				desc += "\n_"+dt.getName(dt)+"_";
+			}
+		}
+		if(!damageTypeResisted.isEmpty()){
+			desc += "\n"+Messages.get(this, "resisted_info");
+			for (Char.DamageType dt : damageTypeResisted){
+				desc += "\n_"+dt.getName(dt)+"_";
+			}
+		}
+		if(!damageTypeWeak.isEmpty()){
+			desc += "\n"+Messages.get(this, "weak_info");
+			for (Char.DamageType dt : damageTypeWeak){
+				desc += "\n_"+dt.getName(dt)+"_";
+			}
+		}
+		return desc;
 	}
 
 	@Override

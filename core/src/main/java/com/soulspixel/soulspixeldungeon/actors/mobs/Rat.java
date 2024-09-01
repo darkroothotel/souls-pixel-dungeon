@@ -31,6 +31,8 @@ import com.soulspixel.soulspixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.soulspixel.soulspixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
 
+import java.util.ArrayList;
+
 public class Rat extends Mob {
 
 	{
@@ -40,6 +42,14 @@ public class Rat extends Mob {
 		defenseSkill = 2;
 		
 		maxLvl = 5;
+
+		damageResisted = new ArrayList<DamageType>(){{
+			add(DamageType.PIERCE);
+		}};
+
+		damageWeak = new ArrayList<DamageType>(){{
+			add(DamageType.STRIKE);
+		}};
 	}
 
 	@Override

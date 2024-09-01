@@ -53,7 +53,7 @@ public class Statue extends Mob {
 		properties.add(Property.MAGIC);
 	}
 	
-	protected Weapon weapon;
+	public Weapon weapon;
 
 	public boolean levelGenStatue = true;
 	
@@ -134,13 +134,13 @@ public class Statue extends Mob {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void damage(int dmg, Object src, DamageType damageType) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 		
-		super.damage( dmg, src );
+		super.damage( dmg, src, damageType);
 	}
 	
 	@Override
