@@ -31,7 +31,6 @@ import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class Bufotoxin extends Buff {
 

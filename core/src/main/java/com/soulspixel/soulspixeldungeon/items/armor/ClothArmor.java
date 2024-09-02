@@ -29,7 +29,6 @@ import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ClothArmor extends Armor {
 

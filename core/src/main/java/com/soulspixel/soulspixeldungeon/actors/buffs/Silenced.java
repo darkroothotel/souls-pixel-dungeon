@@ -26,12 +26,19 @@
 package com.soulspixel.soulspixeldungeon.actors.buffs;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.SPDSettings;
+import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
+import com.watabou.utils.Bundle;
 
 public class Silenced extends FlavourBuff {
 
 	public static final float DURATION = 10f;
+
+	private boolean wasTurnedOff = false;
+
+	private static final String TURNED_OFF    = "turned_off";
 
 	{
 		type = buffType.NEGATIVE;
@@ -48,9 +55,43 @@ public class Silenced extends FlavourBuff {
 	}
 
 	@Override
+	protected void onAdd() {
+		if(target instanceof Hero){
+			if(SPDSettings.soundFx() && SPDSettings.music()){
+				wasTurnedOff = true;
+				SPDSettings.soundFx(false);
+				SPDSettings.music(false);
+			}
+		}
+		super.onAdd();
+	}
+
+	@Override
+	protected void onRemove() {
+		if(wasTurnedOff){
+			wasTurnedOff = false;
+			SPDSettings.soundFx(true);
+			SPDSettings.music(true);
+		}
+		super.onRemove();
+	}
+
+	@Override
 	public void detach() {
 		super.detach();
 		Dungeon.observe();
 		GameScene.updateFog();
+	}
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle( bundle );
+		bundle.put( TURNED_OFF, wasTurnedOff );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle( bundle );
+		wasTurnedOff = bundle.getBoolean( TURNED_OFF );
 	}
 }

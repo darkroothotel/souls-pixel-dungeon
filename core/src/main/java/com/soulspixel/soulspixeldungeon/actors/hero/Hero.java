@@ -848,6 +848,8 @@ public class Hero extends Char {
 
 		getCurrentRoomEffect();
 
+		//buffs
+
 		if(buff(Undeath.class) == null && isUndead()){
 			Buff.affect(this, Undeath.class);
 		}
@@ -859,7 +861,6 @@ public class Hero extends Char {
 			buff(Endure.EndureTracker.class).endEnduring();
 		}
 
-		//buffs
 		if(buff(AtEase.class) != null && buff(Uneasy.class) != null){
 			buff(AtEase.class).detach();
 		}

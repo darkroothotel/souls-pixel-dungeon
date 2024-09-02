@@ -31,8 +31,6 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 
-import java.util.ArrayList;
-
 public class Longsword extends MeleeWeapon {
 	
 	{
