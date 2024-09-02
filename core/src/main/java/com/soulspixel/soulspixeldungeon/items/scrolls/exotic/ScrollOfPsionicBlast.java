@@ -69,7 +69,7 @@ public class ScrollOfPsionicBlast extends ExoticScroll {
 		for (Mob mob : targets){
 			//always kills non-resistant enemies
 			//resistant enemies take 50% current HP at full health, scaling to 75% at 1/2 HP, and 100% at 1/3 hp
-			mob.damage(Math.round(mob.HT/2f + mob.HP/2f), this, Char.DamageType.MAGIC);
+			mob.damage(Math.round(mob.HT/2f + mob.HP/2f), this, Char.DamageType.DARK_MAGIC);
 			if (mob.isAlive()) {
 				Buff.prolong(mob, Blindness.class, Blindness.DURATION);
 			}

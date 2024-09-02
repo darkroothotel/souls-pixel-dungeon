@@ -383,7 +383,7 @@ public class ElementalStrike extends ArmorAbility {
 		//*** no enchantment ***
 		if (ench == null) {
 			for (Char ch : affected){
-				ch.damage(Math.round(powerMulti* Char.combatRoll(6, 12)), ElementalStrike.this, Char.DamageType.MAGIC);
+				ch.damage(Math.round(powerMulti* Char.combatRoll(6, 12)), ElementalStrike.this, Char.DamageType.STANDARD);
 			}
 
 		//*** Kinetic ***
@@ -486,7 +486,7 @@ public class ElementalStrike extends ArmorAbility {
 					float hpMissing = 1f - (ch.HP / (float)ch.HT);
 					float chance = 0.06f + 0.24f*hpMissing; //6-30%
 					if (Random.Float() < chance*powerMulti){
-						ch.damage( ch.HP, Grim.class, Char.DamageType.MAGIC);
+						ch.damage( ch.HP, Grim.class, Char.DamageType.DARK_MAGIC);
 						ch.sprite.emitter().burst( ShadowParticle.UP, 5 );
 					}
 				}

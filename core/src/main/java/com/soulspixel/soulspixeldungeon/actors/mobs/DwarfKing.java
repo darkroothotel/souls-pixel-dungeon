@@ -697,12 +697,12 @@ public class DwarfKing extends Mob {
 					}
 				} else {
 					Char ch = Actor.findChar(pos);
-					ch.damage(Char.combatRoll(20, 40), this, DamageType.MAGIC);
+					ch.damage(Char.combatRoll(20, 40), this, DamageType.DARK_MAGIC);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-							target.damage(target.HT/18, new KingDamager(), DamageType.MAGIC);
+							target.damage(target.HT/18, new KingDamager(), DamageType.DARK_MAGIC);
 						} else {
-							target.damage(target.HT/12, new KingDamager(), DamageType.MAGIC);
+							target.damage(target.HT/12, new KingDamager(), DamageType.DARK_MAGIC);
 						}
 					}
 					if (!ch.isAlive() && ch == Dungeon.hero) {

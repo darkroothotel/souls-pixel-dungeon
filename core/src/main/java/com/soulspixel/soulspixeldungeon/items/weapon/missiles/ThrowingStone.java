@@ -42,7 +42,7 @@ public class ThrowingStone extends MissileWeapon {
 		baseUses = 5;
 		sticky = false;
 
-		damageTypeDealt = Char.DamageType.STRIKE;
+		damageTypeDealt = Char.DamageType.BASH;
 	}
 	
 	@Override

@@ -25,12 +25,19 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class LeatherArmor extends Armor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_LEATHER;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.FROST);
+		}};
 	}
 	
 	public LeatherArmor() {

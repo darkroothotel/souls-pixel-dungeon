@@ -77,7 +77,7 @@ public class RingOfAntiMagic extends Ring implements Hero.Doom {
 		if(Char.hasProp(enemy, Char.Property.MAGIC) || user.belongings.armor.glyph != null || isEnchanted(user)){
 			float b = ((float) Math.pow( 2.0, getBuffedBonus(user, AntiMagicField.class)));
 			if(b < 0){
-				user.damage((int) (-1*b), RingOfAntiMagic.class, Char.DamageType.MAGIC);
+				user.damage((int) (-1*b), RingOfAntiMagic.class, Char.DamageType.DARK_MAGIC);
 			} else {
 				Buff.affect(user, Barrier.class).setShield((int) b);
 				user.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString((int) b), FloatingText.SHIELDING );

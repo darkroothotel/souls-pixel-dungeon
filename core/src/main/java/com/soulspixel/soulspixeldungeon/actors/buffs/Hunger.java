@@ -28,6 +28,7 @@ package com.soulspixel.soulspixeldungeon.actors.buffs;
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.SPDSettings;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.items.journal.Guidebook;
 import com.soulspixel.soulspixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
@@ -85,7 +86,7 @@ public class Hunger extends Buff implements Hero.Doom {
 				partialDamage += STEP * target.HT/1000f;
 
 				if (partialDamage > 1){
-					target.damage( (int)partialDamage, this, null);
+					target.damage( (int)partialDamage, this, Char.DamageType.HUNGER);
 					partialDamage -= (int)partialDamage;
 				}
 				
@@ -95,7 +96,7 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (newLevel >= STARVING) {
 
 					GLog.n( Messages.get(this, "onstarving") );
-					hero.damage( 1, this, null);
+					hero.damage( 1, this, Char.DamageType.HUNGER);
 
 					hero.interrupt();
 
@@ -150,7 +151,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			level = STARVING;
 			partialDamage += excess * (target.HT/1000f);
 			if (partialDamage > 1f){
-				target.damage( (int)partialDamage, this, null);
+				target.damage( (int)partialDamage, this, Char.DamageType.HUNGER);
 				partialDamage -= (int)partialDamage;
 			}
 		}
@@ -159,7 +160,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			GLog.w( Messages.get(this, "onhungry") );
 		} else if (oldLevel < STARVING && level >= STARVING){
 			GLog.n( Messages.get(this, "onstarving") );
-			target.damage( 1, this, null);
+			target.damage( 1, this, Char.DamageType.HUNGER);
 		}
 
 		BuffIndicator.refreshHero();

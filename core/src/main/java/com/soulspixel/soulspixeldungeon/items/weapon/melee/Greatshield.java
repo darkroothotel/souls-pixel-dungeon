@@ -39,20 +39,19 @@ public class Greatshield extends MeleeWeapon {
 
 		tier = 5;
 
-		damageTypeDealt = Char.DamageType.STANDARD;
-
-		damageTypeImmune = new ArrayList<Char.DamageType>(){{
-			add(Char.DamageType.SLASH);
-			add(Char.DamageType.PIERCE);
-		}};
+		damageTypeDealt = Char.DamageType.BASH;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
 			add(Char.DamageType.STRIKE);
+			add(Char.DamageType.THRUST);
 		}};
 
 		damageTypeWeak = new ArrayList<Char.DamageType>(){{
-			add(Char.DamageType.MAGIC);
-			add(Char.DamageType.STANDARD);
+			add(Char.DamageType.STAB);
+			add(Char.DamageType.FALL);
+			add(Char.DamageType.HUNGER);
 		}};
 	}
 

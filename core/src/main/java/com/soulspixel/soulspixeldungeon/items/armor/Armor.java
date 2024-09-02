@@ -534,6 +534,10 @@ public class Armor extends EquipableItem {
 			}
 		}
 
+		if(!damageTypeImmune.isEmpty() || !damageTypeWeak.isEmpty() || !damageTypeResisted.isEmpty()){
+			info += "\n";
+		}
+
 		if(!damageTypeImmune.isEmpty()){
 			info += "\n"+Messages.get(KindOfWeapon.class, "immune_info");
 			for (Char.DamageType dt : damageTypeImmune){

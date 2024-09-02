@@ -99,7 +99,7 @@ public class RockfallTrap extends Trap {
 			if (ch != null && ch.isAlive()){
 				int damage = Char.combatRoll(5+scalingDepth(), 10+scalingDepth()*2);
 				damage -= ch.drRoll();
-				ch.damage( Math.max(damage, 0) , this, Char.DamageType.STRIKE);
+				ch.damage( Math.max(damage, 0) , this, Char.DamageType.EARTH);
 
 				Buff.prolong( ch, Paralysis.class, Paralysis.DURATION );
 

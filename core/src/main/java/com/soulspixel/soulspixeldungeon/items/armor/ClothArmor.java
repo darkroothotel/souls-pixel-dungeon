@@ -25,7 +25,11 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClothArmor extends Armor {
 
@@ -33,6 +37,13 @@ public class ClothArmor extends Armor {
 		image = ItemSpriteSheet.ARMOR_CLOTH;
 
 		bones = false; //Finding them in bones would be semi-frequent and disappointing.
+
+		damageTypeWeak = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
+			add(Char.DamageType.STAB);
+			add(Char.DamageType.FIRE);
+		}};
 	}
 	
 	public ClothArmor() {

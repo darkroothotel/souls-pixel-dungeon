@@ -51,7 +51,7 @@ public class Mace extends MeleeWeapon {
 		tier = 3;
 		ACC = 1.28f; //28% boost to accuracy
 
-		damageTypeDealt = Char.DamageType.STRIKE;
+		damageTypeDealt = Char.DamageType.BASH;
 	}
 
 	@Override

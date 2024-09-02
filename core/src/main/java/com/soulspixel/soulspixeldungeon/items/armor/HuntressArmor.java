@@ -25,12 +25,19 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class HuntressArmor extends ClassArmor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_HUNTRESS;
+
+		damageTypeImmune = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.EARTH);
+		}};
 	}
 
 }

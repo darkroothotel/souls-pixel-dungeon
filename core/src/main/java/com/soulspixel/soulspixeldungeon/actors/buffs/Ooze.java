@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.actors.buffs;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
@@ -83,13 +84,7 @@ public class Ooze extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			if (Dungeon.scalingDepth() > 5) {
-				target.damage(1 + Dungeon.scalingDepth() / 5, this, null);
-			} else if (Dungeon.scalingDepth() == 5){
-				target.damage(1, this, null); //1 dmg per turn vs Goo
-			} else if (Random.Int(2) == 0) {
-				target.damage(1, this, null); //0.5 dmg per turn in sewers
-			}
+			target.damage(1 + Dungeon.scalingDepth() / 5, this, Char.DamageType.ACIDIC);
 
 			if (!target.isAlive() && target == Dungeon.hero) {
 				Dungeon.fail( this );

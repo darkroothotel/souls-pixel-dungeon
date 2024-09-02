@@ -27,6 +27,7 @@ package com.soulspixel.soulspixeldungeon.actors.buffs;
 
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfCorrosion;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -101,7 +102,7 @@ public class Corrosion extends Buff implements Hero.Doom {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			target.damage((int)damage, this, null);
+			target.damage((int)damage, this, Char.DamageType.ACIDIC);
 			if (damage < (Dungeon.scalingDepth()/2)+2) {
 				damage++;
 			} else {

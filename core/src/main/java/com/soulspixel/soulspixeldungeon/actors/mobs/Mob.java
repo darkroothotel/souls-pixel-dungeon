@@ -1076,22 +1076,35 @@ public abstract class Mob extends Char {
 		}
 
 		if(!(this instanceof NPC)){
-			desc += "\n"+Messages.get(this, "deals_damage_type_desc", getDamageTypeDealt().getName(getDamageTypeDealt()));
-			if(!getDamageImmune().isEmpty()){
+			if(!getDamageImmune().isEmpty() || !getAllDmgTypesImmunities(this).isEmpty() ||
+					!getDamageResisted().isEmpty() || !getAllDmgTypesResistance(this).isEmpty() ||
+					!getDamageWeak().isEmpty() || !getAllDmgTypesWeakness(this).isEmpty()){
+				desc += "\n\n"+Messages.get(this, "deals_damage_type_desc", getDamageTypeDealt().getName(getDamageTypeDealt()));
+			}
+			if(!getDamageImmune().isEmpty() || !getAllDmgTypesImmunities(this).isEmpty()){
 				desc += "\n"+Messages.get(this, "immune_info");
-				for (DamageType dt : getDamageImmune()){
+				ArrayList<DamageType> l = new ArrayList<DamageType>();
+				l.addAll(getAllDmgTypesImmunities(this));
+				l.addAll(getDamageImmune());
+				for (DamageType dt : l){
 					desc += "\n_"+dt.getName(dt)+"_";
 				}
 			}
-			if(!getDamageResisted().isEmpty()){
+			if(!getDamageResisted().isEmpty() || !getAllDmgTypesResistance(this).isEmpty()){
 				desc += "\n"+Messages.get(this, "resisted_info");
-				for (DamageType dt : getDamageResisted()){
+				ArrayList<DamageType> l = new ArrayList<DamageType>();
+				l.addAll(getAllDmgTypesResistance(this));
+				l.addAll(getDamageResisted());
+				for (DamageType dt : l){
 					desc += "\n_"+dt.getName(dt)+"_";
 				}
 			}
-			if(!getDamageWeak().isEmpty()){
+			if(!getDamageWeak().isEmpty() || !getAllDmgTypesWeakness(this).isEmpty()){
 				desc += "\n"+Messages.get(this, "weak_info");
-				for (DamageType dt : getDamageWeak()){
+				ArrayList<DamageType> l = new ArrayList<DamageType>();
+				l.addAll(getAllDmgTypesWeakness(this));
+				l.addAll(getDamageWeak());
+				for (DamageType dt : l){
 					desc += "\n_"+dt.getName(dt)+"_";
 				}
 			}

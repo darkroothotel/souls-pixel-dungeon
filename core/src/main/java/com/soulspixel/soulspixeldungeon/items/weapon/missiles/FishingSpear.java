@@ -38,6 +38,8 @@ public class FishingSpear extends MissileWeapon {
 		hitSoundPitch = 1.1f;
 		
 		tier = 2;
+
+		damageTypeDealt = Char.DamageType.THRUST;
 	}
 	
 	@Override

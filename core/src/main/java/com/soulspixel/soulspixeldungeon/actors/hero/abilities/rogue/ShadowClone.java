@@ -275,7 +275,7 @@ public class ShadowClone extends ArmorAbility {
 				dmg = Math.max(dmg, 0);
 			}
 
-			super.damage(dmg, src, damageType);
+			super.damage(dmg, src, DamageType.MAGIC);
 		}
 
 		@Override

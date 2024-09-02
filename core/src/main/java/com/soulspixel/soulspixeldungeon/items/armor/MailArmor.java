@@ -25,12 +25,21 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class MailArmor extends Armor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_MAIL;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
+			add(Char.DamageType.STAB);
+		}};
 	}
 	
 	public MailArmor() {

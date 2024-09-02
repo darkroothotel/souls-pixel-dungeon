@@ -67,7 +67,7 @@ public class RotLasher extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src, DamageType damageType) {
-		if (src instanceof Burning) {
+		if (src instanceof Burning || damageType == DamageType.FIRE) {
 			destroy();
 			sprite.die();
 		} else {

@@ -41,7 +41,7 @@ public class AssassinsBlade extends MeleeWeapon {
 
 		tier = 4;
 
-		damageTypeDealt = Char.DamageType.PIERCE;
+		damageTypeDealt = Char.DamageType.STAB;
 	}
 
 	@Override

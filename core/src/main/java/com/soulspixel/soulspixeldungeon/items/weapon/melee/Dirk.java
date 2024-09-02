@@ -41,7 +41,7 @@ public class Dirk extends MeleeWeapon {
 
 		tier = 2;
 
-		damageTypeDealt = Char.DamageType.PIERCE;
+		damageTypeDealt = Char.DamageType.STAB;
 	}
 
 	@Override

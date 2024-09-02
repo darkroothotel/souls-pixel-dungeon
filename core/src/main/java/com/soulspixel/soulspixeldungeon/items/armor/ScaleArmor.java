@@ -25,12 +25,23 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class ScaleArmor extends Armor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_SCALE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.BASH);
+			add(Char.DamageType.STRIKE);
+			add(Char.DamageType.SLASH);
+			add(Char.DamageType.PIERCE);
+			add(Char.DamageType.STAB);
+		}};
 	}
 	
 	public ScaleArmor() {

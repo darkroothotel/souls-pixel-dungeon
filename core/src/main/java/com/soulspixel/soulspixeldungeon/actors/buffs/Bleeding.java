@@ -27,6 +27,7 @@ package com.soulspixel.soulspixeldungeon.actors.buffs;
 
 import com.soulspixel.soulspixeldungeon.Badges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.effects.Splash;
 import com.soulspixel.soulspixeldungeon.items.weapon.curses.Sacrificial;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -102,7 +103,7 @@ public class Bleeding extends Buff {
 			
 			if (dmg > 0) {
 				
-				target.damage( dmg, this, null);
+				target.damage( dmg, this, Char.DamageType.BLEED);
 				if (target.sprite.visible) {
 					Splash.at( target.sprite.center(), -PointF.PI / 2, PointF.PI / 6,
 							target.sprite.blood(), Math.min( 10 * dmg / target.HT, 10 ) );

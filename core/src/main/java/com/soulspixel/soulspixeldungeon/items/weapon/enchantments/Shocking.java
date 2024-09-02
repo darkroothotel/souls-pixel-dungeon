@@ -64,7 +64,7 @@ public class Shocking extends Weapon.Enchantment {
 			affected.remove(defender); //defender isn't hurt by lightning
 			for (Char ch : affected) {
 				if (ch.alignment != attacker.alignment) {
-					ch.damage(Math.round(damage * 0.4f * powerMulti), this, null);
+					ch.damage(Math.round(damage * 0.4f * powerMulti), this, Char.DamageType.LIGHTNING);
 				}
 			}
 

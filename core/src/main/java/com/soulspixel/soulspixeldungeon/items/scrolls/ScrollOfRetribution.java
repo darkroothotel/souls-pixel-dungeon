@@ -70,7 +70,7 @@ public class ScrollOfRetribution extends Scroll {
 
 		for (Mob mob : targets){
 			//deals 10%HT, plus 0-90%HP based on scaling
-			mob.damage(Math.round(mob.HT/10f + (mob.HP * power * 0.225f)), this, Char.DamageType.MAGIC);
+			mob.damage(Math.round(mob.HT/10f + (mob.HP * power * 0.225f)), this, Char.DamageType.DARK_MAGIC);
 			if (mob.isAlive()) {
 				Buff.prolong(mob, Blindness.class, Blindness.DURATION);
 			}

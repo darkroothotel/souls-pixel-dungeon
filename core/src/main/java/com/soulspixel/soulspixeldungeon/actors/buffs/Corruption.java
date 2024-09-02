@@ -59,7 +59,7 @@ public class Corruption extends AllyBuff {
 		buildToDamage -= damage;
 
 		if (damage > 0)
-			target.damage(damage, this, null);
+			target.damage(damage, this, Char.DamageType.DARK_MAGIC);
 
 		spend(TICK);
 

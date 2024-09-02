@@ -101,7 +101,7 @@ public class Poison extends Buff implements Hero.Doom {
 	public boolean act() {
 		if (target.isAlive()) {
 			
-			target.damage( (int)(left / 3) + 1, this, null);
+			target.damage( (int)(left / 3) + 1, this, Char.DamageType.POISON);
 			spend( TICK );
 			
 			if ((left -= TICK) <= 0) {

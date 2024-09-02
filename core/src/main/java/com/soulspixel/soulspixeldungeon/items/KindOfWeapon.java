@@ -122,6 +122,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 				desc += "\n_"+dt.getName(dt)+"_";
 			}
 		}
+
 		return desc;
 	}
 

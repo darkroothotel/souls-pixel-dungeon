@@ -54,7 +54,7 @@ public class Sai extends MeleeWeapon {
 		tier = 3;
 		DLY = 0.5f; //2x speed
 
-		damageTypeDealt = Char.DamageType.PIERCE;
+		damageTypeDealt = Char.DamageType.STAB;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.PIERCE);

@@ -41,7 +41,7 @@ public class Tomahawk extends MissileWeapon {
 		tier = 4;
 		baseUses = 5;
 
-		damageTypeDealt = Char.DamageType.SLASH;
+		damageTypeDealt = Char.DamageType.STRIKE;
 	}
 
 	@Override

@@ -61,8 +61,8 @@ public class RotHeart extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src, DamageType damageType) {
-		//TODO: when effect properties are done, change this to FIRE
-		if (src instanceof Burning) {
+		//when effect properties are done, change this to FIRE //np
+		if (src instanceof Burning || damageType == DamageType.FIRE) {
 			destroy();
 			sprite.die();
 		} else {

@@ -55,7 +55,7 @@ public class StormCloud extends Blob {
 					if (ch != null
 							&& !ch.isImmune(getClass())
 							&& Char.hasProp(ch, Char.Property.FIERY)){
-						ch.damage(1 + Dungeon.scalingDepth()/5, this, null);
+						ch.damage(1 + Dungeon.scalingDepth()/5, this, Char.DamageType.WATER);
 					}
 				}
 			}

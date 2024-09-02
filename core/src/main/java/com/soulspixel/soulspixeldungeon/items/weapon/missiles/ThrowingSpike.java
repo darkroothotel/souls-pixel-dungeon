@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.items.weapon.missiles;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 
 public class ThrowingSpike extends MissileWeapon {
@@ -38,6 +39,8 @@ public class ThrowingSpike extends MissileWeapon {
 		bones = false;
 
 		tier = 1;
+
+		damageTypeDealt = Char.DamageType.PIERCE;
 	}
 
 }

@@ -43,7 +43,7 @@ public class ThrowingKnife extends MissileWeapon {
 		tier = 1;
 		baseUses = 5;
 
-		damageTypeDealt = Char.DamageType.SLASH;
+		damageTypeDealt = Char.DamageType.STAB;
 	}
 	
 	@Override

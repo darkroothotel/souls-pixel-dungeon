@@ -40,7 +40,7 @@ public class ThrowingClub extends MissileWeapon {
 		baseUses = 15;
 		sticky = false;
 
-		damageTypeDealt = Char.DamageType.STRIKE;
+		damageTypeDealt = Char.DamageType.BASH;
 	}
 	
 	@Override

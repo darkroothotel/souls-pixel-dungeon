@@ -25,12 +25,20 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class PlateArmor extends Armor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_PLATE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.BASH);
+			add(Char.DamageType.STRIKE);
+		}};
 	}
 	
 	public PlateArmor() {

@@ -41,6 +41,8 @@ public class Kunai extends MissileWeapon {
 		
 		tier = 3;
 		baseUses = 5;
+
+		damageTypeDealt = Char.DamageType.STAB;
 	}
 	
 	private Char enemy;

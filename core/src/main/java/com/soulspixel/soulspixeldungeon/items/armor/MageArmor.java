@@ -25,12 +25,21 @@
 
 package com.soulspixel.soulspixeldungeon.items.armor;
 
+import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class MageArmor extends ClassArmor {
 
 	{
 		image = ItemSpriteSheet.ARMOR_MAGE;
+
+		damageTypeResisted = new ArrayList<Char.DamageType>(){{
+			add(Char.DamageType.MAGIC);
+			add(Char.DamageType.DARK_MAGIC);
+			add(Char.DamageType.HOLY_MAGIC);
+		}};
 	}
 
 }

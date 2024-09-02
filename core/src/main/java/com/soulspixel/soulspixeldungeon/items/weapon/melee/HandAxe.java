@@ -43,7 +43,7 @@ public class HandAxe extends MeleeWeapon {
 		tier = 2;
 		ACC = 1.32f; //32% boost to accuracy
 
-		damageTypeDealt = Char.DamageType.STANDARD;
+		damageTypeDealt = Char.DamageType.STRIKE;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.PIERCE);

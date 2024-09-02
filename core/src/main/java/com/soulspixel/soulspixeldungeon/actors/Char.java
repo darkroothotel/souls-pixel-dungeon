@@ -196,7 +196,23 @@ public abstract class Char extends Actor {
 		STRIKE,
 		SLASH,
 		PIERCE,
-		MAGIC;
+		BASH,
+		THRUST,
+		STAB,
+		WATER,
+		EARTH,
+		FIRE,
+		LIGHTNING,
+		FROST,
+		ACIDIC,
+		POISON,
+		BLEED,
+		MAGIC,
+		HOLY_MAGIC,
+		DARK_MAGIC,
+		HUNGER,
+		FALL,
+		BOMB;
 
 		public String getName(DamageType dt){
 			String s = null;
@@ -213,8 +229,56 @@ public abstract class Char extends Actor {
                 case PIERCE:
 					s = Messages.get(Char.class, "dt_pierce_name");
                     break;
+                case BASH:
+					s = Messages.get(Char.class, "dt_bash_name");
+                    break;
+                case THRUST:
+					s = Messages.get(Char.class, "dt_thrust_name");
+                    break;
+                case STAB:
+					s = Messages.get(Char.class, "dt_stab_name");
+                    break;
+                case WATER:
+					s = Messages.get(Char.class, "dt_water_name");
+                    break;
+                case EARTH:
+					s = Messages.get(Char.class, "dt_earth_name");
+                    break;
+                case FIRE:
+					s = Messages.get(Char.class, "dt_fire_name");
+                    break;
+                case LIGHTNING:
+					s = Messages.get(Char.class, "dt_lightning_name");
+                    break;
+                case FROST:
+					s = Messages.get(Char.class, "dt_frost_name");
+                    break;
+                case ACIDIC:
+					s = Messages.get(Char.class, "dt_acidic_name");
+                    break;
+                case POISON:
+					s = Messages.get(Char.class, "dt_poison_name");
+                    break;
+                case BLEED:
+					s = Messages.get(Char.class, "dt_bleed_name");
+                    break;
                 case MAGIC:
 					s = Messages.get(Char.class, "dt_magic_name");
+                    break;
+                case HOLY_MAGIC:
+					s = Messages.get(Char.class, "dt_holy_magic_name");
+                    break;
+                case DARK_MAGIC:
+					s = Messages.get(Char.class, "dt_dark_magic_name");
+                    break;
+                case HUNGER:
+					s = Messages.get(Char.class, "dt_hunger_name");
+                    break;
+                case FALL:
+					s = Messages.get(Char.class, "dt_fall_name");
+                    break;
+                case BOMB:
+					s = Messages.get(Char.class, "dt_bomb_name");
                     break;
             }
 			return s;
@@ -223,28 +287,60 @@ public abstract class Char extends Actor {
 		public float whenWeak(DamageType dt) {
 			float dmg = 0f;
 			switch (dt) {
-				case STANDARD:
+                case HOLY_MAGIC:
+				case DARK_MAGIC:
+                case BASH:
+                case THRUST:
+                case STAB:
+                case WATER:
+                case EARTH:
+                case FIRE:
+                case LIGHTNING:
+                case FROST:
+                case ACIDIC:
+                case POISON:
+                case BLEED:
+                case STANDARD:
 				case STRIKE:
 				case SLASH:
 				case PIERCE:
 				case MAGIC:
+                case HUNGER:
+                case FALL:
+				case BOMB:
 					dmg = dmg * 0.2f;
 					break;
-			}
+            }
 			return dmg;
 		}
 
 		public float whenResist(DamageType dt) {
 			float dmg = 0f;
 			switch (dt) {
-				case STANDARD:
+                case HOLY_MAGIC:
+                case DARK_MAGIC:
+                case BASH:
+                case THRUST:
+                case STAB:
+                case WATER:
+                case EARTH:
+                case FIRE:
+                case LIGHTNING:
+                case FROST:
+                case ACIDIC:
+                case POISON:
+                case BLEED:
+                case STANDARD:
 				case STRIKE:
 				case SLASH:
 				case PIERCE:
 				case MAGIC:
+                case HUNGER:
+                case FALL:
+				case BOMB:
 					dmg = dmg * -0.2f;
 					break;
-			}
+            }
 			return dmg;
 		}
 	}
@@ -863,15 +959,15 @@ public abstract class Char extends Actor {
 	}
 
 	private ArrayList<DamageType> getImmuneOf(Char ch){
+		ArrayList<DamageType> i;
+		i = ch.getDamageImmune();
+		i.addAll(getAllDmgTypesImmunities(ch));
 		if(ch instanceof Hero){
-			ArrayList<DamageType> i;
-			i = ch.getDamageImmune();
 			i.addAll(((Hero) ch).belongings.weapon().damageTypeImmune);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeImmune);
 			return i;
 		}
 		if(ch instanceof Statue){
-			ArrayList<DamageType> i;
 			i = ch.getDamageImmune();
 			i.addAll(((Statue) ch).weapon.damageTypeImmune);
 			if(ch instanceof ArmoredStatue){
@@ -879,47 +975,45 @@ public abstract class Char extends Actor {
 			}
 			return i;
 		}
-		return ch.getDamageImmune();
+		return i;
 	}
 
 	private ArrayList<DamageType> getResistOf(Char ch){
+		ArrayList<DamageType> i;
+		i = ch.getDamageResisted();
+		i.addAll(getAllDmgTypesResistance(ch));
 		if(ch instanceof Hero){
-			ArrayList<DamageType> i;
-			i = ch.getDamageResisted();
 			i.addAll(((Hero) ch).belongings.weapon().damageTypeResisted);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeResisted);
 			return i;
 		}
 		if(ch instanceof Statue){
-			ArrayList<DamageType> i;
-			i = ch.getDamageResisted();
 			i.addAll(((Statue) ch).weapon.damageTypeResisted);
 			if(ch instanceof ArmoredStatue){
 				i.addAll(((ArmoredStatue) ch).armor().damageTypeResisted);
 			}
 			return i;
 		}
-		return ch.getDamageResisted();
+		return i;
 	}
 
 	private ArrayList<DamageType> getWeakOf(Char ch){
+		ArrayList<DamageType> i;
+		i = ch.getDamageWeak();
+		i.addAll(getAllDmgTypesWeakness(ch));
 		if(ch instanceof Hero){
-			ArrayList<DamageType> i;
-			i = ch.getDamageWeak();
 			i.addAll(((Hero) ch).belongings.weapon().damageTypeWeak);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeWeak);
 			return i;
 		}
 		if(ch instanceof Statue){
-			ArrayList<DamageType> i;
-			i = ch.getDamageWeak();
 			i.addAll(((Statue) ch).weapon.damageTypeWeak);
 			if(ch instanceof ArmoredStatue){
 				i.addAll(((ArmoredStatue) ch).armor().damageTypeWeak);
 			}
 			return i;
 		}
-		return ch.getDamageWeak();
+		return i;
 	}
 
 	private int chAttackedByCh(int dmg, Char rec, Char inf, int id){
@@ -999,7 +1093,7 @@ public abstract class Char extends Actor {
 			for (LifeLink link : links){
 				Char ch = (Char)Actor.findById(link.object);
 				if (ch != null) {
-					ch.damage(dmg, link, null);
+					ch.damage(dmg, link, DamageType.MAGIC);
 					if (!ch.isAlive()) {
 						link.detach();
 					}
@@ -1414,8 +1508,6 @@ public abstract class Char extends Actor {
 		next();
 	}
 	
-	protected final HashSet<Class> resistances = new HashSet<>();
-	
 	//returns percent effectiveness after resistances
 	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
 	public float resist( Class effect ){
@@ -1455,6 +1547,8 @@ public abstract class Char extends Actor {
 		return false;
 	}
 
+	protected final HashSet<Class> resistances = new HashSet<>();
+
 	//similar to isImmune, but only factors in damage.
 	//Is used in AI decision-making
 	public boolean isInvulnerable( Class effect ){
@@ -1462,6 +1556,30 @@ public abstract class Char extends Actor {
 	}
 
 	protected HashSet<Property> properties = new HashSet<>();
+
+	public ArrayList<DamageType> getAllDmgTypesResistance(Char ch){
+		ArrayList<DamageType> i = new ArrayList<>();
+		for(Property p : ch.properties()){
+			i.addAll(p.dmgTypeResistances);
+		}
+		return i;
+	}
+
+	public ArrayList<DamageType> getAllDmgTypesWeakness(Char ch){
+		ArrayList<DamageType> i = new ArrayList<>();
+		for(Property p : ch.properties()){
+			i.addAll(p.dmgTypeWeaknesses);
+		}
+		return i;
+	}
+
+	public ArrayList<DamageType> getAllDmgTypesImmunities(Char ch){
+		ArrayList<DamageType> i = new ArrayList<>();
+		for(Property p : ch.properties()){
+			i.addAll(p.dmgTypeImmunities);
+		}
+		return i;
+	}
 
 	public HashSet<Property> properties() {
 		HashSet<Property> props = new HashSet<>(properties);
@@ -1472,47 +1590,92 @@ public abstract class Char extends Actor {
 		return props;
 	}
 
-	public enum Property{
-		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfRetribution.class, ScrollOfPsionicBlast.class)),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
-		MINIBOSS ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
+	public enum Property {
+		BOSS(new HashSet<Class>(Arrays.asList(Grim.class, GrimTrap.class, ScrollOfRetribution.class, ScrollOfPsionicBlast.class)),
+				new HashSet<Class>(Arrays.asList(AllyBuff.class, Dread.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>()),
+
+		MINIBOSS(new HashSet<Class>(),
+				new HashSet<Class>(Arrays.asList(AllyBuff.class, Dread.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>()),
+
 		BOSS_MINION,
 		UNDEAD,
 		DEMONIC,
-		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
-		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class, Elemental.FireElemental.class)),
-				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class))),
-		MAGIC ( new HashSet<Class>(),
-				new HashSet<Class>()),
-		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
-				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),
-		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),
-				new HashSet<Class>( Arrays.asList(Ooze.class))),
-		ELECTRIC ( new HashSet<Class>( Arrays.asList(WandOfLightning.class, Shocking.class, Potential.class,
-										Electricity.class, ShockingDart.class, Elemental.ShockElemental.class )),
-				new HashSet<Class>()),
+		INORGANIC(new HashSet<Class>(),
+				new HashSet<Class>(Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>()),
+
+		FIERY(new HashSet<Class>(Arrays.asList(WandOfFireblast.class, Elemental.FireElemental.class)),
+				new HashSet<Class>(Arrays.asList(Burning.class, Blazing.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(Arrays.asList(DamageType.WATER, DamageType.FROST)),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.FIRE))),
+
+		MAGIC(new HashSet<Class>(),
+				new HashSet<Class>(),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.MAGIC)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>()),
+
+		ICY(new HashSet<Class>(Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
+				new HashSet<Class>(Arrays.asList(Frost.class, Chill.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(Arrays.asList(DamageType.FIRE, DamageType.WATER)),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.FROST))),
+
+		ACIDIC(new HashSet<Class>(Arrays.asList(Corrosion.class)),
+				new HashSet<Class>(Arrays.asList(Ooze.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.ACIDIC))),
+
+		ELECTRIC(new HashSet<Class>(Arrays.asList(WandOfLightning.class, Shocking.class, Potential.class,
+				Electricity.class, ShockingDart.class, Elemental.ShockElemental.class)),
+				new HashSet<Class>(),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.FIRE)),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.EARTH)),
+				new ArrayList<DamageType>(Collections.singletonList(DamageType.LIGHTNING))),
+
 		LARGE,
 		//used to keep bonfires out of mindvision
 		NOT_A_MOB,
-		IMMOVABLE ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Vertigo.class, Vortex.class) )),
+		IMMOVABLE(new HashSet<Class>(),
+				new HashSet<Class>(Arrays.asList(Vertigo.class, Vortex.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>()),
+
 		//A character that acts in an unchanging manner. immune to AI state debuffs or stuns/slows
-		STATIC( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class, Terror.class, Amok.class, Charm.class, Sleep.class,
-									Paralysis.class, Frost.class, Chill.class, Slow.class, Speed.class) ));
+		STATIC(new HashSet<Class>(),
+				new HashSet<Class>(Arrays.asList(AllyBuff.class, Dread.class, Terror.class, Amok.class, Charm.class, Sleep.class,
+						Paralysis.class, Frost.class, Chill.class, Slow.class, Speed.class)),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>(),
+				new ArrayList<DamageType>());
 
 		private HashSet<Class> resistances;
 		private HashSet<Class> immunities;
+		private ArrayList<DamageType> dmgTypeResistances;
+		private ArrayList<DamageType> dmgTypeWeaknesses;
+		private ArrayList<DamageType> dmgTypeImmunities;
 		
 		Property(){
-			this(new HashSet<Class>(), new HashSet<Class>());
+			this(new HashSet<Class>(), new HashSet<Class>(), new ArrayList<DamageType>(), new ArrayList<DamageType>(), new ArrayList<DamageType>());
 		}
 		
-		Property( HashSet<Class> resistances, HashSet<Class> immunities){
+		Property( HashSet<Class> resistances, HashSet<Class> immunities, ArrayList<DamageType> dmgTypeResistances, ArrayList<DamageType> dmgTypeWeaknesses, ArrayList<DamageType> dmgTypeImmunities){
 			this.resistances = resistances;
 			this.immunities = immunities;
+			this.dmgTypeResistances = dmgTypeResistances;
+			this.dmgTypeWeaknesses = dmgTypeWeaknesses;
+			this.dmgTypeImmunities = dmgTypeImmunities;
 		}
 		
 		public HashSet<Class> resistances(){
@@ -1521,6 +1684,18 @@ public abstract class Char extends Actor {
 		
 		public HashSet<Class> immunities(){
 			return new HashSet<>(immunities);
+		}
+
+		public ArrayList<DamageType> getDmgTypeResistances(){
+			return new ArrayList<>(dmgTypeResistances);
+		}
+
+		public ArrayList<DamageType> getDmgTypeWeaknesses(){
+			return new ArrayList<>(dmgTypeWeaknesses);
+		}
+
+		public ArrayList<DamageType> getDmgTypeImmunities(){
+			return new ArrayList<>(dmgTypeImmunities);
 		}
 
 	}
