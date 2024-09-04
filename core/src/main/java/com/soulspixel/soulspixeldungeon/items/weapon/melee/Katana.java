@@ -43,6 +43,7 @@ public class Katana extends MeleeWeapon {
 		tier = 4;
 
 		damageTypeDealt = Char.DamageType.SLASH;
+		weightClass = WeightClass.LIGHT;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);

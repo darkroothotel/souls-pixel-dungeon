@@ -51,6 +51,7 @@ public class Sickle extends MeleeWeapon {
 		ACC = 0.68f; //32% penalty to accuracy
 
 		damageTypeDealt = Char.DamageType.SLASH;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

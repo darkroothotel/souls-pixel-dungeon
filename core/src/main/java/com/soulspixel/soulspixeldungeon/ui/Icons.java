@@ -103,6 +103,7 @@ public enum Icons {
 	BUSY,
 	COMPASS,
 	SLEEP,
+	STANCE_BROKEN,
 	ALERT,
 	LOST,
 	DEPTH,      //depth icons have two variants, for regular and seeded runs
@@ -320,6 +321,9 @@ public enum Icons {
 				break;
 			case SLEEP:
 				icon.frame( icon.texture.uvRectBySize( 32, 64, 9, 8 ) );
+				break;
+			case STANCE_BROKEN:
+				icon.frame( icon.texture.uvRectBySize( 41, 64, 7, 8 ) );
 				break;
 			case ALERT:
 				icon.frame( icon.texture.uvRectBySize( 32, 72, 8, 8 ) );

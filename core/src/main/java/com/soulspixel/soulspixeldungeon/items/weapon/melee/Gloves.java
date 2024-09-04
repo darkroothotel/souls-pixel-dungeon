@@ -44,6 +44,7 @@ public class Gloves extends MeleeWeapon {
 		bones = false;
 
 		damageTypeDealt = Char.DamageType.STANDARD;
+		weightClass = WeightClass.UNNOTICEABLE;
 	}
 
 	@Override

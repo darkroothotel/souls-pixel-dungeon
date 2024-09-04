@@ -65,6 +65,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.PhysicalEmpower;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Recharging;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Regeneration;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
+import com.soulspixel.soulspixeldungeon.actors.buffs.StanceBroken;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Undeath;
 import com.soulspixel.soulspixeldungeon.actors.buffs.UndeathInvulnerability;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Uneasy;
@@ -190,8 +191,16 @@ public class Hero extends Char {
 		actPriority = HERO_PRIO;
 		
 		alignment = Alignment.ALLY;
+
+		poiseRecovery = 1f;
+		poiseRecoveryMult = 1f;
+		MAX_POISE = POISE = 10;
+
+		staminaRecovery = 1f;
+		staminaRecoveryMult = 2f;
+		MAX_STAMINA = STAMINA = 10;
 	}
-	
+
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
@@ -302,6 +311,13 @@ public class Hero extends Char {
 			HP += Math.max(HT - curHT, 0);
 		}
 		HP = Math.min(HP, HT);
+	}
+
+	@Override
+	public void stanceBroken() {
+		increasePoise(MAX_POISE);
+		GLog.n(Messages.get(this, "stance_broken"));
+		Buff.affect(this, StanceBroken.class, StanceBroken.DURATION);
 	}
 
 	public int STR() {
@@ -846,6 +862,9 @@ public class Hero extends Char {
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
 
+		increaseStamina();
+		increasePoise();
+
 		getCurrentRoomEffect();
 
 		//buffs
@@ -886,6 +905,14 @@ public class Hero extends Char {
 			spendAndNext( TICK );
 			return false;
 		}
+
+		if(buff(StanceBroken.class) != null) {
+			GLog.n(Messages.get(this, "no_action_stance_broken"));
+			curAction = null;
+
+			spendAndNext(TICK);
+			return false;
+		}
 		
 		boolean actResult;
 		if (curAction == null) {
@@ -913,37 +940,37 @@ public class Hero extends Char {
 			resting = false;
 			
 			ready = false;
-			
+
 			if (curAction instanceof HeroAction.Move) {
 				actResult = actMove( (HeroAction.Move)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.Interact) {
 				actResult = actInteract( (HeroAction.Interact)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.Buy) {
 				actResult = actBuy( (HeroAction.Buy)curAction );
-				
+
 			}else if (curAction instanceof HeroAction.PickUp) {
 				actResult = actPickUp( (HeroAction.PickUp)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.OpenChest) {
 				actResult = actOpenChest( (HeroAction.OpenChest)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.Unlock) {
 				actResult = actUnlock((HeroAction.Unlock) curAction);
-				
+
 			} else if (curAction instanceof HeroAction.Mine) {
 				actResult = actMine( (HeroAction.Mine)curAction );
 
 			}else if (curAction instanceof HeroAction.LvlTransition) {
 				actResult = actTransition( (HeroAction.LvlTransition)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.Attack) {
 				actResult = actAttack( (HeroAction.Attack)curAction );
-				
+
 			} else if (curAction instanceof HeroAction.Alchemy) {
 				actResult = actAlchemy( (HeroAction.Alchemy)curAction );
-				
+
 			} else {
 				actResult = false;
 			}
@@ -1003,6 +1030,12 @@ public class Hero extends Char {
 	}
 	
 	private boolean actMove( HeroAction.Move action ) {
+
+		if(!staminaCheck((belongings.getAllArmorWeight()+belongings.getAllWeaponWeight())/2)){
+			GLog.n(Messages.get(this, "no_more_stamina"));
+			ready();
+			return false;
+		}
 
 		if (getCloser( action.dst )) {
 			canSelfTrample = false;
@@ -1277,6 +1310,11 @@ public class Hero extends Char {
 	}
 
 	private boolean actMine(HeroAction.Mine action){
+		if(!staminaCheck(3)){
+			GLog.n(Messages.get(this, "no_more_stamina"));
+			ready();
+			return false;
+		}
 		if (Dungeon.level.adjacent(pos, action.dst)){
 			path = null;
 			if ((Dungeon.level.map[action.dst] == Terrain.WALL
@@ -1394,6 +1432,7 @@ public class Hero extends Char {
 	}
 	
 	private boolean actTransition(HeroAction.LvlTransition action ) {
+
 		int stairs = action.dst;
 		LevelTransition transition = Dungeon.level.getTransition(stairs);
 
@@ -1405,6 +1444,8 @@ public class Hero extends Char {
 		} else if (!Dungeon.level.locked && transition != null && transition.inside(pos)) {
 
 			if (Dungeon.level.activateTransition(this, transition)){
+				increasePoise(MAX_POISE);
+				increaseStamina(MAX_STAMINA);
 				curAction = null;
 			} else {
 				ready();
@@ -1428,6 +1469,12 @@ public class Hero extends Char {
 
 		if (isCharmedBy( enemy )){
 			GLog.w( Messages.get(Charm.class, "cant_attack"));
+			ready();
+			return false;
+		}
+
+		if(!staminaCheck(belongings.attackingWeapon().getWeight())){
+			GLog.n(Messages.get(this, "no_more_stamina"));
 			ready();
 			return false;
 		}
@@ -1466,6 +1513,12 @@ public class Hero extends Char {
 	}
 	
 	public void rest( boolean fullRest ) {
+
+		increasePoise();
+		increasePoise();
+		increaseStamina();
+		increaseStamina();
+
 		spendAndNextConstant( TIME_TO_REST );
 		if (hasTalent(Talent.HOLD_FAST)){
 			Buff.affect(this, HoldFast.class).pos = pos;

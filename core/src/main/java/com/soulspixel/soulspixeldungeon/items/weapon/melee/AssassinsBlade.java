@@ -42,6 +42,7 @@ public class AssassinsBlade extends MeleeWeapon {
 		tier = 4;
 
 		damageTypeDealt = Char.DamageType.STAB;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

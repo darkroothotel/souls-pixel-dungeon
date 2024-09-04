@@ -34,6 +34,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.HeroSubClass;
 import com.soulspixel.soulspixeldungeon.actors.hero.Talent;
+import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
@@ -47,6 +48,10 @@ import java.util.ArrayList;
 
 abstract public class KindOfWeapon extends EquipableItem {
 
+	{
+		weightClass = WeightClass.LIGHT;
+	}
+
 	protected String hitSound = Assets.Sounds.HIT;
 	protected float hitSoundPitch = 1f;
 
@@ -54,6 +59,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public ArrayList<Char.DamageType> damageTypeImmune = new ArrayList<>();
 	public ArrayList<Char.DamageType> damageTypeResisted = new ArrayList<>();
 	public ArrayList<Char.DamageType> damageTypeWeak = new ArrayList<>();
+
+	public int poiseResist = 0;
 	
 	@Override
 	public void execute(Hero hero, String action) {
@@ -311,5 +318,23 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public void hitSound( float pitch ){
 		Sample.INSTANCE.play(hitSound, 1, pitch * hitSoundPitch);
 	}
-	
+
+	public void stanceBreakingEffect(Char target) {
+		if(this instanceof Weapon){
+			if(((Weapon) this).enchantment != null){
+				((Weapon) this).enchantment.stanceBreakingEffect(target);
+			}
+		}
+	}
+
+	public int bonusPoiseDamage() {
+		return 0;
+	}
+
+	public int getPoiseResist() {
+		if(poiseResist > weightClass.getWeight(weightClass) || poiseResist < weightClass.getWeight(weightClass)){
+			return poiseResist;
+		}
+		return weightClass.getWeight(weightClass);
+	}
 }

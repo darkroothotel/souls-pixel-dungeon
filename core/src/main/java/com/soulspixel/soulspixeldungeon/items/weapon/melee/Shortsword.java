@@ -41,6 +41,7 @@ public class Shortsword extends MeleeWeapon {
 		tier = 2;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

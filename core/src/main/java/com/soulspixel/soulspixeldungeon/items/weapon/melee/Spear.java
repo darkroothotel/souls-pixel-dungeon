@@ -53,6 +53,7 @@ public class Spear extends MeleeWeapon {
 		RCH = 2;    //extra reach
 
 		damageTypeDealt = Char.DamageType.THRUST;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

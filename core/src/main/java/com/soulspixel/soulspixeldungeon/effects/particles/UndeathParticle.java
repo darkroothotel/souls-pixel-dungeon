@@ -42,7 +42,7 @@ public class UndeathParticle extends PixelParticle.Shrinking {
 	public UndeathParticle() {
 		super();
 
-		color(HeroSprite.UNDEA_COLOR);
+		color(HeroSprite.UNDEAD_COLOR);
 		lifespan = 0.6f;
 
 		acc.set( 0, 100 );

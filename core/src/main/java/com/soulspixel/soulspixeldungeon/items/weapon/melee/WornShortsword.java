@@ -43,6 +43,7 @@ public class WornShortsword extends MeleeWeapon {
 		bones = false;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

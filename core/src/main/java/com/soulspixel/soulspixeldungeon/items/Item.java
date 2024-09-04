@@ -98,6 +98,32 @@ public class Item implements Bundlable {
 
 	// whether an item can be included in heroes remains
 	public boolean bones = false;
+
+	public enum WeightClass{
+		UNNOTICEABLE,
+		LIGHT,
+		MANAGEABLE,
+		HEAVY,
+		VERY_HEAVY;
+
+		public int getWeight(WeightClass weightClass){
+			switch (weightClass){
+                case UNNOTICEABLE:
+					return 0;
+                case LIGHT:
+                    return 1;
+                case MANAGEABLE:
+                    return 2;
+                case HEAVY:
+                    return 3;
+                case VERY_HEAVY:
+                    return 4;
+            }
+			return 0;
+		}
+	}
+
+	public WeightClass weightClass = WeightClass.UNNOTICEABLE;
 	
 	public static final Comparator<Item> itemComparator = new Comparator<Item>() {
 		@Override
@@ -560,6 +586,7 @@ public class Item implements Bundlable {
 	private static final String CURSED_KNOWN	= "cursedKnown";
 	private static final String QUICKSLOT		= "quickslotpos";
 	private static final String KEPT_LOST       = "kept_lost";
+	private static final String WEIGHT_CLASS    = "weight_class";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -572,6 +599,7 @@ public class Item implements Bundlable {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
 		bundle.put( KEPT_LOST, keptThoughLostInvent );
+		bundle.put( WEIGHT_CLASS, weightClass );
 	}
 	
 	@Override
@@ -597,6 +625,7 @@ public class Item implements Bundlable {
 		}
 
 		keptThoughLostInvent = bundle.getBoolean( KEPT_LOST );
+		weightClass = bundle.getEnum( WEIGHT_CLASS, WeightClass.class);
 	}
 
 	public int targetingPos( Hero user, int dst ){
@@ -688,4 +717,8 @@ public class Item implements Bundlable {
 			return Messages.get(Item.class, "prompt");
 		}
 	};
+
+	public int getWeight() {
+		return weightClass.getWeight(weightClass);
+	}
 }

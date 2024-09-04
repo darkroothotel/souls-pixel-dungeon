@@ -35,6 +35,8 @@ public class HuntressArmor extends ClassArmor {
 	{
 		image = ItemSpriteSheet.ARMOR_HUNTRESS;
 
+		weightClass = WeightClass.LIGHT;
+
 		damageTypeImmune = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.EARTH);
 		}};

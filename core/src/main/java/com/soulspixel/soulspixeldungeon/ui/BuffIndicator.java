@@ -135,6 +135,8 @@ public class BuffIndicator extends Component {
 	public static final int STICKY    	 = 79;
 	public static final int UNEASY    	 = 80;
 	public static final int ATEASE    	 = 81;
+	public static final int STANCE_BROKEN= 82;
+	public static final int BROKEN_STANCE= 82;
 
 
 	public static final int SIZE_SMALL  = 7;

@@ -43,6 +43,7 @@ public class Glaive extends MeleeWeapon {
 		RCH = 2;    //extra reach
 
 		damageTypeDealt = Char.DamageType.THRUST;
+		weightClass = WeightClass.HEAVY;
 	}
 
 	@Override

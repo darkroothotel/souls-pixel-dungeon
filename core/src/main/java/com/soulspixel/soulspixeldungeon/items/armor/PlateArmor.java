@@ -35,6 +35,8 @@ public class PlateArmor extends Armor {
 	{
 		image = ItemSpriteSheet.ARMOR_PLATE;
 
+		weightClass = WeightClass.VERY_HEAVY;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.BASH);
 			add(Char.DamageType.STRIKE);

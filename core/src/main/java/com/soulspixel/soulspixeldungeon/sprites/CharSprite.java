@@ -86,11 +86,18 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowHeight    = 0.25f;
 	protected float shadowOffset    = 0.25f;
 
+	private float phase;
+	private boolean glowUp;
+
+	public boolean isGlowing() {
+		return glowing != null;
+	}
+
 	public enum State {
 		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, UNDEATH
 	}
 	private int stunStates = 0;
-	
+
 	protected Animation idle;
 	protected Animation run;
 	protected Animation attack;
@@ -126,6 +133,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float flashTime = 0;
 	
 	protected boolean sleeping = false;
+
+	private Glowing glowing;
 
 	public Char ch;
 
@@ -579,6 +588,27 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				emo.visible = visible;
 			}
 		}
+
+		if (visible && glowing != null) {
+			if (glowUp && (phase += Game.elapsed) > glowing.period) {
+
+				glowUp = false;
+				phase = glowing.period;
+
+			} else if (!glowUp && (phase -= Game.elapsed) < 0) {
+
+				glowUp = true;
+				phase = 0;
+
+			}
+
+			float value = phase / glowing.period * 0.6f;
+
+			rm = gm = bm = 1 - value;
+			ra = glowing.red * value;
+			ga = glowing.green * value;
+			ba = glowing.blue * value;
+		}
 	}
 	
 	@Override
@@ -624,6 +654,28 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 	
 	public void hideAlert() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.Alert) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void showStanceBroken(){
+		synchronized (EmoIcon.class) {
+			if (!(emo instanceof EmoIcon.StanceBroken)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.StanceBroken(this);
+				emo.visible = visible;
+			}
+		}
+		idle();
+	}
+
+	public void hideStanceBroken(){
 		synchronized (EmoIcon.class) {
 			if (emo instanceof EmoIcon.Alert) {
 				emo.killAndErase();
@@ -801,6 +853,35 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			float hVal = -height * 4 * progress * (1 - progress);
 			visual.point( PointF.inter( start, end, progress ).offset( 0, hVal ) );
 			visual.shadowOffset = 0.25f - hVal*0.8f;
+		}
+	}
+
+	public synchronized void setGlow( Glowing glowing ){
+		this.glowing = glowing;
+		if (glowing == null) resetColor();
+	}
+
+	public static class Glowing {
+
+		public int color;
+		public float red;
+		public float green;
+		public float blue;
+		public float period;
+
+		public Glowing( int color ) {
+			this( color, 1f );
+		}
+
+		public Glowing( int color, float period ) {
+
+			this.color = color;
+
+			red = (color >> 16) / 255f;
+			green = ((color >> 8) & 0xFF) / 255f;
+			blue = (color & 0xFF) / 255f;
+
+			this.period = period;
 		}
 	}
 }

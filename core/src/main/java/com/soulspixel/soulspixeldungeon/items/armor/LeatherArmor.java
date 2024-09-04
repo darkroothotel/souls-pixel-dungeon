@@ -35,6 +35,8 @@ public class LeatherArmor extends Armor {
 	{
 		image = ItemSpriteSheet.ARMOR_LEATHER;
 
+		weightClass = WeightClass.LIGHT;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.FROST);
 		}};

@@ -42,6 +42,7 @@ public class Gauntlet extends MeleeWeapon {
 		DLY = 0.5f; //2x speed
 
 		damageTypeDealt = Char.DamageType.STANDARD;
+		weightClass = WeightClass.LIGHT;
 	}
 	
 	@Override

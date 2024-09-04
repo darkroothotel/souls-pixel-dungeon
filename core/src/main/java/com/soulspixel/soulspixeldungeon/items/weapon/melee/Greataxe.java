@@ -48,6 +48,7 @@ public class Greataxe extends MeleeWeapon {
 		tier = 5;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.VERY_HEAVY;
 	}
 
 	@Override

@@ -82,8 +82,21 @@ import java.util.Arrays;
 
 public class Armor extends EquipableItem {
 
+	{
+		weightClass = WeightClass.LIGHT;
+	}
+
 	protected static final String AC_DETACH       = "DETACH";
-	
+
+	public int poiseResist = 0;
+
+	public int getPoiseResist() {
+		if(poiseResist > weightClass.getWeight(weightClass) || poiseResist < weightClass.getWeight(weightClass)){
+			return poiseResist;
+		}
+		return weightClass.getWeight(weightClass);
+	}
+
 	public enum Augment {
 		EVASION (2f , -1f),
 		DEFENSE (-2f, 1f),

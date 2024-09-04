@@ -42,6 +42,7 @@ public class Dirk extends MeleeWeapon {
 		tier = 2;
 
 		damageTypeDealt = Char.DamageType.STAB;
+		weightClass = WeightClass.UNNOTICEABLE;
 	}
 
 	@Override

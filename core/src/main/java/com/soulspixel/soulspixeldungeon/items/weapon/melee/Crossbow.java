@@ -46,6 +46,7 @@ public class Crossbow extends MeleeWeapon {
 		tier = 4;
 
 		damageTypeDealt = Char.DamageType.PIERCE;
+		weightClass = WeightClass.MANAGEABLE;
 	}
 
 	@Override

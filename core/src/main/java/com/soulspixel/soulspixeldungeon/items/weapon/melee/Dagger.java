@@ -56,6 +56,7 @@ public class Dagger extends MeleeWeapon {
 		bones = false;
 
 		damageTypeDealt = Char.DamageType.STAB;
+		weightClass = WeightClass.UNNOTICEABLE;
 	}
 
 	@Override

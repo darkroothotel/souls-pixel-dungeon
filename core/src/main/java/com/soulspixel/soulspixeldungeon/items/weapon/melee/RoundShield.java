@@ -49,6 +49,7 @@ public class RoundShield extends MeleeWeapon {
 		tier = 3;
 
 		damageTypeDealt = Char.DamageType.BASH;
+		weightClass = WeightClass.MANAGEABLE;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);

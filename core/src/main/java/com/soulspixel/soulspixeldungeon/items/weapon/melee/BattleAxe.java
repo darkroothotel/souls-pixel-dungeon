@@ -42,6 +42,7 @@ public class BattleAxe extends MeleeWeapon {
 		ACC = 1.24f; //24% boost to accuracy
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.HEAVY;
 	}
 
 	@Override

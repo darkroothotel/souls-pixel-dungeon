@@ -42,6 +42,7 @@ public class WarHammer extends MeleeWeapon {
 		ACC = 1.20f; //20% boost to accuracy
 
 		damageTypeDealt = Char.DamageType.BASH;
+		weightClass = WeightClass.VERY_HEAVY;
 	}
 
 	@Override

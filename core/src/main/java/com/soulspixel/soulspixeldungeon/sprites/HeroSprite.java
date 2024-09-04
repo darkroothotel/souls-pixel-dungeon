@@ -47,7 +47,7 @@ public class HeroSprite extends CharSprite {
 	
 	private static final int RUN_FRAMERATE	= 20;
 
-	public static final int UNDEA_COLOR = 0x151F0A;
+	public static final int UNDEAD_COLOR = 0x151F0A;
 	
 	private static TextureFilm tiers;
 	
@@ -158,7 +158,7 @@ public class HeroSprite extends CharSprite {
 	public void update() {
 		sleeping = ch.isAlive() && ((Hero)ch).resting;
 		if(((Hero)ch).isUndead()){
-			ch.sprite.tint(UNDEA_COLOR,0.5f);
+			ch.sprite.tint(UNDEAD_COLOR,0.5f);
 		}
 		super.update();
 	}

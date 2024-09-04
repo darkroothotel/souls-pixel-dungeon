@@ -51,6 +51,7 @@ public class Sword extends MeleeWeapon {
 		tier = 3;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

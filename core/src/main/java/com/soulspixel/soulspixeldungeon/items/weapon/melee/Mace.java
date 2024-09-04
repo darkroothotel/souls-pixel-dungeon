@@ -52,6 +52,7 @@ public class Mace extends MeleeWeapon {
 		ACC = 1.28f; //28% boost to accuracy
 
 		damageTypeDealt = Char.DamageType.BASH;
+		weightClass = WeightClass.HEAVY;
 	}
 
 	@Override

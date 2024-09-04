@@ -49,6 +49,7 @@ public class Whip extends MeleeWeapon {
 		RCH = 3;    //lots of extra reach
 
 		damageTypeDealt = Char.DamageType.SLASH;
+		weightClass = WeightClass.UNNOTICEABLE;
 	}
 
 	@Override

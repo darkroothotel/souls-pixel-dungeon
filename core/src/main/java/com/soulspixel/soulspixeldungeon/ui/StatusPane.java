@@ -67,8 +67,8 @@ public class StatusPane extends Component {
 	private BitmapText hpText;
 	private Button heroInfoOnBar;
 
-	private Image exp;
-	private BitmapText expText;
+	private Image stamina;
+	private BitmapText staminaText;
 
 	private int lastLvl = -1;
 
@@ -90,7 +90,7 @@ public class StatusPane extends Component {
 		this.large = large;
 
 		if (large)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
-		else        bg = new NinePatch( asset, 0, 0, 128, 36, 85, 0, 45, 0 );
+		else        bg = new NinePatch( asset, 0, 0, 128, 41, 85, 0, 45, 0 );
 		add( bg );
 
 		heroInfo = new Button(){
@@ -121,16 +121,16 @@ public class StatusPane extends Component {
 		add( compass );
 
 		if (large)  rawShielding = new Image(asset, 0, 112, 128, 9);
-		else        rawShielding = new Image(asset, 0, 40, 50, 4);
+		else        rawShielding = new Image(asset, 0, 40+6, 50, 4);
 		rawShielding.alpha(0.5f);
 		add(rawShielding);
 
 		if (large)  shieldedHP = new Image(asset, 0, 112, 128, 9);
-		else        shieldedHP = new Image(asset, 0, 40, 50, 4);
+		else        shieldedHP = new Image(asset, 0, 40+6, 50, 4);
 		add(shieldedHP);
 
 		if (large)  hp = new Image(asset, 0, 103, 128, 9);
-		else        hp = new Image(asset, 0, 36, 50, 4);
+		else        hp = new Image(asset, 0, 36+6, 50, 4);
 		add( hp );
 
 		hpText = new BitmapText(PixelScene.pixelFont);
@@ -146,15 +146,19 @@ public class StatusPane extends Component {
 		};
 		add(heroInfoOnBar);
 
-		if (large)  exp = new Image(asset, 0, 121, 128, 7);
-		else        exp = new Image(asset, 0, 44, 16, 1);
-		add( exp );
+		if (large)  stamina = new Image(asset, 0, 121, 128, 7);
+		else        stamina = new Image(asset, 0, 44+6, 50, 4);
+		add( stamina );
 
 		if (large){
-			expText = new BitmapText(PixelScene.pixelFont);
-			expText.hardlight( 0xFFFFAA );
-			expText.alpha(0.6f);
-			add(expText);
+			staminaText = new BitmapText(PixelScene.pixelFont);
+			staminaText.hardlight( 0xFFFFAA );
+			staminaText.alpha(0.6f);
+			add(staminaText);
+		} else {
+			staminaText = new BitmapText(PixelScene.pixelFont);
+			staminaText.alpha(0.6f);
+			add(staminaText);
 		}
 
 		level = new BitmapText( PixelScene.pixelFont);
@@ -183,18 +187,18 @@ public class StatusPane extends Component {
 		else        bg.size( width, bg.height );
 
 		avatar.x = bg.x - avatar.width / 2f + 15;
-		avatar.y = bg.y - avatar.height / 2f + (large ? 15 : 16);
+		avatar.y = bg.y - avatar.height / 2f + 15;
 		PixelScene.align(avatar);
 
-		heroInfo.setRect( x, y+(large ? 0 : 1), 30, large ? 40 : 30 );
+		heroInfo.setRect( x, y, 30, large ? 40 : 30 );
 
 		compass.x = avatar.x + avatar.width / 2f - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2f - compass.origin.y;
 		PixelScene.align(compass);
 
 		if (large) {
-			exp.x = x + 30;
-			exp.y = y + 30;
+			stamina.x = x + 30;
+			stamina.y = y + 30;
 
 			hp.x = shieldedHP.x = rawShielding.x = x + 30;
 			hp.y = shieldedHP.y = rawShielding.y = y + 19;
@@ -203,9 +207,9 @@ public class StatusPane extends Component {
 			hpText.y = hp.y + 1;
 			PixelScene.align(hpText);
 
-			expText.x = exp.x + (128 - expText.width())/2f;
-			expText.y = exp.y;
-			PixelScene.align(expText);
+			staminaText.x = stamina.x + (128 - staminaText.width())/2f;
+			staminaText.y = stamina.y;
+			PixelScene.align(staminaText);
 
 			heroInfoOnBar.setRect(heroInfo.right(), y + 19, 130, 20);
 
@@ -214,11 +218,8 @@ public class StatusPane extends Component {
 			busy.x = x + bg.width + 1;
 			busy.y = y + bg.height - 9;
 		} else {
-			exp.x = x;
-			exp.y = y;
-
 			hp.x = shieldedHP.x = rawShielding.x = x + 30;
-			hp.y = shieldedHP.y = rawShielding.y = y + 3;
+			hp.y = shieldedHP.y = rawShielding.y = y + 2;
 
 			hpText.scale.set(PixelScene.align(0.5f));
 			hpText.x = hp.x + 1;
@@ -226,12 +227,21 @@ public class StatusPane extends Component {
 			hpText.y -= 0.001f; //prefer to be slightly higher
 			PixelScene.align(hpText);
 
+			stamina.x = 30;
+			stamina.y = 8;
+
+			staminaText.scale.set(PixelScene.align(0.5f));
+			staminaText.x = stamina.x + 1;
+			staminaText.y = stamina.y + (stamina.height - (staminaText.baseLine()+staminaText.scale.y))/2f;
+			staminaText.y -= 0.001f; //prefer to be slightly higher
+			PixelScene.align(staminaText);
+
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
-			buffs.setRect( x + 31, y + 9, 50, 8 );
+			buffs.setRect( x + 31, y + 15, 50, 8 );
 
 			busy.x = x + 1;
-			busy.y = y + 33;
+			busy.y = y + 32;
 		}
 
 		counter.point(busy.center());
@@ -242,6 +252,8 @@ public class StatusPane extends Component {
 	private int oldHP = 0;
 	private int oldShield = 0;
 	private int oldMax = 0;
+	private int oldSta = 0;
+	private int oldMaxSta = 0;
 
 	@Override
 	public void update() {
@@ -250,9 +262,11 @@ public class StatusPane extends Component {
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
+		int sta = Dungeon.hero.STAMINA;
+		int maxSta = Dungeon.hero.MAX_STAMINA;
 
 		if(Dungeon.hero.isUndead()){
-			avatar.tint(HeroSprite.UNDEA_COLOR, 0.5f);
+			avatar.tint(HeroSprite.UNDEAD_COLOR, 0.5f);
 		} else {
 			if (!Dungeon.hero.isAlive()) {
 				avatar.tint(0x000000, 0.5f);
@@ -288,18 +302,23 @@ public class StatusPane extends Component {
 			oldMax = max;
 		}
 
+		if(oldSta != sta || oldMaxSta != maxSta){
+			staminaText.text(sta + "/" + maxSta);
+			oldSta = sta;
+			oldMaxSta = maxSta;
+		}
+
 		if (large) {
-			exp.scale.x = (128 / exp.width) * Dungeon.hero.exp / Dungeon.hero.maxExp();
+			stamina.scale.x = (128 / stamina.width) * sta / maxSta;
 
 			hpText.measure();
 			hpText.x = hp.x + (128 - hpText.width())/2f;
 
-			expText.text(Dungeon.hero.exp + "/" + Dungeon.hero.maxExp());
-			expText.measure();
-			expText.x = hp.x + (128 - expText.width())/2f;
+			staminaText.measure();
+			staminaText.x = hp.x + (128 - staminaText.width())/2f;
 
 		} else {
-			exp.scale.x = (width / exp.width) * Dungeon.hero.exp / Dungeon.hero.maxExp();
+			stamina.scale.x = (float) Dungeon.hero.STAMINA / Dungeon.hero.MAX_STAMINA;
 		}
 
 		if (Dungeon.hero.lvl != lastLvl) {
@@ -319,7 +338,7 @@ public class StatusPane extends Component {
 				level.text( Integer.toString( lastLvl ) );
 				level.measure();
 				level.x = x + 27.5f - level.width() / 2f;
-				level.y = y + 28.0f - level.baseLine() / 2f;
+				level.y = y + 33.0f - level.baseLine() / 2f;
 			}
 			PixelScene.align(level);
 		}
@@ -341,8 +360,8 @@ public class StatusPane extends Component {
 		shieldedHP.alpha(value);
 		hp.alpha(value);
 		hpText.alpha(0.6f*value);
-		exp.alpha(value);
-		if (expText != null) expText.alpha(0.6f*value);
+		stamina.alpha(value);
+		if (staminaText != null) staminaText.alpha(0.6f*value);
 		level.alpha(value);
 		compass.alpha(value);
 		busy.alpha(value);

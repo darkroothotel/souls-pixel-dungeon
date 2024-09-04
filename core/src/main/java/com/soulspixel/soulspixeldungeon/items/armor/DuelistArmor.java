@@ -35,6 +35,8 @@ public class DuelistArmor extends ClassArmor {
 	{
 		image = ItemSpriteSheet.ARMOR_DUELIST;
 
+		weightClass = WeightClass.MANAGEABLE;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.STRIKE);
 			add(Char.DamageType.SLASH);

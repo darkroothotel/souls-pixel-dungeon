@@ -52,6 +52,7 @@ public class Flail extends MeleeWeapon {
 		//also cannot surprise attack, see Hero.canSurpriseAttack
 
 		damageTypeDealt = Char.DamageType.BASH;
+		weightClass = WeightClass.VERY_HEAVY;
 	}
 
 	@Override

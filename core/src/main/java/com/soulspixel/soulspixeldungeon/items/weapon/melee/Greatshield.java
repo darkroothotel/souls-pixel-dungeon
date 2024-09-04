@@ -40,6 +40,7 @@ public class Greatshield extends MeleeWeapon {
 		tier = 5;
 
 		damageTypeDealt = Char.DamageType.BASH;
+		weightClass = WeightClass.VERY_HEAVY;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);

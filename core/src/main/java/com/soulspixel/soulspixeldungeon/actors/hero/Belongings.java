@@ -105,6 +105,24 @@ public class Belongings implements Iterable<Item> {
 		return weapon();
 	}
 
+	public int getAllWeaponsPoiseResist() {
+		if(weapon != null && secondWep != null){
+			return weapon.getPoiseResist()+secondWep.getPoiseResist();
+		} else if(weapon != null){
+			return weapon.getPoiseResist();
+		} else {
+			return secondWep.getPoiseResist();
+		}
+	}
+
+	public int getAllArmorPoiseResist() {
+		if(armor != null){
+			return armor.getPoiseResist();
+		} else {
+			return 0;
+		}
+	}
+
 	//we cache whether belongings are lost to avoid lots of calls to hero.buff(LostInventory.class)
 	private boolean lostInvent;
 	public void lostInventory( boolean val ){
@@ -121,6 +139,14 @@ public class Belongings implements Iterable<Item> {
 		} else {
 			return null;
 		}
+	}
+
+	public int getAllArmorWeight() {
+		return armor.getWeight();
+	}
+
+	public int getAllWeaponWeight() {
+		return weapon().getWeight();
 	}
 
 	public Armor armor(){

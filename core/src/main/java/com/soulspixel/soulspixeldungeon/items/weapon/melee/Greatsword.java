@@ -43,6 +43,7 @@ public class Greatsword extends MeleeWeapon {
 		tier = 5;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.VERY_HEAVY;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);

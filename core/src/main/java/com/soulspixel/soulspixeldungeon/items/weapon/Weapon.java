@@ -508,6 +508,9 @@ abstract public class Weapon extends KindOfWeapon {
 				return (Enchantment) Reflection.newInstance(Random.element(enchants));
 			}
 		}
-		
+
+		public void stanceBreakingEffect(Char target) {
+
+		}
 	}
 }

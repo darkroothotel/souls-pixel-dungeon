@@ -35,6 +35,8 @@ public class WarriorArmor extends ClassArmor {
 	{
 		image = ItemSpriteSheet.ARMOR_WARRIOR;
 
+		weightClass = WeightClass.VERY_HEAVY;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.MAGIC);
 			add(Char.DamageType.STANDARD);

@@ -23,31 +23,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.soulspixel.soulspixeldungeon.items.armor;
+package com.soulspixel.soulspixeldungeon.actors.buffs;
 
-import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.scenes.GameScene;
+import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 
-import java.util.ArrayList;
+public class StanceBroken extends FlavourBuff {
 
-public class ScaleArmor extends Armor {
+	public static final float DURATION = 1f;
 
 	{
-		image = ItemSpriteSheet.ARMOR_SCALE;
-
-		weightClass = WeightClass.HEAVY;
-
-		damageTypeResisted = new ArrayList<Char.DamageType>(){{
-			add(Char.DamageType.BASH);
-			add(Char.DamageType.STRIKE);
-			add(Char.DamageType.SLASH);
-			add(Char.DamageType.PIERCE);
-			add(Char.DamageType.STAB);
-		}};
+		type = buffType.NEGATIVE;
 	}
 	
-	public ScaleArmor() {
-		super( 4 );
+	@Override
+	public int icon() {
+		return BuffIndicator.STANCE_BROKEN;
 	}
 
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+
+	@Override
+	public void detach() {
+		super.detach();
+		if(target instanceof Mob){
+			((Mob) target).state = ((Mob) target).STANCE_BROKEN;
+		}
+		Dungeon.observe();
+		GameScene.updateFog();
+	}
 }

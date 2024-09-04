@@ -41,6 +41,7 @@ public class Longsword extends MeleeWeapon {
 		tier = 4;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.HEAVY;
 	}
 
 	@Override

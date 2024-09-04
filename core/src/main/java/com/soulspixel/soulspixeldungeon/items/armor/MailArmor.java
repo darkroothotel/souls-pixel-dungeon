@@ -35,6 +35,8 @@ public class MailArmor extends Armor {
 	{
 		image = ItemSpriteSheet.ARMOR_MAIL;
 
+		weightClass = WeightClass.MANAGEABLE;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);
 			add(Char.DamageType.PIERCE);

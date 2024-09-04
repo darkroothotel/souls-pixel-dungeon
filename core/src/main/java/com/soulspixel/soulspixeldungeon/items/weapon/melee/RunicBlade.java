@@ -50,6 +50,7 @@ public class RunicBlade extends MeleeWeapon {
 		tier = 4;
 
 		damageTypeDealt = Char.DamageType.MAGIC;
+		weightClass = WeightClass.MANAGEABLE;
 	}
 
 	//Essentially it's a tier 4 weapon, with tier 3 base max damage, and tier 5 scaling.

@@ -39,9 +39,10 @@ public class WarScythe extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 5;
-		ACC = 0.8f; //20% penalty to accuracy -> ??? you literally cant miss
+		ACC = 1.2f; //20% penalty to accuracy -> ??? you literally cant miss
 
 		damageTypeDealt = Char.DamageType.SLASH;
+		weightClass = WeightClass.HEAVY;
 	}
 
 	@Override

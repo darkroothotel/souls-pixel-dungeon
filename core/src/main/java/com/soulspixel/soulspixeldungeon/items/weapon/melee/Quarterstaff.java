@@ -46,6 +46,7 @@ public class Quarterstaff extends MeleeWeapon {
 		tier = 2;
 
 		damageTypeDealt = Char.DamageType.STRIKE;
+		weightClass = WeightClass.LIGHT;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.SLASH);

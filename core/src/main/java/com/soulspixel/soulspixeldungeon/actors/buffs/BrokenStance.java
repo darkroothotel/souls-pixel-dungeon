@@ -25,27 +25,34 @@
 
 package com.soulspixel.soulspixeldungeon.actors.buffs;
 
-import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.sprites.HeroSprite;
+import com.soulspixel.soulspixeldungeon.Dungeon;
+import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
+import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.ui.BuffIndicator;
 
-public class UndeathInvulnerability extends FlavourBuff {
+public class BrokenStance extends FlavourBuff {
+
+	public static final float DURATION = 2f;
 
 	{
-		type = buffType.POSITIVE;
+		type = buffType.NEGATIVE;
 	}
-
-	public static final float DURATION	= 3f;
 
 	@Override
-	public void fx(boolean on) {
-		if (on) target.sprite.aura(HeroSprite.UNDEAD_COLOR);
-		else target.sprite.clearAura();
-	}
+	public boolean act() {
+		if(target instanceof Mob){
+			if(((Mob) target).state != ((Mob) target).STANCE_BROKEN){
+				detach();
+            }
+        } else {
+			detach();
+        }
+        return super.act();
+    }
 
 	@Override
 	public int icon() {
-		return BuffIndicator.UNDEAD_INVUL;
+		return BuffIndicator.BROKEN_STANCE;
 	}
 
 	@Override
@@ -53,20 +60,10 @@ public class UndeathInvulnerability extends FlavourBuff {
 		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
 	}
 
-	{
-		immunities.add(Paralysis.class);
-		immunities.add(Frost.class);
-	}
-
 	@Override
-	public boolean attachTo(Char target) {
-		if (super.attachTo(target)){
-			Buff.detach(target, Paralysis.class);
-			Buff.detach(target, Frost.class);
-			return true;
-		} else {
-			return false;
-		}
+	public void detach() {
+		super.detach();
+		Dungeon.observe();
+		GameScene.updateFog();
 	}
-
 }

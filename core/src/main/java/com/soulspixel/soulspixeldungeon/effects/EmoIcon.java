@@ -69,6 +69,25 @@ public class EmoIcon extends Image {
 			y = owner.y - height;
 		}
 	}
+
+	public static class StanceBroken extends EmoIcon {
+
+		public StanceBroken( CharSprite owner ) {
+
+			super( owner );
+
+			copy( Icons.get( Icons.STANCE_BROKEN ) );
+
+			maxSize = 1.2f;
+			timeScale = 0.5f;
+
+			origin.set( width / 2, height / 2 );
+			scale.set( Random.Float( 1, maxSize ) );
+
+			x = owner.x + owner.width - width / 2;
+			y = owner.y - height;
+		}
+	}
 	
 	public static class Sleep extends EmoIcon {
 		

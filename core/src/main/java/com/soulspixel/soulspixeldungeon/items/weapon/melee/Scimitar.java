@@ -45,6 +45,7 @@ public class Scimitar extends MeleeWeapon {
 		DLY = 0.8f; //1.25x speed
 
 		damageTypeDealt = Char.DamageType.SLASH;
+		weightClass = WeightClass.LIGHT;
 	}
 
 	@Override

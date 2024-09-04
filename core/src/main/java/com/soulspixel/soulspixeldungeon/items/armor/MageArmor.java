@@ -35,6 +35,8 @@ public class MageArmor extends ClassArmor {
 	{
 		image = ItemSpriteSheet.ARMOR_MAGE;
 
+		weightClass = WeightClass.LIGHT;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.MAGIC);
 			add(Char.DamageType.DARK_MAGIC);

@@ -38,6 +38,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Adrenaline;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AllyBuff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Amok;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AscensionChallenge;
+import com.soulspixel.soulspixeldungeon.actors.buffs.BrokenStance;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ChampionEnemy;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Charm;
@@ -116,6 +117,7 @@ public abstract class Mob extends Char {
 	public AiState WANDERING	= new Wandering();
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
+	public AiState STANCE_BROKEN= new StanceBroken();
 	public AiState state = SLEEPING;
 	
 	public Class<? extends CharSprite> spriteClass;
@@ -133,6 +135,7 @@ public abstract class Mob extends Char {
 	protected boolean alerted = false;
 
 	protected static final float TIME_TO_WAKE_UP = 1f;
+	protected static final float TIME_TO_RECOVER = 1f;
 
 	protected boolean firstAdded = true;
 	protected void onAdd(){
@@ -173,6 +176,8 @@ public abstract class Mob extends Char {
 			bundle.put( STATE, Fleeing.TAG );
 		} else if (state == PASSIVE) {
 			bundle.put( STATE, Passive.TAG );
+		} else if (state == STANCE_BROKEN) {
+			bundle.put( STATE, StanceBroken.TAG );
 		}
 		bundle.put( SEEN, enemySeen );
 		bundle.put( TARGET, target );
@@ -202,6 +207,8 @@ public abstract class Mob extends Char {
 			this.state = FLEEING;
 		} else if (state.equals( Passive.TAG )) {
 			this.state = PASSIVE;
+		} else if (state.equals( StanceBroken.TAG )) {
+			this.state = STANCE_BROKEN;
 		}
 
 		enemySeen = bundle.getBoolean( SEEN );
@@ -1063,6 +1070,10 @@ public abstract class Mob extends Char {
 		}
 		target = cell;
 	}
+
+	public Char thisChar(){
+		return this;
+	}
 	
 	public String description() {
 		return Messages.get(this, "desc");
@@ -1126,8 +1137,58 @@ public abstract class Mob extends Char {
 		GLog.n( "%s: \"%s\" ", Messages.titleCase(name()), str );
 	}
 
+	public static final int GLOW_STANCE_BROKEN = 0xFFCF00;
+
 	public interface AiState {
 		boolean act( boolean enemyInFOV, boolean justAlerted );
+	}
+
+	protected class StanceBroken implements AiState {
+
+		public static final String TAG	= "STANCE_BROKEN";
+
+		@Override
+		public boolean act( boolean enemyInFOV, boolean justAlerted ) {
+			if(buff(BrokenStance.class) == null){
+				if(sprite.isGlowing()){
+					recovered(enemyInFOV);
+					spend( TICK );
+					return true;
+				}
+				Buff.affect(thisChar(), BrokenStance.class, (float) (HT+HP) / (STAMINA*staminaRecoveryMult));
+			}
+			if(!sprite.isGlowing()){
+				sprite.setGlow(new CharSprite.Glowing(GLOW_STANCE_BROKEN));
+			}
+			sprite.showStanceBroken();
+			spend( TICK );
+			return true;
+		}
+
+		protected void recovered( boolean enemyInFOV ){
+			sprite.setGlow(null);
+			if (enemyInFOV) {
+				enemySeen = true;
+				notice();
+				state = HUNTING;
+				target = enemy.pos;
+			} else {
+				notice();
+				state = WANDERING;
+				target = Dungeon.level.randomDestination( Mob.this );
+			}
+
+			if (alignment == Alignment.ENEMY && Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)) {
+				for (Mob mob : Dungeon.level.mobs) {
+					if (mob.paralysed <= 0
+							&& Dungeon.level.distance(pos, mob.pos) <= 8
+							&& mob.state != mob.HUNTING) {
+						mob.beckon(target);
+					}
+				}
+			}
+			spend(TIME_TO_RECOVER);
+		}
 	}
 
 	protected class Sleeping implements AiState {

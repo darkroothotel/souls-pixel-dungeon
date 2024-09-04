@@ -56,6 +56,7 @@ public class Rapier extends MeleeWeapon {
 		bones = false;
 
 		damageTypeDealt = Char.DamageType.PIERCE;
+		weightClass = WeightClass.UNNOTICEABLE;
 
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 		add(Char.DamageType.PIERCE);

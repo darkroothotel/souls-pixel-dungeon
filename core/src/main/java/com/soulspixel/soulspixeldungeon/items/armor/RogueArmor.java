@@ -35,6 +35,8 @@ public class RogueArmor extends ClassArmor {
 	{
 		image = ItemSpriteSheet.ARMOR_ROGUE;
 
+		weightClass = WeightClass.UNNOTICEABLE;
+
 		damageTypeResisted = new ArrayList<Char.DamageType>(){{
 			add(Char.DamageType.BOMB);
 			add(Char.DamageType.STAB);

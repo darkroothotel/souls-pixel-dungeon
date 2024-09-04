@@ -75,6 +75,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Slow;
 import com.soulspixel.soulspixeldungeon.actors.buffs.SnipersMark;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Speed;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
+import com.soulspixel.soulspixeldungeon.actors.buffs.StanceBroken;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Sticky;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stickyfloor;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
@@ -93,6 +94,7 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.CrystalSpire;
 import com.soulspixel.soulspixeldungeon.actors.mobs.DwarfKing;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Elemental;
 import com.soulspixel.soulspixeldungeon.actors.mobs.GnollGeomancer;
+import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Necromancer;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Statue;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Tengu;
@@ -168,6 +170,15 @@ public abstract class Char extends Actor {
 	
 	public int HT;
 	public int HP;
+
+	public int MAX_POISE = 10;
+	public int POISE = 10;
+	public int MAX_STAMINA = 10;
+	public int STAMINA = 10;
+	public float poiseRecovery = 1f;
+	public float staminaRecovery = 1f;
+	public float poiseRecoveryMult = 1f;
+	public float staminaRecoveryMult = 1f;
 	
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -343,6 +354,40 @@ public abstract class Char extends Actor {
             }
 			return dmg;
 		}
+
+		public float getPoiseMult(DamageType dt) {
+			switch (dt) {
+				case HOLY_MAGIC:
+                case MAGIC:
+                case HUNGER:
+                case FALL:
+                case BLEED:
+                case DARK_MAGIC:
+                case WATER:
+                case EARTH:
+                case FIRE:
+                case LIGHTNING:
+                case FROST:
+                case ACIDIC:
+                case POISON:
+                    return 1f;
+                case BASH:
+					return 1.5f;
+				case THRUST:
+					return 1.4f;
+				case STAB:
+                case STANDARD:
+                    return 1.1f;
+                case STRIKE:
+					return 1.3f;
+				case SLASH:
+                case PIERCE:
+                    return 1.2f;
+                case BOMB:
+					return 2f;
+			}
+			return 1f;
+		}
 	}
 
 	public DamageType damageTypeDealt = DamageType.STANDARD;
@@ -361,6 +406,64 @@ public abstract class Char extends Actor {
 	}
 	public ArrayList<DamageType> getDamageImmune(){
 		return damageImmune;
+	}
+
+	public void stanceBroken(){
+		increasePoise(MAX_POISE);
+		Buff.affect(this, StanceBroken.class, 1f);
+	}
+
+	public void reduceStamina(int i){
+		STAMINA -= i;
+		if(STAMINA < 0) STAMINA = 0;
+	}
+
+	public boolean staminaCheck(int staminaCost){
+		if(STAMINA <= 0){
+			return false;
+		}
+		if(hasStaminaToDo(staminaCost)){
+			reduceStamina(staminaCost);
+			return true;
+		} else {
+			reduceStamina(staminaCost);
+			return false;
+		}
+	}
+
+	public boolean hasStaminaToDo(int i){
+		int s = STAMINA;
+		return s - i >= 0;
+	}
+
+	public void increaseStamina(int i){
+		STAMINA += i;
+		if(STAMINA > MAX_STAMINA) STAMINA = MAX_STAMINA;
+	}
+
+	public void increaseStamina(){
+		int i = (int) ((float) STAMINA + (staminaRecovery*staminaRecoveryMult));
+		STAMINA = i;
+		if(STAMINA > MAX_STAMINA) STAMINA = MAX_STAMINA;
+	}
+
+	public void reducePoise(int i){
+		POISE -= i;
+		if(POISE <= 0){
+			POISE = 0;
+			stanceBroken();
+		}
+	}
+
+	public void increasePoise(int i){
+		POISE += i;
+		if(POISE > MAX_POISE) POISE = MAX_POISE;
+	}
+
+	public void increasePoise(){
+		int i = (int) ((float) POISE + (poiseRecovery*poiseRecoveryMult));
+		POISE = i;
+		if(POISE > MAX_POISE) POISE = MAX_POISE;
 	}
 
 	public static boolean isPointInsideRoom(Room rect, Point point) {
@@ -432,6 +535,15 @@ public abstract class Char extends Actor {
 		if(buff(AtEase.class) != null && buff(Uneasy.class) != null){
 			buff(AtEase.class).detach();
 		}
+		if(buff(StanceBroken.class) != null){
+			if(!(this instanceof Hero)){
+				buff(StanceBroken.class).detach();
+			}
+		}
+
+		//increase normal
+		increaseStamina();
+		increasePoise();
 		return false;
 	}
 
@@ -555,11 +667,19 @@ public abstract class Char extends Actor {
 		return false;
 	}
 	
-	protected static final String POS       = "pos";
-	protected static final String TAG_HP    = "HP";
-	protected static final String TAG_HT    = "HT";
-	protected static final String TAG_SHLD  = "SHLD";
-	protected static final String BUFFS	    = "buffs";
+	protected static final String POS       		= "pos";
+	protected static final String TAG_HP    		= "HP";
+	protected static final String TAG_HT    		= "HT";
+	protected static final String TAG_POISE    		= "POISE";
+	protected static final String TAG_MAX_POISE    	= "MAX_POISE";
+	protected static final String POISE_REC    		= "poise_recovery";
+	protected static final String POISE_REC_RATE	= "poise_recovery_rate";
+	protected static final String TAG_STAMINA		= "STAMINA";
+	protected static final String TAG_MAX_STAMINA	= "MAX_STAMINA";
+	protected static final String STAMINA_REC   	= "stamina_recovery";
+	protected static final String STAMINA_REC_RATE	= "stamina_recovery_rate";
+	protected static final String TAG_SHLD  		= "SHLD";
+	protected static final String BUFFS	    		= "buffs";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -569,6 +689,14 @@ public abstract class Char extends Actor {
 		bundle.put( POS, pos );
 		bundle.put( TAG_HP, HP );
 		bundle.put( TAG_HT, HT );
+		bundle.put( TAG_POISE, POISE );
+		bundle.put( TAG_MAX_POISE, MAX_POISE );
+		bundle.put( POISE_REC, poiseRecovery);
+		bundle.put( POISE_REC_RATE, poiseRecoveryMult);
+		bundle.put( TAG_STAMINA, STAMINA );
+		bundle.put( TAG_MAX_STAMINA, MAX_STAMINA );
+		bundle.put( STAMINA_REC, staminaRecovery);
+		bundle.put( STAMINA_REC_RATE, staminaRecoveryMult);
 		bundle.put( BUFFS, buffs );
 	}
 	
@@ -580,6 +708,15 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		HP = bundle.getInt( TAG_HP );
 		HT = bundle.getInt( TAG_HT );
+
+		POISE = bundle.getInt( TAG_POISE );
+		MAX_POISE = bundle.getInt( TAG_MAX_POISE );
+		STAMINA = bundle.getInt( TAG_STAMINA );
+		MAX_STAMINA = bundle.getInt( TAG_MAX_STAMINA );
+		poiseRecovery = bundle.getFloat( POISE_REC );
+		poiseRecoveryMult = bundle.getFloat( POISE_REC_RATE );
+		staminaRecovery = bundle.getFloat( STAMINA_REC );
+		staminaRecoveryMult = bundle.getFloat( STAMINA_REC_RATE );
 		
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
@@ -598,6 +735,12 @@ public abstract class Char extends Actor {
 
 		if(enemy.properties.contains(Property.NOT_A_MOB)){
 			return false;
+		}
+
+		if(!(this instanceof Hero)){
+			if(!staminaCheck(1)){
+				return false;
+			}
 		}
 		
 		boolean visibleFight = Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[enemy.pos];
@@ -803,8 +946,17 @@ public abstract class Char extends Actor {
 		float acuStat = attacker.attackSkill( defender );
 		float defStat = defender.defenseSkill( attacker );
 
-		if (defender instanceof Hero && ((Hero) defender).damageInterrupt){
-			((Hero) defender).interrupt();
+		if (defender instanceof Hero ){
+			if(((Hero) defender).damageInterrupt){
+				((Hero) defender).interrupt();
+			}
+			if(defender.buff(StanceBroken.class) != null){
+				return true;
+			}
+		}
+
+		if(defender instanceof Mob && ((Mob)defender).state == ((Mob) defender).STANCE_BROKEN){
+			return true;
 		}
 
 		//invisible chars always hit (for the hero this is surprise attacking)
@@ -904,6 +1056,39 @@ public abstract class Char extends Actor {
 
 		if ( buff( Carcinisation.class ) != null) damage /= 2;
 
+		//poise damage is done here
+		DamageType dt = damageTypeDealt;
+		int pbd = 0;
+		if(enemy instanceof Hero){
+			dt = ((Hero) enemy).belongings.attackingWeapon().damageTypeDealt;
+			pbd = ((Hero) enemy).belongings.attackingWeapon().bonusPoiseDamage();
+		} else if(enemy instanceof Statue){
+			dt = ((Statue) enemy).weapon.damageTypeDealt;
+			pbd = ((Statue) enemy).weapon.bonusPoiseDamage();
+		}
+		int pd = ((int) (((float) damage / 2 ) * dt.getPoiseMult( dt ))) + pbd;
+		int pr;
+		int wpr = 0;
+		int apr = 0;
+		if(this instanceof Hero){
+			wpr = ((Hero) this).belongings.getAllWeaponsPoiseResist();
+			apr = ((Hero) this).belongings.getAllArmorPoiseResist();
+		} else if(this instanceof Statue){
+			wpr = ((Statue) this).weapon.getPoiseResist();
+			if(this instanceof ArmoredStatue){
+				apr += ((ArmoredStatue) this).armor.getPoiseResist();
+			}
+		}
+
+		pr = wpr+apr;
+		int poisedmg = pd-pr;
+
+		if(buff(Carcinisation.class) != null){
+			poisedmg /= 2;
+		}
+
+		reducePoise(poisedmg);
+
 		return damage;
 	}
 	
@@ -943,14 +1128,44 @@ public abstract class Char extends Actor {
 		return cachedShield;
 	}
 
-	private int weighDamageTypes(int dmg, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, DamageType subject){
+	private int weighDamageTypes(int dmg, Char rec, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, Char inf, DamageType subject){
+		int olddmg = dmg;
 		dmg = (int) (dmg + Collections.frequency(resists, subject)*subject.whenResist(subject) + Collections.frequency(weaknesses, subject)*subject.whenWeak(subject));
+		if(olddmg != dmg){
+			if(rec != inf){
+				if(olddmg > dmg){
+					rec.blockedDamageTypeEffect(olddmg, dmg, rec, resists, weaknesses, inf, subject);
+					inf.wasBlockedDamageTypeEffect(olddmg, dmg, rec, resists, weaknesses, inf, subject);
+					inf.staminaCheck(dmg);
+				} else {
+					rec.wasAttackedDamageType(olddmg, dmg, rec, resists, weaknesses, inf, subject);
+					inf.attackedDamageType(olddmg, dmg, rec, resists, weaknesses, inf, subject);
+					rec.staminaCheck(olddmg);
+				}
+			}
+		}
 		return dmg;
+	}
+
+	private void attackedDamageType(int olddmg, int dmg, Char rec, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, Char inf, DamageType subject) {
+
+	}
+
+	private void wasAttackedDamageType(int olddmg, int dmg, Char rec, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, Char inf, DamageType subject) {
+
+	}
+
+	private void wasBlockedDamageTypeEffect(int olddmg, int dmg, Char rec, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, Char inf, DamageType subject) {
+
+	}
+
+	private void blockedDamageTypeEffect(int olddmg, int dmg, Char rec, ArrayList<DamageType> resists, ArrayList<DamageType> weaknesses, Char inf, DamageType subject) {
+
 	}
 
 	private DamageType getDealtOf(Char ch){
 		if(ch instanceof Hero){
-			return ((Hero) ch).belongings.weapon().damageTypeDealt;
+			return ((Hero) ch).belongings.attackingWeapon().damageTypeDealt;
 		}
 		if(ch instanceof Statue){
 			return ((Statue) ch).weapon.damageTypeDealt;
@@ -963,7 +1178,7 @@ public abstract class Char extends Actor {
 		i = ch.getDamageImmune();
 		i.addAll(getAllDmgTypesImmunities(ch));
 		if(ch instanceof Hero){
-			i.addAll(((Hero) ch).belongings.weapon().damageTypeImmune);
+			i.addAll(((Hero) ch).belongings.attackingWeapon().damageTypeImmune);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeImmune);
 			return i;
 		}
@@ -983,7 +1198,7 @@ public abstract class Char extends Actor {
 		i = ch.getDamageResisted();
 		i.addAll(getAllDmgTypesResistance(ch));
 		if(ch instanceof Hero){
-			i.addAll(((Hero) ch).belongings.weapon().damageTypeResisted);
+			i.addAll(((Hero) ch).belongings.attackingWeapon().damageTypeResisted);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeResisted);
 			return i;
 		}
@@ -1002,7 +1217,7 @@ public abstract class Char extends Actor {
 		i = ch.getDamageWeak();
 		i.addAll(getAllDmgTypesWeakness(ch));
 		if(ch instanceof Hero){
-			i.addAll(((Hero) ch).belongings.weapon().damageTypeWeak);
+			i.addAll(((Hero) ch).belongings.attackingWeapon().damageTypeWeak);
 			i.addAll(((Hero) ch).belongings.armor().damageTypeWeak);
 			return i;
 		}
@@ -1026,7 +1241,7 @@ public abstract class Char extends Actor {
 				break;
 			case 2:
 				if (getResistOf(rec).contains(getDealtOf(inf)) || getWeakOf(rec).contains(getDealtOf(inf))){
-					return weighDamageTypes(dmg, getResistOf(rec), getWeakOf(rec), getDealtOf(inf));
+					return weighDamageTypes(dmg, rec, getResistOf(rec), getWeakOf(rec), inf, getDealtOf(inf));
 				}
 				break;
 		}
@@ -1043,7 +1258,7 @@ public abstract class Char extends Actor {
 				break;
 			case 2:
 				if (getResistOf(rec).contains(damageType) || getWeakOf(rec).contains(damageType)){
-					return weighDamageTypes(dmg, getResistOf(rec), getWeakOf(rec), damageType);
+					return weighDamageTypes(dmg, rec, getResistOf(rec), getWeakOf(rec), rec, damageType);
 				}
 				break;
 		}
@@ -1061,6 +1276,10 @@ public abstract class Char extends Actor {
 		dmg = damageWithType(dmg, this, damageType, id);
 		return dmg;
 	}
+
+	public void stanceBreakEffect(Char target){
+
+	}
 	
 	public void damage(int dmg, Object src, DamageType damageType) {
 		
@@ -1071,6 +1290,17 @@ public abstract class Char extends Actor {
 		if(isInvulnerable(src.getClass())){
 			sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
 			return;
+		}
+
+		if(this instanceof Hero){
+			if(buff(StanceBroken.class) != null){
+				dmg *= 5;
+				GLog.n(Messages.get(this, "hero_damage_while_stance_broken"));
+				if(src instanceof Char){
+					((Char) src).stanceBreakEffect(this);
+				}
+				//effect recovery buff invulnerable for 1f turn
+			}
 		}
 
 		if(damageType == null){
@@ -1171,6 +1401,20 @@ public abstract class Char extends Actor {
 				if (dmg == 0) break;
 			}
 		}
+
+		if(this instanceof Mob){
+			if(((Mob) this).state == ((Mob) this).STANCE_BROKEN){
+				dmg *= 5;
+				if(src instanceof Hero){
+					((Hero) src).belongings.attackingWeapon().stanceBreakingEffect(this);
+					GLog.h(Messages.get(this, "enemy_stance_broken"));
+				}
+				sprite.setGlow(null);
+				sprite.hideStanceBroken();
+				((Mob) this).state = ((Mob) this).WANDERING;
+			}
+		}
+
 		shielded -= dmg;
 		HP -= dmg;
 
@@ -1458,7 +1702,12 @@ public abstract class Char extends Actor {
 
 	//travelling may be false when a character is moving instantaneously, such as via teleportation
 	public void move( int step, boolean travelling ) {
-
+		if(travelling){
+			//TODO: 1 could be the weight class of the char
+			if(!staminaCheck(1) && !(this instanceof Hero)){ //hero gets his own calculation
+				step = pos;
+			}
+		}
 		if (travelling && Dungeon.level.adjacent( step, pos ) && buff( Vertigo.class ) != null) {
 			sprite.interruptMotion();
 			int newPos = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
@@ -1477,11 +1726,11 @@ public abstract class Char extends Actor {
 		}
 
 		pos = step;
-		
+
 		if (this != Dungeon.hero) {
 			sprite.visible = Dungeon.level.heroFOV[pos];
 		}
-		
+
 		Dungeon.level.occupyCell(this );
 	}
 	
