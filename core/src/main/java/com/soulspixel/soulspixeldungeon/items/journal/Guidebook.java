@@ -56,6 +56,9 @@ public class Guidebook extends Item {
 		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_ALCHEMY);
 		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_DIEING);
 		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_BONFIRE);
+		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_DMG_TYPES);
+		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_STAMINA);
+		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_POISE);
 
 		GameScene.pickUpJournal(this, pos);
 		//we do this here so the pickup message appears before the tutorial text

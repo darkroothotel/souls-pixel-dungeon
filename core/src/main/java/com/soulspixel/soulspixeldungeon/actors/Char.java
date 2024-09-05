@@ -132,6 +132,7 @@ import com.soulspixel.soulspixeldungeon.items.weapon.enchantments.Vortex;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Sickle;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.soulspixel.soulspixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.soulspixel.soulspixeldungeon.journal.Document;
 import com.soulspixel.soulspixeldungeon.levels.RegularLevel;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
@@ -411,11 +412,20 @@ public abstract class Char extends Actor {
 	public void stanceBroken(){
 		increasePoise(MAX_POISE);
 		Buff.affect(this, StanceBroken.class, 1f);
+		if(this instanceof Mob){
+			if(Dungeon.hero.getVisibleEnemies().contains(this)){
+				if(!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_POISE)){
+					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_POISE);
+				}
+			}
+		}
 	}
 
 	public void reduceStamina(int i){
 		STAMINA -= i;
-		if(STAMINA < 0) STAMINA = 0;
+		if(STAMINA < 0){
+			STAMINA = 0;
+		}
 	}
 
 	public boolean staminaCheck(int staminaCost){
@@ -427,6 +437,11 @@ public abstract class Char extends Actor {
 			return true;
 		} else {
 			reduceStamina(staminaCost);
+			if(this instanceof Hero){
+				if(!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_STAMINA)){
+					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_STAMINA);
+				}
+			}
 			return false;
 		}
 	}
@@ -1141,6 +1156,11 @@ public abstract class Char extends Actor {
 					rec.wasAttackedDamageType(olddmg, dmg, rec, resists, weaknesses, inf, subject);
 					inf.attackedDamageType(olddmg, dmg, rec, resists, weaknesses, inf, subject);
 					rec.staminaCheck(olddmg);
+				}
+				if(rec instanceof Hero || inf instanceof Hero){
+					if(!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_DMG_TYPES)){
+						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_DMG_TYPES);
+					}
 				}
 			}
 		}

@@ -1155,7 +1155,7 @@ public abstract class Mob extends Char {
 					spend( TICK );
 					return true;
 				}
-				Buff.affect(thisChar(), BrokenStance.class, (float) (HT+HP) / (STAMINA*staminaRecoveryMult));
+				Buff.affect(thisChar(), BrokenStance.class, ((float) (HT+HP) / (STAMINA*staminaRecoveryMult))+2f);
 			}
 			if(!sprite.isGlowing()){
 				sprite.setGlow(new CharSprite.Glowing(GLOW_STANCE_BROKEN));

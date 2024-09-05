@@ -318,6 +318,9 @@ public class Hero extends Char {
 		increasePoise(MAX_POISE);
 		GLog.n(Messages.get(this, "stance_broken"));
 		Buff.affect(this, StanceBroken.class, StanceBroken.DURATION);
+		if(!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_POISE)){
+			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_POISE);
+		}
 	}
 
 	public int STR() {

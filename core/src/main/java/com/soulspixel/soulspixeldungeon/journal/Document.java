@@ -25,11 +25,15 @@
 
 package com.soulspixel.soulspixeldungeon.journal;
 
+import com.soulspixel.soulspixeldungeon.actors.buffs.Haste;
+import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
+import com.soulspixel.soulspixeldungeon.actors.buffs.StanceBroken;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
+import com.soulspixel.soulspixeldungeon.ui.BuffIcon;
 import com.soulspixel.soulspixeldungeon.ui.Icons;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
@@ -201,6 +205,12 @@ public enum Document {
 					return new ItemSprite( ItemSpriteSheet.SPIRIT_BOW );
 				case "Magic":
 					return new ItemSprite( ItemSpriteSheet.WAND_FIREBOLT );
+				case GUIDE_DMG_TYPES:
+					return new ItemSprite( ItemSpriteSheet.WAR_HAMMER );
+				case GUIDE_STAMINA:
+					return new BuffIcon(new Stamina().icon(), true);
+				case GUIDE_POISE:
+					return new BuffIcon(new StanceBroken().icon(), true);
 			}
 		}
 	}
@@ -238,12 +248,15 @@ public enum Document {
 	public static final String GUIDE_ALCHEMY        = "Alchemy";
 	public static final String GUIDE_DIEING         = "Dieing";
 	public static final String GUIDE_BONFIRE        = "Bonfire";
+	public static final String GUIDE_DMG_TYPES      = "Damage_Types";
+	public static final String GUIDE_STAMINA      	= "Stamina";
+	public static final String GUIDE_POISE      	= "Poise";
 
 	public static final String GUIDE_SEARCHING      = "Searching";
 
 	//pages and default states
 	static {
-		boolean debug = DeviceCompat.isDebug();
+		boolean debug = false; //DeviceCompat.isDebug();
 		//hero gets these when guidebook is collected
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_INTRO,          debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_EXAMINING,      debug ? READ : NOT_FOUND);
@@ -253,6 +266,9 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_ALCHEMY,        debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DIEING,         debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_BONFIRE,        debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DMG_TYPES,      debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_STAMINA,      	debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_POISE,      	debug ? READ : NOT_FOUND);
 		//given in sewers
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SEARCHING,      debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put("Strength",           debug ? READ : NOT_FOUND);
