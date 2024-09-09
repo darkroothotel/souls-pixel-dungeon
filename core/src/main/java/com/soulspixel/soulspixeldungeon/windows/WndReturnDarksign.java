@@ -33,6 +33,7 @@ import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
 import com.soulspixel.soulspixeldungeon.ui.Window;
+import com.watabou.utils.Callback;
 
 public class WndReturnDarksign extends Window {
 
@@ -96,7 +97,13 @@ public class WndReturnDarksign extends Window {
         RedButton kill = new RedButton(Messages.get(this, "return")){
             @Override
             protected void onClick() {
-                Dungeon.hero.die(Dungeon.hero);
+                Dungeon.hero.sprite.operate(Dungeon.hero.pos, new Callback() {
+                    @Override
+                    public void call() {
+                        hide();
+                        Dungeon.hero.die(Dungeon.hero);
+                    }
+                });
             }
         };
         kill.setRect(0, info.bottom() + GAP, width, 20);

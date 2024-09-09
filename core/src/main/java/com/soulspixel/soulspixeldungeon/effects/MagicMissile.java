@@ -49,7 +49,7 @@ import com.watabou.utils.Random;
 
 public class MagicMissile extends Emitter {
 
-	private static final float SPEED	= 200f;
+	private static float SPEED	= 200f;
 	
 	private Callback callback;
 	
@@ -124,7 +124,12 @@ public class MagicMissile extends Emitter {
 		y = from.y;
 		width = 0;
 		height = 0;
-		
+
+		if(type == SOULS){
+			SPEED = 100f;
+		} else {
+			SPEED = 200f;
+		}
 		PointF d = PointF.diff( to, from );
 		PointF speed = new PointF( d ).normalize().scale( SPEED );
 		sx = speed.x;
