@@ -166,7 +166,7 @@ public class InventoryPane extends Component {
 			add(btn);
 		}
 
-		gold = Icons.get(Icons.COIN_SML);
+		gold = Icons.get(Icons.SOUL_SML);
 		add(gold);
 		goldTxt = new BitmapText(PixelScene.pixelFont);
 		goldTxt.hardlight(Window.TITLE_COLOR);

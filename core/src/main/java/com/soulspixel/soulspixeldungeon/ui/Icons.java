@@ -89,7 +89,7 @@ public enum Icons {
 	ENERGY,
 	COPY,
 	PASTE,
-	COIN_SML,
+	SOUL_SML,
 	ENERGY_SML,
 	BACKPACK,
 	SEED_POUCH,
@@ -285,7 +285,7 @@ public enum Icons {
 			case PASTE:
 				icon.frame( icon.texture.uvRectBySize( 240, 48, 13, 13 ) );
 				break;
-			case COIN_SML:
+			case SOUL_SML:
 				icon.frame( icon.texture.uvRectBySize( 192, 64, 7, 7 ) );
 				break;
 			case ENERGY_SML:

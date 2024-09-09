@@ -72,7 +72,7 @@ public class CurrencyIndicator extends Component {
 	public void update() {
 		super.update();
 		
-		if (gold.visible) {
+		/**if (gold.visible) {
 			
 			goldTime -= Game.elapsed;
 			if (goldTime > 0) {
@@ -81,7 +81,8 @@ public class CurrencyIndicator extends Component {
 				gold.visible = false;
 			}
 			
-		}
+		}**/
+		gold.visible = true;
 
 		if (energy.visible) {
 
@@ -100,7 +101,7 @@ public class CurrencyIndicator extends Component {
 			
 			gold.text( Integer.toString(lastGold) );
 			gold.measure();
-			gold.hardlight( 0xFFFF00 );
+			gold.hardlight( Window.WHITE );
 			
 			gold.visible = true;
 			goldTime = TIME;

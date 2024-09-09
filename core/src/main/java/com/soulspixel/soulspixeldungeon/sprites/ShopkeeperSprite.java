@@ -26,6 +26,7 @@
 package com.soulspixel.soulspixeldungeon.sprites;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.ui.Window;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.particles.PixelParticle;
 
@@ -61,7 +62,7 @@ public class ShopkeeperSprite extends MobSprite {
 				coin = new PixelParticle();
 				parent.add( coin );
 			}
-			coin.reset( x + (flipHorizontal ? 0 : 13), y + 7, 0xFFFF00, 1, 0.5f );
+			coin.reset( x + (flipHorizontal ? 0 : 13), y + 7, Window.WHITE, 1, 0.5f );
 			coin.speed.y = -40;
 			coin.acc.y = +160;
 		}

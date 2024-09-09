@@ -181,7 +181,7 @@ public class WndBag extends WndTabbed {
 			add(gold);
 
 			BitmapText amt = new BitmapText(Integer.toString(Dungeon.souls), PixelScene.pixelFont);
-			amt.hardlight(TITLE_COLOR);
+			amt.hardlight(WHITE);
 			amt.measure();
 			amt.x = width - gold.width() - amt.width() - 1;
 			amt.y = (TITLE_HEIGHT - amt.baseLine()) / 2f - 1;
@@ -191,14 +191,14 @@ public class WndBag extends WndTabbed {
 			titleWidth = amt.x;
 		} else {
 
-			Image gold = Icons.get(Icons.COIN_SML);
+			Image gold = Icons.get(Icons.SOUL_SML);
 			gold.x = width - gold.width() - 0.5f;
 			gold.y = 0;
 			PixelScene.align(gold);
 			add(gold);
 
 			BitmapText amt = new BitmapText(Integer.toString(Dungeon.souls), PixelScene.pixelFont);
-			amt.hardlight(TITLE_COLOR);
+			amt.hardlight(WHITE);
 			amt.measure();
 			amt.x = width - gold.width() - amt.width() - 2f;
 			amt.y = 0;
