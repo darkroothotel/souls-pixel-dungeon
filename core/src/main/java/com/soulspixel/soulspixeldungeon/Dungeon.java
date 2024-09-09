@@ -783,10 +783,10 @@ public class Dungeon {
 	private static final String DEPTH		= "depth";
 	private static final String BRANCH		= "branch";
 	private static final String GENERATED_LEVELS    = "generated_levels";
-	private static final String GOLD		= "gold";
+	private static final String SOULS 		= "souls";
 	private static final String ENERGY		= "energy";
 	private static final String DROPPED     = "dropped%d";
-	private static final String DROPPEDB1     = "droppedb1%d";
+	private static final String DROPPEDB1   = "droppedb1%d";
 	private static final String PORTED      = "ported%d";
 	private static final String LEVEL		= "level";
 	private static final String LIMDROPS    = "limited_drops";
@@ -810,7 +810,7 @@ public class Dungeon {
 			bundle.put( DEPTH, depth );
 			bundle.put( BRANCH, branch );
 
-			bundle.put( GOLD, souls);
+			bundle.put(SOULS, souls);
 			bundle.put( ENERGY, energy );
 
 			for (int d : droppedItems.keyArray()) {
@@ -976,7 +976,7 @@ public class Dungeon {
 		depth = bundle.getInt( DEPTH );
 		branch = bundle.getInt( BRANCH );
 
-		souls = bundle.getInt( GOLD );
+		souls = bundle.getInt( SOULS );
 		energy = bundle.getInt( ENERGY );
 
 		Statistics.restoreFromBundle( bundle );
@@ -1065,7 +1065,7 @@ public class Dungeon {
 		info.daily = bundle.getBoolean( DAILY );
 		info.dailyReplay = bundle.getBoolean( DAILY_REPLAY );
 
-		Hero.preview( info, bundle.getBundle( HERO ) );
+		Hero.preview( info, bundle.getBundle( HERO ), bundle.getInt( SOULS ) );
 		Statistics.preview( info, bundle );
 	}
 	

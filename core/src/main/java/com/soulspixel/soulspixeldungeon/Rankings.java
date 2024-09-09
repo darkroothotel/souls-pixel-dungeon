@@ -169,7 +169,7 @@ public enum Rankings {
 	}
 
 	private int score( boolean win ) {
-		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? 76 : Dungeon.depth ) * 100) * (win ? 2 : 1);
+		return (Statistics.soulsCollected + Dungeon.hero.lvl * (win ? 76 : Dungeon.depth ) * 100) * (win ? 2 : 1);
 	}
 
 	//assumes a ranking is loaded, or game is ending
@@ -188,7 +188,7 @@ public enum Rankings {
 					}
 				}
 			}
-			Statistics.treasureScore = Statistics.goldCollected + Statistics.heldItemValue;
+			Statistics.treasureScore = Statistics.soulsCollected + Statistics.heldItemValue;
 			Statistics.treasureScore = Math.min(Statistics.treasureScore, 20_000);
 
 			Statistics.exploreScore = 0;
@@ -216,7 +216,7 @@ public enum Rankings {
 		//win multiplier is a simple 2x if run was a win, challenge multi is the same as 1.3.0
 		} else {
 			Statistics.progressScore = Dungeon.hero.lvl * Statistics.deepestFloor * 100;
-			Statistics.treasureScore = Math.min(Statistics.goldCollected, 30_000);
+			Statistics.treasureScore = Math.min(Statistics.soulsCollected, 30_000);
 
 			Statistics.exploreScore = Statistics.totalBossScore = Statistics.totalQuestScore = 0;
 

@@ -83,6 +83,7 @@ import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.CheckedCell;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
+import com.soulspixel.soulspixeldungeon.effects.MagicMissile;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
 import com.soulspixel.soulspixeldungeon.effects.Splash;
@@ -169,6 +170,7 @@ import com.soulspixel.soulspixeldungeon.windows.WndHero;
 import com.soulspixel.soulspixeldungeon.windows.WndResurrect;
 import com.soulspixel.soulspixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
 import com.watabou.utils.Bundlable;
@@ -236,7 +238,6 @@ public class Hero extends Char {
 	public float awareness;
 	
 	public int lvl = 1;
-	public int exp = 0;
 	
 	public int HTBoost = 0;
 
@@ -356,7 +357,6 @@ public class Hero extends Char {
 	private static final String DEFENSE		= "defenseSkill";
 	private static final String STRENGTH	= "STR";
 	private static final String LEVEL		= "lvl";
-	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
 
 	private static final String UNDEAD		= "undead";
@@ -383,7 +383,6 @@ public class Hero extends Char {
 		bundle.put( STRENGTH, STR );
 		
 		bundle.put( LEVEL, lvl );
-		bundle.put( EXPERIENCE, exp );
 		
 		bundle.put( HTBOOST, HTBoost );
 
@@ -401,7 +400,6 @@ public class Hero extends Char {
 	public void restoreFromBundle( Bundle bundle ) {
 
 		lvl = bundle.getInt( LEVEL );
-		exp = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
 		undead = bundle.getBoolean(UNDEAD);
@@ -430,10 +428,10 @@ public class Hero extends Char {
 		belongings.restoreFromBundle( bundle );
 	}
 	
-	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
+	public static void preview( GamesInProgress.Info info, Bundle bundle, int souls ) {
 		info.level = bundle.getInt( LEVEL );
 		info.str = bundle.getInt( STRENGTH );
-		info.exp = bundle.getInt( EXPERIENCE );
+		info.souls = souls;
 		info.hp = bundle.getInt( Char.TAG_HP );
 		info.ht = bundle.getInt( Char.TAG_HT );
 		info.shld = bundle.getInt( Char.TAG_SHLD );
@@ -1947,11 +1945,18 @@ public class Hero extends Char {
 		return true;
 	}
 	
-	public void earnExp( int exp, Class source ) {
+	public void earnSouls(int exp, Class source, Char charSource) {
 
-		//xp granted by ascension challenge is only for on-exp gain effects
+		if(charSource != null){
+			MagicMissile.boltFromChar(charSource.sprite.parent, MagicMissile.SOULS, charSource.sprite, pos, new Callback() {
+				@Override
+				public void call() {
+					Sample.INSTANCE.play(Assets.Sounds.DEWDROP);
+				}
+			});
+		}
 		if (source != AscensionChallenge.class) {
-			this.exp += exp;
+			Dungeon.souls = exp*100;
 		}
 		float percent = exp/(float)maxExp();
 
@@ -1987,8 +1992,10 @@ public class Hero extends Char {
 				}
 			}
 		}
+
+		//you level up on bonfires now
 		
-		boolean levelUp = false;
+		/**boolean levelUp = false;
 		while (this.exp >= maxExp()) {
 			this.exp -= maxExp();
 			if (lvl < MAX_LEVEL) {
@@ -2032,7 +2039,7 @@ public class Hero extends Char {
 			Item.updateQuickslot();
 			
 			Badges.validateLevelReached();
-		}
+		}**/
 	}
 	
 	public int maxExp() {

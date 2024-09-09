@@ -28,7 +28,6 @@ package com.soulspixel.soulspixeldungeon.windows;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.GamesInProgress;
 import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
-import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.HeroSubClass;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.InterlevelScene;
@@ -98,10 +97,9 @@ public class WndGameInProgress extends Window {
 		else                        statSlot( Messages.get(this, "str"), info.str );
 		if (info.shld > 0)  statSlot( Messages.get(this, "health"), info.hp + "+" + info.shld + "/" + info.ht );
 		else                statSlot( Messages.get(this, "health"), (info.hp) + "/" + info.ht );
-		statSlot( Messages.get(this, "exp"), info.exp + "/" + Hero.maxExp(info.level) );
 		
 		pos += GAP;
-		statSlot( Messages.get(this, "gold"), info.goldCollected );
+		statSlot( Messages.get(this, "souls"), info.soulsCollected);
 		statSlot( Messages.get(this, "depth"), info.maxDepth );
 		if (info.daily) {
 			if (info.dailyReplay) {

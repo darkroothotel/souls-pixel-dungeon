@@ -30,7 +30,7 @@ import com.watabou.utils.SparseArray;
 
 public class Statistics {
 
-	public static int goldCollected;
+	public static int soulsCollected;
 	public static int deepestFloor;
 	public static int highestAscent;
 	public static int enemiesSlain;
@@ -76,7 +76,7 @@ public class Statistics {
 	
 	public static void reset() {
 		
-		goldCollected	= 0;
+		soulsCollected = 0;
 		deepestFloor	= 0;
 		highestAscent	= 0;
 		enemiesSlain	= 0;
@@ -117,7 +117,7 @@ public class Statistics {
 		
 	}
 	
-	private static final String GOLD		= "score";
+	private static final String SOULS		= "score";
 	private static final String DEEPEST		= "maxDepth";
 	private static final String HIGHEST		= "maxAscent";
 	private static final String SLAIN		= "enemiesSlain";
@@ -158,7 +158,7 @@ public class Statistics {
 	private static final String ASCENDED		= "ascended";
 	
 	public static void storeInBundle( Bundle bundle ) {
-		bundle.put( GOLD,		goldCollected );
+		bundle.put( SOULS, soulsCollected);
 		bundle.put( DEEPEST,	deepestFloor );
 		bundle.put( HIGHEST,	highestAscent );
 		bundle.put( SLAIN,		enemiesSlain );
@@ -204,14 +204,14 @@ public class Statistics {
 	}
 	
 	public static void restoreFromBundle( Bundle bundle ) {
-		goldCollected	= bundle.getInt( GOLD );
+		soulsCollected  = bundle.getInt( SOULS );
 		deepestFloor	= bundle.getInt( DEEPEST );
 		highestAscent   = bundle.getInt( HIGHEST );
 		enemiesSlain	= bundle.getInt( SLAIN );
 		foodEaten		= bundle.getInt( FOOD );
 		itemsCrafted    = bundle.getInt( ALCHEMY );
 		piranhasKilled	= bundle.getInt( PIRANHAS );
-		darksignsUsed = bundle.getInt(DARKSIGNS);
+		darksignsUsed   = bundle.getInt(DARKSIGNS);
 		undead			= bundle.getInt( UNDEAD );
 		bonfiresLit 	= bundle.getInt( BONFIRES_LIT );
 
@@ -253,7 +253,7 @@ public class Statistics {
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ){
-		info.goldCollected  = bundle.getInt( GOLD );
+		info.soulsCollected = bundle.getInt( SOULS );
 		info.maxDepth       = bundle.getInt( DEEPEST );
 	}
 

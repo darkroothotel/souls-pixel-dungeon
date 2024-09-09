@@ -900,7 +900,7 @@ public abstract class Mob extends Char {
 				if (exp > 0) {
 					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
 				}
-				Dungeon.hero.earnExp(exp, getClass());
+				Dungeon.hero.earnSouls(exp, getClass(), this);
 
 				if (Dungeon.hero.subClass == HeroSubClass.MONK){
 					Buff.affect(Dungeon.hero, MonkEnergy.class).gainEnergy(this);

@@ -108,7 +108,7 @@ public class Soul extends Item {
 	public boolean doPickUp(Hero hero, int pos) {
 		
 		Dungeon.souls += quantity;
-		Statistics.goldCollected += quantity;
+		Statistics.soulsCollected += quantity;
 		Badges.validateGoldCollected();
 
 		GameScene.pickUp( this, pos );

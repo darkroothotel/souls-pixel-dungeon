@@ -258,7 +258,7 @@ public class WndRanking extends WndTabbed {
 				pos += GAP;
 
 				pos = statSlot(this, Messages.get(this, "enemies"), num.format(Statistics.enemiesSlain), pos);
-				pos = statSlot(this, Messages.get(this, "gold"), num.format(Statistics.goldCollected), pos);
+				pos = statSlot(this, Messages.get(this, "gold"), num.format(Statistics.soulsCollected), pos);
 				pos = statSlot(this, Messages.get(this, "food"), num.format(Statistics.foodEaten), pos);
 				pos = statSlot(this, Messages.get(this, "alchemy"), num.format(Statistics.itemsCrafted), pos);
 			}

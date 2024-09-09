@@ -154,7 +154,7 @@ public class Pasty extends Food {
 				//gives 10% of level in exp, min of 2
 				int expToGive = Math.max(2, hero.maxExp()/10);
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(expToGive), FloatingText.EXPERIENCE);
-				hero.earnExp(expToGive, PotionOfExperience.class);
+				hero.earnSouls(expToGive, PotionOfExperience.class, null);
 				break;
 			case HALLOWEEN:
 				//heals for 5% max hp, min of 3

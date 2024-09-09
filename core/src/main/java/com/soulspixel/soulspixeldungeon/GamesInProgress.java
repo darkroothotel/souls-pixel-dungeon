@@ -144,7 +144,6 @@ public class GamesInProgress {
 		info.level = Dungeon.hero.lvl;
 		info.str = Dungeon.hero.STR;
 		info.strBonus = Dungeon.hero.STR() - Dungeon.hero.STR;
-		info.exp = Dungeon.hero.exp;
 		info.hp = Dungeon.hero.HP;
 		info.ht = Dungeon.hero.HT;
 		info.shld = Dungeon.hero.shielding();
@@ -152,7 +151,7 @@ public class GamesInProgress {
 		info.subClass = Dungeon.hero.subClass;
 		info.armorTier = Dungeon.hero.tier();
 		
-		info.goldCollected = Statistics.goldCollected;
+		info.soulsCollected = Statistics.soulsCollected;
 		info.maxDepth = Statistics.deepestFloor;
 
 		slotStates.put( slot, info );
@@ -179,9 +178,9 @@ public class GamesInProgress {
 		public boolean dailyReplay;
 
 		public int level;
+		public int souls;
 		public int str;
 		public int strBonus;
-		public int exp;
 		public int hp;
 		public int ht;
 		public int shld;
@@ -189,15 +188,15 @@ public class GamesInProgress {
 		public HeroSubClass subClass;
 		public int armorTier;
 		
-		public int goldCollected;
+		public int soulsCollected;
 		public int maxDepth;
 	}
 	
 	public static final Comparator<GamesInProgress.Info> scoreComparator = new Comparator<GamesInProgress.Info>() {
 		@Override
 		public int compare(GamesInProgress.Info lhs, GamesInProgress.Info rhs ) {
-			int lScore = (lhs.level * lhs.maxDepth * 100) + lhs.goldCollected;
-			int rScore = (rhs.level * rhs.maxDepth * 100) + rhs.goldCollected;
+			int lScore = (lhs.level * lhs.maxDepth * 100) + lhs.soulsCollected;
+			int rScore = (rhs.level * rhs.maxDepth * 100) + rhs.soulsCollected;
 			return (int)Math.signum( rScore - lScore );
 		}
 	};

@@ -250,7 +250,7 @@ public class Shopkeeper extends NPC {
 							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
 							Item returned = buybackItems.remove(index-2);
 							Dungeon.souls -= returned.value();
-							Statistics.goldCollected -= returned.value();
+							Statistics.soulsCollected -= returned.value();
 							if (!returned.doPickUp(Dungeon.hero)){
 								Dungeon.level.drop(returned, Dungeon.hero.pos);
 							}

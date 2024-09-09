@@ -214,7 +214,7 @@ public class WndHero extends WndTabbed {
 
 			pos += GAP;
 
-			statSlot( Messages.get(this, "gold"), Statistics.goldCollected );
+			statSlot( Messages.get(this, "gold"), Statistics.soulsCollected);
 			statSlot( Messages.get(this, "depth"), Statistics.deepestFloor );
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {
