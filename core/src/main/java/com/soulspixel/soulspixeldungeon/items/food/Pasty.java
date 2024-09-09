@@ -153,7 +153,7 @@ public class Pasty extends Food {
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
 				int expToGive = Math.max(2, hero.maxExp()/10);
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(expToGive), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(expToGive), FloatingText.SOUL);
 				hero.earnSouls(expToGive, PotionOfExperience.class, null);
 				break;
 			case HALLOWEEN:

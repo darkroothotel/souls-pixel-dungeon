@@ -27,9 +27,9 @@ package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
-import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.keys.IronKey;
 import com.soulspixel.soulspixeldungeon.items.trinkets.MimicTooth;
 import com.soulspixel.soulspixeldungeon.items.trinkets.TrinketCatalyst;

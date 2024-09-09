@@ -25,21 +25,13 @@
 
 package com.soulspixel.soulspixeldungeon.items;
 
-import com.soulspixel.soulspixeldungeon.Assets;
-import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
-import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
-import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
-import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite.Glowing;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
-import com.soulspixel.soulspixeldungeon.utils.GLog;
-import com.soulspixel.soulspixeldungeon.windows.WndRest;
 import com.soulspixel.soulspixeldungeon.windows.WndReturnDarksign;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 

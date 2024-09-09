@@ -25,7 +25,6 @@
 
 package com.soulspixel.soulspixeldungeon.journal;
 
-import com.soulspixel.soulspixeldungeon.actors.buffs.Haste;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Stamina;
 import com.soulspixel.soulspixeldungeon.actors.buffs.StanceBroken;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfIdentify;
@@ -37,7 +36,6 @@ import com.soulspixel.soulspixeldungeon.ui.BuffIcon;
 import com.soulspixel.soulspixeldungeon.ui.Icons;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.DeviceCompat;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

@@ -50,7 +50,6 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Bonfire extends NPC {
 

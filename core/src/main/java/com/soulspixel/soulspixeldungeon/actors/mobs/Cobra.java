@@ -27,15 +27,11 @@ package com.soulspixel.soulspixeldungeon.actors.mobs;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.actors.buffs.Bleeding;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Cripple;
-import com.soulspixel.soulspixeldungeon.items.Generator;
 import com.soulspixel.soulspixeldungeon.mechanics.Ballistica;
 import com.soulspixel.soulspixeldungeon.sprites.CobraSprite;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class Cobra extends Snake{
 

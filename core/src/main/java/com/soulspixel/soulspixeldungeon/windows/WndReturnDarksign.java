@@ -26,19 +26,13 @@
 package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.items.Darksign;
-import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
-import com.soulspixel.soulspixeldungeon.scenes.BonfireScene;
-import com.soulspixel.soulspixeldungeon.scenes.InterlevelScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
-import com.soulspixel.soulspixeldungeon.sprites.BonfireSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
 import com.soulspixel.soulspixeldungeon.ui.RenderedTextBlock;
 import com.soulspixel.soulspixeldungeon.ui.Window;
-import com.watabou.noosa.Game;
 
 public class WndReturnDarksign extends Window {
 

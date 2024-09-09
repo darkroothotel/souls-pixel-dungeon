@@ -69,7 +69,7 @@ public abstract class AllyBuff extends Buff{
 
 			int exp = hero.lvl <= enemy.maxLvl ? enemy.EXP : 0;
 			if (exp > 0) {
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.SOUL);
 			}
 			hero.earnSouls(exp, enemy.getClass(), null);
 

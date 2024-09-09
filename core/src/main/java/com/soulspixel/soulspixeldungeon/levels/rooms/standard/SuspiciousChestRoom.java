@@ -26,9 +26,9 @@
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard;
 
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
-import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.trinkets.MimicTooth;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
