@@ -30,7 +30,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
 import com.soulspixel.soulspixeldungeon.actors.blobs.SacrificialFire;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.weapon.Weapon;
 import com.soulspixel.soulspixeldungeon.levels.Level;
@@ -91,7 +91,7 @@ public class SacrificeRoom extends SpecialRoom {
 		Weapon prize = Generator.randomWeapon( (Dungeon.depth / 5) + 1);
 
 		if (Challenges.isItemBlocked(prize)){
-			return new Gold().random();
+			return new Soul().random();
 		}
 
 		//if it isn't already cursed, give it a free upgrade

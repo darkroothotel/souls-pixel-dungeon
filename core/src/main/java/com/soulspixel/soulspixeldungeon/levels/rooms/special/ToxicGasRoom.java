@@ -28,7 +28,7 @@ package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.blobs.Blob;
 import com.soulspixel.soulspixeldungeon.actors.blobs.ToxicGas;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfPurity;
@@ -97,13 +97,13 @@ public class ToxicGasRoom extends SpecialRoom {
 		}
 
 		goldPositions.remove((Integer) furthestPos);
-		Item mainGold = new Gold().random();
+		Item mainGold = new Soul().random();
 		mainGold.quantity(mainGold.quantity()*2);
 		level.drop(mainGold, furthestPos).type = Heap.Type.SKELETON;
 
 		for (int i = 0; i < 2; i++){
 			Item item = level.findPrizeItem(TrinketCatalyst.class);
-			if (item == null) item = new Gold().random();
+			if (item == null) item = new Soul().random();
 			level.drop(item, goldPositions.remove(0)).type = Heap.Type.CHEST;
 		}
 

@@ -26,7 +26,7 @@
 package com.soulspixel.soulspixeldungeon.levels.rooms.secret;
 
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.RatKing;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.levels.Level;
@@ -83,7 +83,7 @@ public class RatKingRoom extends SecretRoom {
 			return;
 		}
 		
-		Item prize = new Gold( Random.IntRange( 10, 25 ) );
+		Item prize = new Soul( Random.IntRange( 10, 25 ) );
 		
 		level.drop( prize, pos ).type = Heap.Type.CHEST;
 	}

@@ -26,7 +26,7 @@
 package com.soulspixel.soulspixeldungeon.levels.rooms.secret;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.levels.Level;
 import com.soulspixel.soulspixeldungeon.levels.Terrain;
@@ -65,7 +65,7 @@ public class SecretHoardRoom extends SecretRoom {
 			do {
 				goldPos = level.pointToCell(random());
 			} while (level.heaps.get(goldPos) != null);
-			Item gold = new Gold().random();
+			Item gold = new Soul().random();
 			gold.quantity(Math.round(gold.quantity() * goldRatio));
 			level.drop(gold, goldPos);
 		}

@@ -174,13 +174,13 @@ public class WndBag extends WndTabbed {
 
 		float titleWidth;
 		if (Dungeon.energy == 0) {
-			ItemSprite gold = new ItemSprite(ItemSpriteSheet.GOLD, null);
+			ItemSprite gold = new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL, null);
 			gold.x = width - gold.width();
-			gold.y = (TITLE_HEIGHT - gold.height()) / 2f;
+			gold.y = ((TITLE_HEIGHT - gold.height()) / 2f)-1;
 			PixelScene.align(gold);
 			add(gold);
 
-			BitmapText amt = new BitmapText(Integer.toString(Dungeon.gold), PixelScene.pixelFont);
+			BitmapText amt = new BitmapText(Integer.toString(Dungeon.souls), PixelScene.pixelFont);
 			amt.hardlight(TITLE_COLOR);
 			amt.measure();
 			amt.x = width - gold.width() - amt.width() - 1;
@@ -197,7 +197,7 @@ public class WndBag extends WndTabbed {
 			PixelScene.align(gold);
 			add(gold);
 
-			BitmapText amt = new BitmapText(Integer.toString(Dungeon.gold), PixelScene.pixelFont);
+			BitmapText amt = new BitmapText(Integer.toString(Dungeon.souls), PixelScene.pixelFont);
 			amt.hardlight(TITLE_COLOR);
 			amt.measure();
 			amt.x = width - gold.width() - amt.width() - 2f;

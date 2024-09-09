@@ -32,7 +32,7 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.soulspixel.soulspixeldungeon.items.EquipableItem;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.artifacts.MasterThievesArmband;
@@ -82,7 +82,7 @@ public class WndTradeItem extends WndInfoItem {
 				}
 			};
 			btnSell.setRect( 0, pos + GAP, width, BTN_HEIGHT );
-			btnSell.icon(new ItemSprite(ItemSpriteSheet.GOLD));
+			btnSell.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
 			add( btnSell );
 
 			pos = btnSell.bottom();
@@ -98,7 +98,7 @@ public class WndTradeItem extends WndInfoItem {
 				}
 			};
 			btnSell1.setRect( 0, pos + GAP, width, BTN_HEIGHT );
-			btnSell1.icon(new ItemSprite(ItemSpriteSheet.GOLD));
+			btnSell1.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
 			add( btnSell1 );
 			RedButton btnSellAll = new RedButton( Messages.get(this, "sell_all", priceAll ) ) {
 				@Override
@@ -108,7 +108,7 @@ public class WndTradeItem extends WndInfoItem {
 				}
 			};
 			btnSellAll.setRect( 0, btnSell1.bottom() + 1, width, BTN_HEIGHT );
-			btnSellAll.icon(new ItemSprite(ItemSpriteSheet.GOLD));
+			btnSellAll.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
 			add( btnSellAll );
 
 			pos = btnSellAll.bottom();
@@ -139,8 +139,8 @@ public class WndTradeItem extends WndInfoItem {
 			}
 		};
 		btnBuy.setRect( 0, pos + GAP, width, BTN_HEIGHT );
-		btnBuy.icon(new ItemSprite(ItemSpriteSheet.GOLD));
-		btnBuy.enable( price <= Dungeon.gold );
+		btnBuy.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
+		btnBuy.enable( price <= Dungeon.souls);
 		add( btnBuy );
 
 		pos = btnBuy.bottom();
@@ -233,7 +233,7 @@ public class WndTradeItem extends WndInfoItem {
 		//selling items in the sell interface doesn't spend time
 		hero.spend(-hero.cooldown());
 
-		new Gold( item.value() ).doPickUp( hero );
+		new Soul( item.value() ).doPickUp( hero );
 
 		if (shop != null){
 			shop.buybackItems.add(item);
@@ -260,7 +260,7 @@ public class WndTradeItem extends WndInfoItem {
 			//selling items in the sell interface doesn't spend time
 			hero.spend(-hero.cooldown());
 
-			new Gold( item.value() ).doPickUp( hero );
+			new Soul( item.value() ).doPickUp( hero );
 
 			if (shop != null){
 				shop.buybackItems.add(item);
@@ -277,7 +277,7 @@ public class WndTradeItem extends WndInfoItem {
 		if (item == null) return;
 		
 		int price = Shopkeeper.sellPrice( item );
-		Dungeon.gold -= price;
+		Dungeon.souls -= price;
 		
 		if (!item.doPickUp( Dungeon.hero )) {
 			Dungeon.level.drop( item, heap.pos ).sprite.drop();

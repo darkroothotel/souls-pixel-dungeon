@@ -27,7 +27,7 @@ package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.keys.IronKey;
@@ -53,7 +53,7 @@ public class TreasuryRoom extends SpecialRoom {
 		float mimicChance = 1/5f * MimicTooth.mimicChanceMultiplier();
 		for (int i=0; i < n; i++) {
 			Item item = level.findPrizeItem(TrinketCatalyst.class);
-			if (item == null) item = new Gold().random();
+			if (item == null) item = new Soul().random();
 
 			int pos;
 			do {
@@ -72,7 +72,7 @@ public class TreasuryRoom extends SpecialRoom {
 				do {
 					pos = level.pointToCell(random());
 				} while (level.map[pos] != Terrain.EMPTY);
-				level.drop( new Gold( Random.IntRange( 5, 12 ) ), pos );
+				level.drop( new Soul( Random.IntRange( 5, 12 ) ), pos );
 			}
 		}
 		

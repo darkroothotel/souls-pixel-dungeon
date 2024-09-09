@@ -26,7 +26,7 @@
 package com.soulspixel.soulspixeldungeon.levels.rooms.standard;
 
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mimic;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.trinkets.MimicTooth;
@@ -59,7 +59,7 @@ public class SuspiciousChestRoom extends StandardRoom {
 		Item i = level.findPrizeItem();
 
 		if ( i == null ){
-			i = new Gold().random();
+			i = new Soul().random();
 		}
 
 		int center = level.pointToCell(center());

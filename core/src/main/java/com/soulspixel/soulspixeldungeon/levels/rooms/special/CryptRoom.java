@@ -28,7 +28,7 @@ package com.soulspixel.soulspixeldungeon.levels.rooms.special;
 import com.soulspixel.soulspixeldungeon.Challenges;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.armor.Armor;
@@ -81,7 +81,7 @@ public class CryptRoom extends SpecialRoom {
 		Armor prize = Generator.randomArmor( (Dungeon.depth / 5) + 1);
 		
 		if (Challenges.isItemBlocked(prize)){
-			return new Gold().random();
+			return new Soul().random();
 		}
 
 		//if it isn't already cursed, give it a free upgrade

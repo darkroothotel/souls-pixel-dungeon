@@ -34,7 +34,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Buff;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.artifacts.TimekeepersHourglass;
@@ -322,7 +322,7 @@ public class Mimic extends Mob {
 		do {
 			switch (Random.Int(5)) {
 				case 0:
-					reward = new Gold().random();
+					reward = new Soul().random();
 					break;
 				case 1:
 					reward = Generator.randomMissile(!useDecks);

@@ -82,8 +82,8 @@ public class FloatingText extends RenderedTextBlock {
 	public static int GAINED_POISE		= 28;
 
 	//currency icons
-	public static int GOLD      = 23;
-	public static int ENERGY    = 24;
+	public static int SOUL 		= 23;
+	public static int ENERGY   	= 24;
 
 	private Image icon;
 	private boolean iconLeft;

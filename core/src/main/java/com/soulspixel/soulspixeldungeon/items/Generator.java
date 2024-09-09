@@ -242,7 +242,7 @@ public class Generator {
 		SCROLL	( 8, 8, Scroll.class ),
 		STONE   ( 1, 1, Runestone.class),
 		
-		GOLD	( 10, 10,   Gold.class );
+		GOLD	( 10, 10,   Soul.class );
 		
 		public Class<?>[] classes;
 
@@ -316,7 +316,7 @@ public class Generator {
 
 		static {
 			GOLD.classes = new Class<?>[]{
-					Gold.class };
+					Soul.class };
 			GOLD.probs = new float[]{ 1 };
 			
 			POTION.classes = new Class<?>[]{

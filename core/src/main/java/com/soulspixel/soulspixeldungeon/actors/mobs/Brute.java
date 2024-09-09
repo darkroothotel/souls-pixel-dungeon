@@ -33,7 +33,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.ShieldBuff;
 import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.sprites.BruteSprite;
@@ -52,7 +52,7 @@ public class Brute extends Mob {
 		EXP = 8;
 		maxLvl = 16;
 		
-		loot = Gold.class;
+		loot = Soul.class;
 		lootChance = 0.5f;
 	}
 	

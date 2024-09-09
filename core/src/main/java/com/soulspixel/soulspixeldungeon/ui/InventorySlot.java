@@ -28,7 +28,7 @@ package com.soulspixel.soulspixeldungeon.ui;
 import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.items.EquipableItem;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.bags.Bag;
 import com.soulspixel.soulspixeldungeon.items.wands.Wand;
@@ -76,7 +76,7 @@ public class InventorySlot extends ItemSlot {
 
 		super.item( item );
 
-		bg.visible = !(item instanceof Gold || item instanceof Bag);
+		bg.visible = !(item instanceof Soul || item instanceof Bag);
 
 		if (item != null) {
 

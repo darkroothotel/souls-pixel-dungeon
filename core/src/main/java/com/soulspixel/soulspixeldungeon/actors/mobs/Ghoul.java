@@ -35,7 +35,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.ChampionEnemy;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Pushing;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.artifacts.MasterThievesArmband;
 import com.soulspixel.soulspixeldungeon.levels.features.Chasm;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
@@ -62,7 +62,7 @@ public class Ghoul extends Mob {
 		WANDERING = new Wandering();
 		state = SLEEPING;
 
-		loot = Gold.class;
+		loot = Soul.class;
 		lootChance = 0.2f;
 		
 		properties.add(Property.UNDEAD);

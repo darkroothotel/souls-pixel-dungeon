@@ -34,7 +34,7 @@ import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.soulspixel.soulspixeldungeon.items.BrokenSeal;
 import com.soulspixel.soulspixeldungeon.items.EquipableItem;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.armor.Armor;
 import com.soulspixel.soulspixeldungeon.items.bags.Bag;
@@ -181,7 +181,7 @@ public class WndBlacksmith extends Window {
 					@Override
 					protected void onSelect(int index) {
 						if (index == 0){
-							new Gold(Blacksmith.Quest.favor).doPickUp(Dungeon.hero, Dungeon.hero.pos);
+							new Soul(Blacksmith.Quest.favor).doPickUp(Dungeon.hero, Dungeon.hero.pos);
 							Blacksmith.Quest.favor = 0;
 							WndBlacksmith.this.hide();
 						}

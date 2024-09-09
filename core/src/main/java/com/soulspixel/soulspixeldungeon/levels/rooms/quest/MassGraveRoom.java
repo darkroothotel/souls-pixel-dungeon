@@ -28,7 +28,7 @@ package com.soulspixel.soulspixeldungeon.levels.rooms.quest;
 import com.soulspixel.soulspixeldungeon.Assets;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Skeleton;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -83,10 +83,10 @@ public class MassGraveRoom extends SpecialRoom {
 		ArrayList<Item> items = new ArrayList<>();
 		//100% corpse dust, 2x100% 1 coin, 2x30% coins, 1x60% random item, 1x30% armor
 		items.add(new CorpseDust());
-		items.add(new Gold(1));
-		items.add(new Gold(1));
-		if (Random.Float() <= 0.3f) items.add(new Gold());
-		if (Random.Float() <= 0.3f) items.add(new Gold());
+		items.add(new Soul(1));
+		items.add(new Soul(1));
+		if (Random.Float() <= 0.3f) items.add(new Soul());
+		if (Random.Float() <= 0.3f) items.add(new Soul());
 		if (Random.Float() <= 0.6f) items.add(Generator.random());
 		if (Random.Float() <= 0.3f) items.add(Generator.randomArmor());
 

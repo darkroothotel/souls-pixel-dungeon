@@ -28,7 +28,7 @@ package com.soulspixel.soulspixeldungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.hero.HeroClass;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.artifacts.Artifact;
 import com.soulspixel.soulspixeldungeon.items.remains.RemainsItem;
@@ -219,7 +219,7 @@ public class Bones {
 						item = artifact;
 						
 					} else {
-						item = new Gold(item.value());
+						item = new Soul(item.value());
 					}
 				}
 

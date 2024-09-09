@@ -26,7 +26,7 @@
 package com.soulspixel.soulspixeldungeon.actors.mobs;
 
 import com.soulspixel.soulspixeldungeon.actors.Char;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.sprites.GnollSprite;
 
 public class Gnoll extends Mob {
@@ -40,7 +40,7 @@ public class Gnoll extends Mob {
 		EXP = 2;
 		maxLvl = 8;
 		
-		loot = Gold.class;
+		loot = Soul.class;
 		lootChance = 0.5f;
 	}
 	

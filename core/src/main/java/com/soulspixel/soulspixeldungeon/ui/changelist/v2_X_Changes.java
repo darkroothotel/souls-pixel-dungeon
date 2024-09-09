@@ -694,7 +694,7 @@ public class v2_X_Changes {
 				"_-_ Various rare cases where levelgen could differ between two runs on the same seed\n" +
 				"_-_ Into Darkness and Barren Land challenges affecting levelgen\n" +
 				"_-_ Items in Imp's shop not being affected by dungeon seed\n" +
-				"_-_ Gold ore appearing on the back face of walls in regular caves levels\n" +
+				"_-_ Soul ore appearing on the back face of walls in regular caves levels\n" +
 				"_-_ Starflower plant VFX triggering even when out of the hero's FOV\n" +
 				"_-_ Storm Clouds not correctly clearing fire or harming fiery enemies\n" +
 				"_-_ Cases where pushing effects could cause pitfalls to trigger early\n" +

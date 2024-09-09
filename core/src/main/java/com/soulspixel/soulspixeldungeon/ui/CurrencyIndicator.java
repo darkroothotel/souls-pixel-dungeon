@@ -94,9 +94,9 @@ public class CurrencyIndicator extends Component {
 
 		}
 
-		if (Dungeon.gold != lastGold) {
+		if (Dungeon.souls != lastGold) {
 			
-			lastGold = Dungeon.gold;
+			lastGold = Dungeon.souls;
 			
 			gold.text( Integer.toString(lastGold) );
 			gold.measure();

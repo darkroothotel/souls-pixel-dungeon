@@ -83,8 +83,8 @@ public class ItemSpriteSheet {
 		assignItemRect(SPELL_HOLDER,    8,  16);
 	}
 
-	private static final int UNCOLLECTIBLE  =                               xy(1, 2);   //16 slots
-	public static final int GOLD            = UNCOLLECTIBLE+0;
+	private static final int UNCOLLECTIBLE  =                               xy(1, 2);   //11 slots
+	public static final int GOLD            = UNCOLLECTIBLE;
 	public static final int ENERGY          = UNCOLLECTIBLE+1;
 
 	public static final int DEWDROP         = UNCOLLECTIBLE+3;
@@ -107,6 +107,14 @@ public class ItemSpriteSheet {
 		assignItemRect(TENGU_BOMB,      10, 10);
 		assignItemRect(TENGU_SHOCKER,   10, 10);
 		assignItemRect(GEO_BOULDER,     16, 14);
+	}
+
+	private static final int SOULS  =                               		xy(12, 2);
+	public static final int SMALL_SOUL     = SOULS;
+	public static final int MEDIUM_SOUL    = SOULS+1;
+	static {
+		assignItemRect(SMALL_SOUL, 10, 16);
+		assignItemRect(MEDIUM_SOUL, 15, 16);
 	}
 
 	private static final int CONTAINERS     =                               xy(1, 3);   //16 slots

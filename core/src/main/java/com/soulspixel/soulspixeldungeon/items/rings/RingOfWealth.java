@@ -30,7 +30,7 @@ import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.effects.Flare;
 import com.soulspixel.soulspixeldungeon.items.Generator;
-import com.soulspixel.soulspixeldungeon.items.Gold;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.Honeypot;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.armor.Armor;
@@ -219,7 +219,7 @@ public class RingOfWealth extends Ring {
 	private static Item genLowValueConsumable(){
 		switch (Random.Int(4)){
 			case 0: default:
-				Item i = new Gold().random();
+				Item i = new Soul().random();
 				return i.quantity(i.quantity()/2);
 			case 1:
 				return Generator.randomUsingDefaults(Generator.Category.STONE);
