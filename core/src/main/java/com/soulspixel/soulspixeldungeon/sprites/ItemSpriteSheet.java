@@ -111,10 +111,16 @@ public class ItemSpriteSheet {
 
 	private static final int SOULS  =                               		xy(12, 2);
 	public static final int SMALL_SOUL     = SOULS;
-	public static final int MEDIUM_SOUL    = SOULS+1;
+	public static final int SOUL 		   = SOULS+1;
+	public static final int SOUL_MEDIUM    = SOULS+2;
+	public static final int SOUL_BIG 	   = SOULS+3;
+	public static final int SOUL_VERY_BIG  = SOULS+4;
 	static {
-		assignItemRect(SMALL_SOUL, 10, 16);
-		assignItemRect(MEDIUM_SOUL, 15, 16);
+		assignItemRect(SMALL_SOUL, 7, 10);
+		assignItemRect(SOUL, 9, 12);
+		assignItemRect(SOUL_MEDIUM, 13, 13);
+		assignItemRect(SOUL_BIG, 14, 14);
+		assignItemRect(SOUL_VERY_BIG, 14, 16);
 	}
 
 	private static final int CONTAINERS     =                               xy(1, 3);   //16 slots

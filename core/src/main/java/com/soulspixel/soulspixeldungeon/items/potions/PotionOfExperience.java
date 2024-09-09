@@ -44,8 +44,8 @@ public class PotionOfExperience extends Potion {
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.maxExp()), FloatingText.SOUL);
-		hero.earnSouls( hero.maxExp(), getClass(), null);
+		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.maxExp()*100), FloatingText.SOUL);
+		hero.earnSouls( hero.maxExp()*100, getClass(), null);
 		new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
 	}
 	

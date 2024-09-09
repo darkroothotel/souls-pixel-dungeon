@@ -91,8 +91,12 @@ public class Darksign extends Item {
 			return super.collect();
 		}
 		for (Darksign i : curUser.belongings.getAllItems(Darksign.class)){
-			i.addBlessedCharges(1);
-			return true;
+			if(i != null){
+				i.addBlessedCharges(1);
+				return true;
+			} else {
+				return super.collect();
+			}
 		}
 		return super.collect();
 	}

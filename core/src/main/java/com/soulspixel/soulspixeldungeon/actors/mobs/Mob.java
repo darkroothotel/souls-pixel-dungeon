@@ -898,7 +898,7 @@ public abstract class Mob extends Char {
 				}
 
 				if (exp > 0) {
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.SOUL);
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp*100), FloatingText.SOUL);
 				}
 				Dungeon.hero.earnSouls(exp, getClass(), this);
 

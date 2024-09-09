@@ -160,7 +160,7 @@ public class Alchemize extends Spell {
 						}
 					};
 					btnSell.setRect(0, pos + GAP, width, BTN_HEIGHT);
-					btnSell.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
+					btnSell.icon(new ItemSprite(ItemSpriteSheet.SOUL));
 					add(btnSell);
 
 					pos = btnSell.bottom();
@@ -177,7 +177,7 @@ public class Alchemize extends Spell {
 						}
 					};
 					btnSell1.setRect(0, pos + GAP, width, BTN_HEIGHT);
-					btnSell1.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
+					btnSell1.icon(new ItemSprite(ItemSpriteSheet.SOUL));
 					add(btnSell1);
 					RedButton btnSellAll = new RedButton(Messages.get(this, "sell_all", priceAll)) {
 						@Override
@@ -188,7 +188,7 @@ public class Alchemize extends Spell {
 						}
 					};
 					btnSellAll.setRect(0, btnSell1.bottom() + 1, width, BTN_HEIGHT);
-					btnSellAll.icon(new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL));
+					btnSellAll.icon(new ItemSprite(ItemSpriteSheet.SOUL));
 					add(btnSellAll);
 
 					pos = btnSellAll.bottom();

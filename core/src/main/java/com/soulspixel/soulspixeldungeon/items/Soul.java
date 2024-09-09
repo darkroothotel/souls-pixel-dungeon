@@ -34,8 +34,10 @@ import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
 import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.CharSprite;
+import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Soul extends Item {
+
+	private boolean droppedByHero = false;
 
 	{
 		image = ItemSpriteSheet.SMALL_SOUL;
@@ -52,22 +56,31 @@ public class Soul extends Item {
 	private static final Map<Integer, Integer> imageMap = new TreeMap<>();
 
 	static {
-		imageMap.put(0, ItemSpriteSheet.SMALL_SOUL);      // For values <= 800
-		imageMap.put(801, ItemSpriteSheet.MEDIUM_SOUL);   // For values > 800
+		imageMap.put(0, ItemSpriteSheet.SMALL_SOUL);      	// For values <= 800
+		imageMap.put(801, ItemSpriteSheet.SOUL);   			// For values > 800
+		imageMap.put(1501, ItemSpriteSheet.SOUL_MEDIUM);   	// For values > 1500
+		imageMap.put(4001, ItemSpriteSheet.SOUL_BIG);   		// For values > 4000
+		imageMap.put(10001, ItemSpriteSheet.SOUL_VERY_BIG);  // For values > 10000
 	}
 
 	private static final Map<Integer, String> nameMap = new TreeMap<>();
 
 	static {
 		nameMap.put(ItemSpriteSheet.SMALL_SOUL, Messages.get(Soul.class, "name_0"));
-		nameMap.put(ItemSpriteSheet.MEDIUM_SOUL, Messages.get(Soul.class, "name_1"));
+		nameMap.put(ItemSpriteSheet.SOUL, Messages.get(Soul.class, "name_1"));
+		nameMap.put(ItemSpriteSheet.SOUL_MEDIUM, Messages.get(Soul.class, "name_2"));
+		nameMap.put(ItemSpriteSheet.SOUL_BIG, Messages.get(Soul.class, "name_3"));
+		nameMap.put(ItemSpriteSheet.SOUL_VERY_BIG, Messages.get(Soul.class, "name_4"));
 	}
 
 	private static final Map<Integer, String> descMap = new TreeMap<>();
 
 	static {
 		descMap.put(ItemSpriteSheet.SMALL_SOUL, Messages.get(Soul.class, "desc_0"));
-		descMap.put(ItemSpriteSheet.MEDIUM_SOUL, Messages.get(Soul.class, "desc_1"));
+		descMap.put(ItemSpriteSheet.SOUL, Messages.get(Soul.class, "desc_1"));
+		descMap.put(ItemSpriteSheet.SOUL_MEDIUM, Messages.get(Soul.class, "desc_2"));
+		descMap.put(ItemSpriteSheet.SOUL_BIG, Messages.get(Soul.class, "desc_3"));
+		descMap.put(ItemSpriteSheet.SOUL_VERY_BIG, Messages.get(Soul.class, "desc_4"));
 	}
 
 	private Integer floorKey(int value) {
@@ -94,11 +107,24 @@ public class Soul extends Item {
 		this( 1 );
 	}
 	
-	public Soul(int value ) {
+	public Soul(int value) {
 		this.quantity = value;
 		this.image = getImageForValue(quantity);
 	}
-	
+
+	public Soul(int value, boolean droppedByHero) {
+		this.droppedByHero = droppedByHero;
+		this.quantity = value;
+		this.image = getImageForValue(quantity);
+	}
+
+	private static final ItemSprite.Glowing GLOW = new ItemSprite.Glowing( 0x53FF53 );
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return droppedByHero ? GLOW : null;
+	}
+
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		return new ArrayList<>();
@@ -145,5 +171,19 @@ public class Soul extends Item {
 	@Override
 	public String desc() {
 		return descMap.get(image);
+	}
+
+	private static final String DROPPED_BY_HERO = "dbh";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		bundle.put(DROPPED_BY_HERO, droppedByHero);
+		super.storeInBundle(bundle);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		droppedByHero = bundle.getBoolean(DROPPED_BY_HERO);
+		super.restoreFromBundle(bundle);
 	}
 }

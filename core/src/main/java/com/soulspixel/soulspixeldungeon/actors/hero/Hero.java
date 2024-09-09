@@ -92,6 +92,7 @@ import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Heap.Type;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.KindOfWeapon;
+import com.soulspixel.soulspixeldungeon.items.Soul;
 import com.soulspixel.soulspixeldungeon.items.armor.Armor;
 import com.soulspixel.soulspixeldungeon.items.armor.ClassArmor;
 import com.soulspixel.soulspixeldungeon.items.armor.glyphs.AntiMagic;
@@ -1951,7 +1952,7 @@ public class Hero extends Char {
 			});
 		}
 		if (source != AscensionChallenge.class) {
-			Dungeon.souls = exp*100;
+			Dungeon.souls += exp*100;
 		}
 		float percent = exp/(float)maxExp();
 
@@ -2113,14 +2114,15 @@ public class Hero extends Char {
 				Statistics.undead++;
 				makeUndead();
 
+				Dungeon.level.drop(new Soul(Dungeon.souls, true), pos);
+				Dungeon.souls = 0;
+
 				Level.beforeTransition();
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
 				InterlevelScene.returnDepth = lastbonfiredepth;
 				InterlevelScene.returnBranch = 0;
 				InterlevelScene.returnPos = lastbonfirepos;
 				Game.switchScene( InterlevelScene.class );
-
-				//TODO: drop souls
 
 
 				for (Char ch : Actor.chars()) {
@@ -2155,14 +2157,15 @@ public class Hero extends Char {
 						GLog.w(Messages.get(this, "revive"));
 						Statistics.darksignsUsed++;
 
+						Dungeon.level.drop(new Soul(Dungeon.souls, true), pos);
+						Dungeon.souls = 0;
+
 						Level.beforeTransition();
 						InterlevelScene.mode = InterlevelScene.Mode.RETURN;
 						InterlevelScene.returnDepth = lastbonfiredepth;
 						InterlevelScene.returnBranch = 0;
 						InterlevelScene.returnPos = lastbonfirepos;
 						Game.switchScene( InterlevelScene.class );
-
-						//TODO: drop souls
 
 
 						darksign.subtractBlessedCharges(1);

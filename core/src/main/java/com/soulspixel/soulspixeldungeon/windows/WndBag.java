@@ -174,9 +174,9 @@ public class WndBag extends WndTabbed {
 
 		float titleWidth;
 		if (Dungeon.energy == 0) {
-			ItemSprite gold = new ItemSprite(ItemSpriteSheet.MEDIUM_SOUL, null);
+			ItemSprite gold = new ItemSprite(ItemSpriteSheet.SOUL, null);
 			gold.x = width - gold.width();
-			gold.y = ((TITLE_HEIGHT - gold.height()) / 2f)-1;
+			gold.y = ((TITLE_HEIGHT - gold.height()) / 2f);
 			PixelScene.align(gold);
 			add(gold);
 
