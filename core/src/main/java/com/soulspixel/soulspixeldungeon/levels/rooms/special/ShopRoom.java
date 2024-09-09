@@ -30,7 +30,7 @@ import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Belongings;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Generator;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Honeypot;
@@ -294,7 +294,7 @@ public class ShopRoom extends SpecialRoom {
 				break;
 		}
 
-		itemsToSpawn.add( new Ankh() );
+		itemsToSpawn.add( new Darksign() );
 		itemsToSpawn.add( new StoneOfAugmentation() );
 
 		TimekeepersHourglass hourglass = Dungeon.hero.belongings.getItem(TimekeepersHourglass.class);

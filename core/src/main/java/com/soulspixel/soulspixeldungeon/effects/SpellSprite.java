@@ -41,7 +41,7 @@ public class SpellSprite extends Image {
 	public static final int MAP			= 1;
 	public static final int CHARGE		= 2;
 	public static final int BERSERK     = 3;
-	public static final int ANKH        = 4;
+	public static final int DARKSIGN 	= 4;
 	public static final int HASTE       = 5;
 	public static final int VISION      = 6;
 	public static final int PURITY      = 7;

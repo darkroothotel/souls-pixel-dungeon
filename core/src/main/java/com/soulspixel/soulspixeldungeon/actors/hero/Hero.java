@@ -37,7 +37,7 @@ import com.soulspixel.soulspixeldungeon.actors.Actor;
 import com.soulspixel.soulspixeldungeon.actors.Char;
 import com.soulspixel.soulspixeldungeon.actors.blobs.SacrificialFire;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AdrenalineSurge;
-import com.soulspixel.soulspixeldungeon.actors.buffs.AnkhInvulnerability;
+import com.soulspixel.soulspixeldungeon.actors.buffs.DarksignInvulnerability;
 import com.soulspixel.soulspixeldungeon.actors.buffs.ArtifactRecharge;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AscensionChallenge;
 import com.soulspixel.soulspixeldungeon.actors.buffs.AtEase;
@@ -86,7 +86,7 @@ import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
 import com.soulspixel.soulspixeldungeon.effects.Splash;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Dewdrop;
 import com.soulspixel.soulspixeldungeon.items.EquipableItem;
 import com.soulspixel.soulspixeldungeon.items.Heap;
@@ -2098,93 +2098,106 @@ public class Hero extends Char {
 		
 		curAction = null;
 
-		if (!isUndead() && lastbonfiredepth != -1 && lastbonfirepos != -1) {
-			this.HP = HT / 4;
+		if(lastbonfiredepth != -1 && lastbonfirepos != -1){
+			if (!isUndead()) {
+				this.HP = HT / 4;
 
-			PotionOfHealing.cure(this);
-			Buff.prolong(this, UndeathInvulnerability.class, UndeathInvulnerability.DURATION);
+				PotionOfHealing.cure(this);
+				Buff.prolong(this, UndeathInvulnerability.class, UndeathInvulnerability.DURATION);
 
-			SpellSprite.show(this, SpellSprite.UNDEAD);
-			Sample.INSTANCE.play(Assets.Sounds.BURNING);
-			GLog.w(Messages.get(this, "undead"));
-			Statistics.undead++;
-			makeUndead();
+				SpellSprite.show(this, SpellSprite.UNDEAD);
+				Sample.INSTANCE.play(Assets.Sounds.BURNING);
+				GLog.w(Messages.get(this, "undead"));
+				Statistics.undead++;
+				makeUndead();
 
-			Level.beforeTransition();
-			InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-			InterlevelScene.returnDepth = lastbonfiredepth;
-			InterlevelScene.returnBranch = 0;
-			InterlevelScene.returnPos = lastbonfirepos;
-			Game.switchScene( InterlevelScene.class );
+				Level.beforeTransition();
+				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
+				InterlevelScene.returnDepth = lastbonfiredepth;
+				InterlevelScene.returnBranch = 0;
+				InterlevelScene.returnPos = lastbonfirepos;
+				Game.switchScene( InterlevelScene.class );
 
-
-			for (Char ch : Actor.chars()) {
-				if (ch instanceof DriedRose.GhostHero) {
-					((DriedRose.GhostHero) ch).sayHeroUndead();
-					return;
-				}
-			}
-			return;
-		} else {
-			Ankh ankh = null;
-
-			//look for ankhs in player inventory, prioritize ones which are blessed.
-			for (Ankh i : belongings.getAllItems(Ankh.class)){
-				if (ankh == null || i.isBlessed()) {
-					ankh = i;
-				}
-			}
-
-			if (ankh != null) {
-				interrupt();
-
-				if (ankh.isBlessed()) {
-					this.HP = HT / 4;
-
-					PotionOfHealing.cure(this);
-					Buff.prolong(this, AnkhInvulnerability.class, AnkhInvulnerability.DURATION);
-
-					SpellSprite.show(this, SpellSprite.ANKH);
-					GameScene.flash(0x80FFFF40);
-					Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-					GLog.w(Messages.get(this, "revive"));
-					Statistics.ankhsUsed++;
+				//TODO: drop souls
 
 
-					ankh.subtractBlessedCharges(1);
-
-					for (Char ch : Actor.chars()) {
-						if (ch instanceof DriedRose.GhostHero) {
-							((DriedRose.GhostHero) ch).sayAnhk();
-							return;
-						}
+				for (Char ch : Actor.chars()) {
+					if (ch instanceof DriedRose.GhostHero) {
+						((DriedRose.GhostHero) ch).sayHeroUndead();
+						return;
 					}
-				} else {
-
-					//this is hacky, basically we want to declare that a wndResurrect exists before
-					//it actually gets created. This is important so that the game knows to not
-					//delete the run or submit it to rankings, because a WndResurrect is about to exist
-					//this is needed because the actual creation of the window is delayed here
-					WndResurrect.instance = new Object();
-					Ankh finalAnkh = ankh;
-					Game.runOnRenderThread(new Callback() {
-						@Override
-						public void call() {
-							GameScene.show( new WndResurrect(finalAnkh) );
-						}
-					});
-
-					if (cause instanceof Hero.Doom) {
-						((Hero.Doom)cause).onDeath();
-					}
-
-					SacrificialFire.Marked sacMark = buff(SacrificialFire.Marked.class);
-					if (sacMark != null){
-						sacMark.detach();
-					}
-
 				}
 				return;
+			} else {
+				Darksign darksign = null;
+
+				//look for darksigns in player inventory, prioritize ones which are blessed.
+				for (Darksign i : belongings.getAllItems(Darksign.class)){
+					if (darksign == null || i.isBlessed()) {
+						darksign = i;
+					}
+				}
+
+				if (darksign != null) {
+					interrupt();
+
+					if (darksign.isBlessed()) {
+						this.HP = HT / 4;
+
+						PotionOfHealing.cure(this);
+						Buff.prolong(this, DarksignInvulnerability.class, DarksignInvulnerability.DURATION);
+
+						SpellSprite.show(this, SpellSprite.DARKSIGN);
+						GameScene.flash(0x80FFFF10);
+						Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+						GLog.w(Messages.get(this, "revive"));
+						Statistics.darksignsUsed++;
+
+						Level.beforeTransition();
+						InterlevelScene.mode = InterlevelScene.Mode.RETURN;
+						InterlevelScene.returnDepth = lastbonfiredepth;
+						InterlevelScene.returnBranch = 0;
+						InterlevelScene.returnPos = lastbonfirepos;
+						Game.switchScene( InterlevelScene.class );
+
+						//TODO: drop souls
+
+
+						darksign.subtractBlessedCharges(1);
+
+						for (Char ch : Actor.chars()) {
+							if (ch instanceof DriedRose.GhostHero) {
+								((DriedRose.GhostHero) ch).sayDarksign();
+								return;
+							}
+						}
+					} else {
+
+						//this is hacky, basically we want to declare that a wndResurrect exists before
+						//it actually gets created. This is important so that the game knows to not
+						//delete the run or submit it to rankings, because a WndResurrect is about to exist
+						//this is needed because the actual creation of the window is delayed here
+						WndResurrect.instance = new Object();
+						Darksign finalDarksign = darksign;
+						Game.runOnRenderThread(new Callback() {
+							@Override
+							public void call() {
+								GameScene.show( new WndResurrect(finalDarksign) );
+							}
+						});
+
+						if (cause instanceof Hero.Doom) {
+							((Hero.Doom)cause).onDeath();
+						}
+
+						SacrificialFire.Marked sacMark = buff(SacrificialFire.Marked.class);
+						if (sacMark != null){
+							sacMark.detach();
+						}
+
+					}
+					return;
+				}
 			}
 		}
 		
@@ -2419,7 +2432,7 @@ public class Hero extends Char {
 
 	@Override
 	public boolean isInvulnerable(Class effect) {
-		return super.isInvulnerable(effect) || buff(AnkhInvulnerability.class) != null;
+		return super.isInvulnerable(effect) || buff(DarksignInvulnerability.class) != null;
 	}
 
 	public boolean search( boolean intentional ) {

@@ -130,6 +130,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 		}
 
+		desc += "\n\n"+Messages.get(this, "weight_info", getWeight());
+
 		return desc;
 	}
 

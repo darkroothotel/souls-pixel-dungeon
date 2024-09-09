@@ -35,7 +35,7 @@ import com.soulspixel.soulspixeldungeon.actors.buffs.Terror;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
 import com.soulspixel.soulspixeldungeon.actors.mobs.Mob;
 import com.soulspixel.soulspixeldungeon.effects.particles.EnergyParticle;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.food.Food;
 import com.soulspixel.soulspixeldungeon.items.food.UndeadFlesh;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
@@ -50,6 +50,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bonfire extends NPC {
 
@@ -148,12 +149,18 @@ public class Bonfire extends NPC {
 			if(c.isUndead()){
 				c.undoUndead();
 			} else {
-				for (Ankh i : c.belongings.getAllItems(Ankh.class)){
+				ArrayList<Darksign> l = new ArrayList<>();
+				for (Darksign i : c.belongings.getAllItems(Darksign.class)){
+					l.add(i);
 					if(i.isBlessed()){
 						i.addBlessedCharges(1);
 					} else {
+						i.addBlessedCharges(1);
 						i.bless();
 					}
+				}
+				if(l.isEmpty()){
+					new Darksign().collect();
 				}
 			}
 			if (Dungeon.isChallenged(Challenges.NO_HEALING)){

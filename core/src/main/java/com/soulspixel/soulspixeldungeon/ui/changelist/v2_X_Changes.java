@@ -239,7 +239,7 @@ public class v2_X_Changes {
 		changes.addButton(new ChangeButton(Icons.get(Icons.PREFS), Messages.get(ChangesScene.class, "misc"),
 				"_Highlights:_\n" +
 				"_-_ Potion and Scroll talents can now trigger from elixirs, brews, and spells\n" +
-				"_-_ Ankh resurrection window now warns if two items aren't selected\n" +
+				"_-_ Darksign resurrection window now warns if two items aren't selected\n" +
 				"_-_ Trying to attack an enemy that has charmed you now shows a warning\n" +
 				"\n" +
 				"_Heroes:_\n" +

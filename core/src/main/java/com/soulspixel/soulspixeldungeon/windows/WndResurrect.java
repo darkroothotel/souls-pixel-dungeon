@@ -27,7 +27,7 @@ package com.soulspixel.soulspixeldungeon.windows;
 
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.Statistics;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.bags.Bag;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
@@ -59,14 +59,14 @@ public class WndResurrect extends Window {
 
 	RedButton btnContinue;
 	
-	public WndResurrect( final Ankh ankh ) {
+	public WndResurrect( final Darksign darksign) {
 		
 		super();
 		
 		instance = this;
 		
 		IconTitle titlebar = new IconTitle();
-		titlebar.icon( new ItemSprite( ankh.image(), null ) );
+		titlebar.icon( new ItemSprite( darksign.image(), null ) );
 		titlebar.label( Messages.titleCase(Messages.get(this, "title")) );
 		titlebar.setRect( 0, 0, WIDTH, 0 );
 		add( titlebar );
@@ -110,12 +110,12 @@ public class WndResurrect extends Window {
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								resurrect(ankh);
+								resurrect(darksign);
 							}
 						}
 					});
 				} else {
-					resurrect( ankh );
+					resurrect(darksign);
 				}
 			}
 		};
@@ -125,12 +125,12 @@ public class WndResurrect extends Window {
 		resize( WIDTH, (int)btnContinue.bottom() );
 	}
 
-	private void resurrect( final Ankh ankh ){
+	private void resurrect( final Darksign darksign){
 		hide();
 
-		Statistics.ankhsUsed++;
+		Statistics.darksignsUsed++;
 
-		ankh.detach(Dungeon.hero.belongings.backpack);
+		darksign.detach(Dungeon.hero.belongings.backpack);
 
 		if (btnItem1.item() != null){
 			btnItem1.item().keptThoughLostInvent = true;
@@ -153,7 +153,7 @@ public class WndResurrect extends Window {
 		@Override
 		public boolean itemSelectable(Item item) {
 			//cannot select ankhs or bags or equippable items that aren't equipped
-			return !(item instanceof Ankh || item instanceof Bag);
+			return !(item instanceof Darksign || item instanceof Bag);
 		}
 
 		@Override

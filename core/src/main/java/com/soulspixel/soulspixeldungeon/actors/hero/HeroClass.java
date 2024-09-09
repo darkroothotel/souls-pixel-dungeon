@@ -48,6 +48,7 @@ import com.soulspixel.soulspixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.soulspixel.soulspixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.soulspixel.soulspixeldungeon.items.BrokenSeal;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.Waterskin;
 import com.soulspixel.soulspixeldungeon.items.armor.ClothArmor;
@@ -111,7 +112,7 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
-		new ScrollOfMagicMapping().identify().collect();
+		/**new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
 		new ScrollOfMagicMapping().identify().collect();
@@ -122,7 +123,9 @@ public enum HeroClass {
 		new PotionOfHealing().identify().collect();
 		new PotionOfHealing().identify().collect();
 		new PotionOfHealing().identify().collect();
-		new PotionOfHealing().identify().collect();
+		new PotionOfHealing().identify().collect();**/
+
+		new Darksign().collect();
 
 		/**WornShortsword shortsword = new WornShortsword();
 		shortsword.identify();

@@ -35,7 +35,7 @@ import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.effects.particles.ShadowParticle;
 import com.soulspixel.soulspixeldungeon.effects.particles.ShaftParticle;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Item;
 import com.soulspixel.soulspixeldungeon.items.Waterskin;
 import com.soulspixel.soulspixeldungeon.items.potions.PotionOfHealing;
@@ -79,8 +79,8 @@ public class WaterOfHealth extends WellWater {
 			CellEmitter.get( pos ).start( Speck.factory( Speck.HEALING ), 0.4f, 4 );
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;
-		} else if ( item instanceof Ankh && !(((Ankh) item).isBlessed())){
-			((Ankh) item).bless();
+		} else if ( item instanceof Darksign && !(((Darksign) item).isBlessed())){
+			((Darksign) item).bless();
 			CellEmitter.get( pos ).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;

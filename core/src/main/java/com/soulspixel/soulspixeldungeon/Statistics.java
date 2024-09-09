@@ -38,7 +38,7 @@ public class Statistics {
 	public static int itemsCrafted;
 	public static int bonfiresLit;
 	public static int piranhasKilled;
-	public static int ankhsUsed;
+	public static int darksignsUsed;
 	public static int undead;
 
 	//These are used for score calculation
@@ -83,7 +83,7 @@ public class Statistics {
 		foodEaten		= 0;
 		itemsCrafted    = 0;
 		piranhasKilled	= 0;
-		ankhsUsed		= 0;
+		darksignsUsed = 0;
 		undead			= 0;
 
 		progressScore   = 0;
@@ -124,7 +124,7 @@ public class Statistics {
 	private static final String FOOD		= "foodEaten";
 	private static final String ALCHEMY		= "potionsCooked";
 	private static final String PIRANHAS	= "priranhas";
-	private static final String ANKHS		= "ankhsUsed";
+	private static final String DARKSIGNS = "ankhsUsed";
 	private static final String UNDEAD		= "undead";
 	private static final String BONFIRES_LIT= "bonfires_lit";
 
@@ -165,7 +165,7 @@ public class Statistics {
 		bundle.put( FOOD,		foodEaten );
 		bundle.put( ALCHEMY,    itemsCrafted );
 		bundle.put( PIRANHAS,	piranhasKilled );
-		bundle.put( ANKHS,		ankhsUsed );
+		bundle.put(DARKSIGNS, darksignsUsed);
 		bundle.put( UNDEAD,		undead );
 		bundle.put( BONFIRES_LIT,bonfiresLit );
 
@@ -211,7 +211,7 @@ public class Statistics {
 		foodEaten		= bundle.getInt( FOOD );
 		itemsCrafted    = bundle.getInt( ALCHEMY );
 		piranhasKilled	= bundle.getInt( PIRANHAS );
-		ankhsUsed		= bundle.getInt( ANKHS );
+		darksignsUsed = bundle.getInt(DARKSIGNS);
 		undead			= bundle.getInt( UNDEAD );
 		bonfiresLit 	= bundle.getInt( BONFIRES_LIT );
 

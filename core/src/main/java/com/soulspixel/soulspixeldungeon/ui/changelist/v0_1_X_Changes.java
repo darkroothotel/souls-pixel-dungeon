@@ -25,7 +25,7 @@
 
 package com.soulspixel.soulspixeldungeon.ui.changelist;
 
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.food.Blandfruit;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
@@ -66,13 +66,13 @@ public class v0_1_X_Changes {
 				"Players who chance upon gardens or who get lucky while trampling grass may come across a new plant: the _Blandfruit._\n\n" +
 				"As the name implies, the fruit from this plant is pretty unexceptional, and will barely do anything for you on its own. Perhaps there is some way to prepare the fruit with another ingredient..."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(new Ankh()), "Revival Item Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(new Darksign()), "Revival Item Changes",
 				"When the Dew Vial was initially added to Pixel Dungeon, its essentially free revive made ankhs pretty useless by comparison. " +
 				"To fix this, both items have been adjusted to combine to create a more powerful revive.\n\n" +
 				"Dew Vial nerfed:\n" +
 				"_-_ Still grants a full heal at full charge, but grants less healing at partial charge.\n" +
 				"_-_ No longer revives the player if they die.\n\n" +
-				"Ankh buffed:\n" +
+				"Darksign buffed:\n" +
 				"_-_ Can now be blessed with a full dew vial, to gain the vial's old revive effect."));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_BERKANAN, null), "Misc Item Changes",

@@ -569,6 +569,8 @@ public class Armor extends EquipableItem {
 				info += "\n_"+dt.getName(dt)+"_";
 			}
 		}
+
+		info += "\n\n"+Messages.get(KindOfWeapon.class, "weight_info", getWeight());
 		
 		return info;
 	}

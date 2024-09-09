@@ -56,7 +56,7 @@ import com.soulspixel.soulspixeldungeon.effects.Flare;
 import com.soulspixel.soulspixeldungeon.effects.FloatingText;
 import com.soulspixel.soulspixeldungeon.effects.Ripple;
 import com.soulspixel.soulspixeldungeon.effects.SpellSprite;
-import com.soulspixel.soulspixeldungeon.items.Ankh;
+import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.items.Heap;
 import com.soulspixel.soulspixeldungeon.items.Honeypot;
 import com.soulspixel.soulspixeldungeon.items.Item;
@@ -425,7 +425,7 @@ public class GameScene extends PixelScene {
 			case RESURRECT:
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				ScrollOfTeleportation.appearVFX( Dungeon.hero );
-				SpellSprite.show(Dungeon.hero, SpellSprite.ANKH);
+				SpellSprite.show(Dungeon.hero, SpellSprite.DARKSIGN);
 				new Flare( 5, 16 ).color( 0xFFFF00, true ).show( hero, 4f ) ;
 				break;
 			case RETURN:
@@ -630,15 +630,15 @@ public class GameScene extends PixelScene {
 
 		//re-show WndResurrect if needed
 		if (!Dungeon.hero.isAlive()){
-			//check if hero has an unblessed ankh
-			Ankh ankh = null;
-			for (Ankh i : Dungeon.hero.belongings.getAllItems(Ankh.class)){
+			//check if hero has an unblessed darksign
+			Darksign darksign = null;
+			for (Darksign i : Dungeon.hero.belongings.getAllItems(Darksign.class)){
 				if (!i.isBlessed()){
-					ankh = i;
+					darksign = i;
 				}
 			}
-			if (ankh != null && GamesInProgress.gameExists(GamesInProgress.curSlot)) {
-				add(new WndResurrect(ankh));
+			if (darksign != null && GamesInProgress.gameExists(GamesInProgress.curSlot)) {
+				add(new WndResurrect(darksign));
 			} else {
 				gameOver();
 			}

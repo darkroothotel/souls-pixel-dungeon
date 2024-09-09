@@ -26,28 +26,33 @@
 package com.soulspixel.soulspixeldungeon.items;
 
 import com.soulspixel.soulspixeldungeon.Assets;
+import com.soulspixel.soulspixeldungeon.SoulsPixelDungeon;
 import com.soulspixel.soulspixeldungeon.actors.hero.Hero;
+import com.soulspixel.soulspixeldungeon.actors.mobs.npcs.Bonfire;
 import com.soulspixel.soulspixeldungeon.effects.CellEmitter;
 import com.soulspixel.soulspixeldungeon.effects.Speck;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite.Glowing;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSpriteSheet;
 import com.soulspixel.soulspixeldungeon.utils.GLog;
+import com.soulspixel.soulspixeldungeon.windows.WndRest;
+import com.soulspixel.soulspixeldungeon.windows.WndReturnDarksign;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
-public class Ankh extends Item {
+public class Darksign extends Item {
 
-	public static final String AC_BLESS = "BLESS";
+	public static final String AC_KILL = "KILL";
 
 	{
-		image = ItemSpriteSheet.ANKH;
+		image = ItemSpriteSheet.DARKSIGN;
 
-		//You tell the ankh no, don't revive me, and then it comes back to revive you again in another run.
-		//I'm not sure if that's enthusiasm or passive-aggression.
-		bones = true;
+		bones = false;
 	}
 
 	private boolean blessed = false;
@@ -66,10 +71,10 @@ public class Ankh extends Item {
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions(hero);
-		Waterskin waterskin = hero.belongings.getItem(Waterskin.class);
-		if (waterskin != null && waterskin.isFull() && !blessed)
-			actions.add( AC_BLESS );
+		ArrayList<String> actions = new ArrayList<>();
+		if (isBlessed()){
+			actions.add( AC_KILL );
+		}
 		return actions;
 	}
 
@@ -78,28 +83,22 @@ public class Ankh extends Item {
 
 		super.execute( hero, action );
 
-		if (action.equals( AC_BLESS )) {
-
-			Waterskin waterskin = hero.belongings.getItem(Waterskin.class);
-			if (waterskin != null){
-				blessed = true;
-				blessedCharges++;
-				waterskin.empty();
-				GLog.p( Messages.get(this, "bless") );
-				hero.spend( 1f );
-				hero.busy();
-
-
-				Sample.INSTANCE.play( Assets.Sounds.DRINK );
-				CellEmitter.get(hero.pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-				hero.sprite.operate( hero.pos );
-			}
+		if (action.equals( AC_KILL )) {
+			Game.runOnRenderThread(new Callback() {
+				@Override
+				public void call() {
+					GameScene.show(new WndReturnDarksign());
+				}
+			});
 		}
 	}
 
 	@Override
 	public boolean collect() {
-		for (Ankh i : curUser.belongings.getAllItems(Ankh.class)){
+		if(curUser == null){
+			return super.collect();
+		}
+		for (Darksign i : curUser.belongings.getAllItems(Darksign.class)){
 			i.addBlessedCharges(1);
 			return true;
 		}
