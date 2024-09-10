@@ -186,4 +186,8 @@ public class Soul extends Item {
 		droppedByHero = bundle.getBoolean(DROPPED_BY_HERO);
 		super.restoreFromBundle(bundle);
 	}
+
+	public void erase() {
+		this.quantity = 0;
+	}
 }

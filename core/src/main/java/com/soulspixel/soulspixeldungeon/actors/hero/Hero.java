@@ -199,6 +199,8 @@ public class Hero extends Char {
 		MAX_STAMINA = STAMINA = 10;
 	}
 
+	private Soul droppedSoul = null;
+
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
@@ -2114,8 +2116,15 @@ public class Hero extends Char {
 				Statistics.undead++;
 				makeUndead();
 
-				Dungeon.level.drop(new Soul(Dungeon.souls, true), pos);
-				Dungeon.souls = 0;
+				if(droppedSoul != null){
+					//TODO: hmmm....
+					droppedSoul.erase();
+				}
+
+				if(Dungeon.souls > 0){
+					Dungeon.level.drop(droppedSoul = new Soul(Dungeon.souls, true), pos);
+					Dungeon.souls = 0;
+				}
 
 				Level.beforeTransition();
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
