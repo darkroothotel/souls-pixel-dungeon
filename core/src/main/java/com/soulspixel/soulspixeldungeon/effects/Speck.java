@@ -52,7 +52,7 @@ public class Speck extends Image {
 	public static final int HEART       = 11;
 	public static final int BUBBLE      = 12;
 	public static final int STEAM       = 13;
-	public static final int COIN        = 14;
+	public static final int SOUL 		= 14;
 	
 	public static final int DISCOVER    = 101;
 	public static final int EVOKE       = 102;
@@ -376,7 +376,7 @@ public class Speck extends Image {
 			lifespan = 0.5f;
 			break;
 
-		case COIN:
+		case SOUL:
 			speed.polar( -PointF.PI * Random.Float( 0.3f, 0.7f ), Random.Float( 48, 96 ) );
 			acc.y = 256;
 			lifespan = -speed.y / acc.y * 2;
@@ -499,7 +499,7 @@ public class Speck extends Image {
 				scale.set( p * 1.5f );
 				break;
 				
-			case COIN:
+			case SOUL:
 				scale.x = (float)Math.cos( left * 5 );
 				rm = gm = bm = (Math.abs( scale.x ) + 1) * 0.5f;
 				am = p < 0.9f ? 1 : (1 - p) * 10;

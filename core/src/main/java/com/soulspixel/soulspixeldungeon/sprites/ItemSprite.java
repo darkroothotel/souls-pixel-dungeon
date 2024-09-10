@@ -170,7 +170,7 @@ public class ItemSprite extends MovieClip {
 		acc.set(0, -speed.y / DROP_INTERVAL * 2);
 		
 		if (heap != null && heap.seen && heap.peek() instanceof Soul) {
-			CellEmitter.center( heap.pos ).burst( Speck.factory( Speck.COIN ), 5 );
+			CellEmitter.center( heap.pos ).burst( Speck.factory( Speck.SOUL), 5 );
 			Sample.INSTANCE.play( Assets.Sounds.GOLD, 1, 1, Random.Float( 0.9f, 1.1f ) );
 		}
 	}
