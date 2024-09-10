@@ -135,7 +135,7 @@ public class Soul extends Item {
 		
 		Dungeon.souls += quantity;
 		Statistics.soulsCollected += quantity;
-		Badges.validateGoldCollected();
+		Badges.validateSoulsCollected();
 
 		GameScene.pickUp( this, pos );
 		hero.sprite.showStatusWithIcon( CharSprite.NEUTRAL, Integer.toString(quantity), FloatingText.SOUL);

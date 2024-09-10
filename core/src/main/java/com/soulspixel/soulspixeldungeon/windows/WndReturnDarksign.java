@@ -28,6 +28,7 @@ package com.soulspixel.soulspixeldungeon.windows;
 import com.soulspixel.soulspixeldungeon.Dungeon;
 import com.soulspixel.soulspixeldungeon.items.Darksign;
 import com.soulspixel.soulspixeldungeon.messages.Messages;
+import com.soulspixel.soulspixeldungeon.scenes.GameScene;
 import com.soulspixel.soulspixeldungeon.scenes.PixelScene;
 import com.soulspixel.soulspixeldungeon.sprites.ItemSprite;
 import com.soulspixel.soulspixeldungeon.ui.RedButton;
@@ -97,10 +98,10 @@ public class WndReturnDarksign extends Window {
         RedButton kill = new RedButton(Messages.get(this, "return")){
             @Override
             protected void onClick() {
+                INSTANCE.hide();
                 Dungeon.hero.sprite.operate(Dungeon.hero.pos, new Callback() {
                     @Override
                     public void call() {
-                        hide();
                         Dungeon.hero.die(Dungeon.hero);
                     }
                 });
