@@ -70,8 +70,8 @@ public class Badges {
 		//UNLOCK_CLERIC             ( 5 ),
 		MONSTERS_SLAIN_1            ( 6 ),
 		MONSTERS_SLAIN_2            ( 7 ),
-		GOLD_COLLECTED_1            ( 8 ),
-		GOLD_COLLECTED_2            ( 9 ),
+		SOULS_COLLECTED_1			( 8 ),
+		SOULS_COLLECTED_2			( 9 ),
 		ITEM_LEVEL_1                ( 10 ),
 		LEVEL_REACHED_1             ( 11 ),
 		STRENGTH_ATTAINED_1         ( 12 ),
@@ -91,8 +91,8 @@ public class Badges {
 		BOSS_SLAIN_REMAINS          ( 33 ),
 		MONSTERS_SLAIN_3            ( 34 ),
 		MONSTERS_SLAIN_4            ( 35 ),
-		GOLD_COLLECTED_3            ( 36 ),
-		GOLD_COLLECTED_4            ( 37 ),
+		SOULS_COLLECTED_3			( 36 ),
+		SOULS_COLLECTED_4			( 37 ),
 		ITEM_LEVEL_2                ( 38 ),
 		ITEM_LEVEL_3                ( 39 ),
 		LEVEL_REACHED_2             ( 40 ),
@@ -129,7 +129,7 @@ public class Badges {
 		ALL_BAGS_BOUGHT             ( 66 ),
 		MASTERY_COMBO               ( 67 ),
 		MONSTERS_SLAIN_5            ( 68 ),
-		GOLD_COLLECTED_5            ( 69 ),
+		SOULS_COLLECTED_5			( 69 ),
 		ITEM_LEVEL_4                ( 70 ),
 		LEVEL_REACHED_4             ( 71 ),
 		STRENGTH_ATTAINED_4         ( 72 ),
@@ -349,32 +349,32 @@ public class Badges {
 		displayBadge( badge );
 	}
 	
-	public static void validateGoldCollected() {
+	public static void validateSoulsCollected() {
 		Badge badge = null;
 		
-		if (!local.contains( Badge.GOLD_COLLECTED_1 ) && Statistics.soulsCollected >= 250) {
+		if (!local.contains( Badge.SOULS_COLLECTED_1) && Statistics.soulsCollected >= 10000) {
 			if (badge != null) unlock(badge);
-			badge = Badge.GOLD_COLLECTED_1;
+			badge = Badge.SOULS_COLLECTED_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.GOLD_COLLECTED_2 ) && Statistics.soulsCollected >= 1000) {
+		if (!local.contains( Badge.SOULS_COLLECTED_2) && Statistics.soulsCollected >= 20000) {
 			if (badge != null) unlock(badge);
-			badge = Badge.GOLD_COLLECTED_2;
+			badge = Badge.SOULS_COLLECTED_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.GOLD_COLLECTED_3 ) && Statistics.soulsCollected >= 2500) {
+		if (!local.contains( Badge.SOULS_COLLECTED_3) && Statistics.soulsCollected >= 30000) {
 			if (badge != null) unlock(badge);
-			badge = Badge.GOLD_COLLECTED_3;
+			badge = Badge.SOULS_COLLECTED_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.GOLD_COLLECTED_4 ) && Statistics.soulsCollected >= 7500) {
+		if (!local.contains( Badge.SOULS_COLLECTED_4) && Statistics.soulsCollected >= 40000) {
 			if (badge != null) unlock(badge);
-			badge = Badge.GOLD_COLLECTED_4;
+			badge = Badge.SOULS_COLLECTED_4;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.GOLD_COLLECTED_5 ) && Statistics.soulsCollected >= 15_000) {
+		if (!local.contains( Badge.SOULS_COLLECTED_5) && Statistics.soulsCollected >= 50000) {
 			if (badge != null) unlock(badge);
-			badge = Badge.GOLD_COLLECTED_5;
+			badge = Badge.SOULS_COLLECTED_5;
 			local.add( badge );
 		}
 		
@@ -1095,7 +1095,7 @@ public class Badges {
 	//only show the highest unlocked and the lowest locked
 	private static final Badge[][] tierBadgeReplacements = new Badge[][]{
 			{Badge.MONSTERS_SLAIN_1, Badge.MONSTERS_SLAIN_2, Badge.MONSTERS_SLAIN_3, Badge.MONSTERS_SLAIN_4, Badge.MONSTERS_SLAIN_5},
-			{Badge.GOLD_COLLECTED_1, Badge.GOLD_COLLECTED_2, Badge.GOLD_COLLECTED_3, Badge.GOLD_COLLECTED_4, Badge.GOLD_COLLECTED_5},
+			{Badge.SOULS_COLLECTED_1, Badge.SOULS_COLLECTED_2, Badge.SOULS_COLLECTED_3, Badge.SOULS_COLLECTED_4, Badge.SOULS_COLLECTED_5},
 			{Badge.ITEM_LEVEL_1, Badge.ITEM_LEVEL_2, Badge.ITEM_LEVEL_3, Badge.ITEM_LEVEL_4, Badge.ITEM_LEVEL_5},
 			{Badge.LEVEL_REACHED_1, Badge.LEVEL_REACHED_2, Badge.LEVEL_REACHED_3, Badge.LEVEL_REACHED_4, Badge.LEVEL_REACHED_5},
 			{Badge.STRENGTH_ATTAINED_1, Badge.STRENGTH_ATTAINED_2, Badge.STRENGTH_ATTAINED_3, Badge.STRENGTH_ATTAINED_4, Badge.STRENGTH_ATTAINED_5},
