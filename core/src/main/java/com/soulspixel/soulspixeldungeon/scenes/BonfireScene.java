@@ -176,10 +176,11 @@ public class BonfireScene extends PixelScene {
 
 		pos += (int) (bonfireSprite.height+BTN_SIZE);
 		
-		RenderedTextBlock desc = PixelScene.renderTextBlock(6);
-		desc.maxWidth(w);
+		RenderedTextBlock desc = PixelScene.renderTextBlock(4);
+		desc.maxWidth(Camera.main.width-20);
 		desc.text( Messages.get(BonfireScene.class, "message")+"\n\n"+upgradeMsg() );
 		desc.setPos(left + (w - desc.width())/2, pos);
+		desc.align(2);
 		add(desc);
 
 		pos = (int) (desc.bottom() + ((float) BTN_SIZE /4));

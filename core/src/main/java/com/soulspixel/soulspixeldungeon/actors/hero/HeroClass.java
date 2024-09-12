@@ -66,6 +66,7 @@ import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfRage;
 import com.soulspixel.soulspixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.soulspixel.soulspixeldungeon.items.spells.SpellOfEmber;
 import com.soulspixel.soulspixeldungeon.items.wands.WandOfMagicMissile;
 import com.soulspixel.soulspixeldungeon.items.weapon.SpiritBow;
 import com.soulspixel.soulspixeldungeon.items.weapon.melee.Dagger;
@@ -126,6 +127,20 @@ public enum HeroClass {
 		new PotionOfHealing().identify().collect();**/
 
 		new Darksign().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+		new SpellOfEmber().collect();
+
 
 		/**WornShortsword shortsword = new WornShortsword();
 		shortsword.identify();
